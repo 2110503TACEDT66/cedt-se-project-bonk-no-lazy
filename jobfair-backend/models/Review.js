@@ -24,6 +24,11 @@ const ReviewSchema = new mongoose.Schema({
         type:mongoose.Schema.ObjectId,
         ref:'Company',
         required:true
-    }});
+    },
+    createdAt: {
+        type: Date,
+        default: Date.now
+    }
+});
 
     module.exports = mongoose.model('Review',ReviewSchema);
