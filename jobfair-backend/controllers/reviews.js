@@ -3,38 +3,46 @@ const Company = require('../models/Company')
 //@desc Get all reviews
 //@route Get /api/v1/reviews
 //@access Public
-exports.getReviews= async (req,res,next)=>{
+exports.getReviews= async (req, res, next)=>{
     let query;
-    //you can see all
-      if (req.params.companyId) {
-        console.log(req.params.companyId);
-        query=Review.find({company:req.params.companyId});
+    //Copy req.query
+    const reqQuery = {...req.query};
+    //Fields to exclude
+    const removeFields = ['select', 'sort'];
+    //Loop over remove fields and delete them from reqQuery
+    removeFields.forEach(param => delete reqQuery[param]);
+    console.log(reqQuery);
+    //Create query string
+    let queryStr = JSON.stringify(reqQuery);
+    //Create operators ($gt, $gte, etc)
+    queryStr = queryStr.replace(/\b(gt|gte|lt|lte|in)\b/g, match => `$${match}`);
+    //Finding resource
+    query = Review.find(JSON.parse(queryStr)).populate('user');
+    query = query.populate('company')
+    //Select fields
+    if(req.query.select) {
+        const fields = req.query.select.split(',').join(' ');
+        query = query.select(fields);
+    }
+    //Sort
+    if(req.query.sort) {
+        const sortBy = req.query.sort.split(',').join(' ');
+        query = query.sort(sortBy);
     } else {
-        query=Review.find().populate({
-        path:'company', 
-        select:'name address website description tel quote'});
+        query = query.sort('createdAt');
     }
     try {
-        const reviews = await query.populate({
-            path:'user',
-            select:'name tel email profile_picture'
-        });
+        //Execute query
+        const companies = await query;
         res.status(200).json({
-            success:true,
-            count:reviews.length,
-            data:reviews
+            success: true,
+            count: companies.length,
+            data: companies
         });
-
-    } catch (error) {
-        console.log(error);
-        return res.status(400).json({
-            seccess:false,
-            message:'Cannot find Review'
-        });
+    } catch(err) {
+        res.status(400).json({success: false});
     }
 };
-
-
 
 //@desc Get single Review
 //@route Get /api/v1/reviews/:id
@@ -68,7 +76,7 @@ exports.getReview= async (req,res,next)=>{
 };
 
 //@desc Add review
-//@route Post /api/v1/companys/:companyId/review
+//@route Post /api/v1/companies/:companyId/reviews
 //@access Private
 exports.addReview= async (req,res,next)=>{
     try {
@@ -120,12 +128,12 @@ exports.updateReview = async (req, res, next) => {
             review.company = req.body.company;
         }
 
-        // Update checkIn field
+        // Update rating field
         if (req.body.rating) {
             review.rating = req.body.rating;
         }
         
-        // Update checkOut field
+        // Update comment field
         if (req.body.comment) {
             review.comment = req.body.comment;
         }

@@ -3,14 +3,15 @@ const express = require('express');
 const {getCompanies, getCompany, createCompany, updateCompany, deleteCompany} = require('../controllers/companies');
 
 //Include other resource routers
+const reviewRouter = require('./reviews');
 const interviewRouter = require('./interviews');
-
 const router = express.Router();
 
 const {protect, authorize} = require('../middleware/auth');
 
 //Re-route into other resource routers
 router.use('/:companyId/interviews/', interviewRouter);
+router.use('/:companyId/reviews', reviewRouter);
 
 //router.route('/vacCenters').get(getVacCenters);
 
