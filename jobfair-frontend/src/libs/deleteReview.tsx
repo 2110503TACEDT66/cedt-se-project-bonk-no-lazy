@@ -7,7 +7,7 @@ export default async function deleteReview(token:string, Id:string){
         },
     })
     if(!response.ok){
-        throw new Error('Failed to delete interview');
+        throw new Error('Failed to delete review');
     }
     return await response.json();
 
