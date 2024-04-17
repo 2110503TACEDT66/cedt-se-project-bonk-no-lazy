@@ -77,7 +77,7 @@ export default function CompanyDetailPage({params}:{params:{cid:string}}){
                     width={0} height={0} sizes="100vw"
                     className="rounded-lg w-[30%] h-[80vh] bg-black shadow-xl shadow-slate-500/50"
                 />
-                <div className="flex flex-col text-md mx-5 flex-auto text-center"> 
+                <div className="flex flex-col text-md mx-5 flex-auto text-center mb-10"> 
                     <h3 className="text-lg font-bold"> {companyDetail.data.name}</h3>
                     <div>Description : {companyDetail.data.description}</div>
                     <div>Address : {companyDetail.data.address}</div>
@@ -85,33 +85,31 @@ export default function CompanyDetailPage({params}:{params:{cid:string}}){
                         Website : <Link href={companyDetail.data.website} className="hover:text-sky-400"> {companyDetail.data.website}</Link>
                     </div>
                     <div>Tel. : {companyDetail.data.tel}</div>
-                    <Link href={`/booking?id=${params.cid}`} className="flex justify-center">
+                    <Link href={`/booking?id=${params.cid}`} className="flex justify-center m-2">
                         <button className="block rounded-md bg-sky-600 hover:bg-indigo-600 px-3 py-2 text-white shadow-sm ">
                             Make Booking
                         </button>
                     </Link>
                     <div className="bg-slate-200 rounded py-2 my-2 rounded-lg flex justify-center text-left w-full">
-                        <div className="bg-slate-300 rounded rounded-lg flex justify-center text-left my-2 w-[95%]">
-                            <div className="flex-col py-2 my-2 w-4/5">
-                                <div className="w-full mb-2">
-                                    <TextField variant="standard" label='Add your comment' className="w-full" onChange={(e)=>setComment(e.target.value)} value={comment}/>
-                                </div>
-                                <div className="flex justify-center">
-                                    <Rating value={ratingValue} onChange={(e, newValue) => handleRatingChange(newValue)}/>
-                                </div>
-                                <div className="flex justify-center">
-                                    <Button 
-                                        name='submit' 
-                                        className="bg-blue-500 hover:bg-blue-700 text-white font-bold rounded-full"
-                                        onClick={AddComment}>
-                                        add review
-                                    </Button>
-                                </div>
+                        <div className="flex-col py-2 my-2 w-4/5">
+                            <div className="w-full mb-2">
+                                <TextField variant="standard" label='Add your comment' className="w-full m-2" onChange={(e)=>setComment(e.target.value)} value={comment}/>
+                            </div>
+                            <div className="flex justify-center mt-5 mb-3">
+                                <Rating value={ratingValue} onChange={(e, newValue) => handleRatingChange(newValue)} size="large"/>
+                            </div>
+                            <div className="flex justify-center">
+                                <Button 
+                                    name='submit' 
+                                    className="bg-blue-500 hover:bg-blue-700 text-white font-bold rounded-full"
+                                    onClick={AddComment}>
+                                    add review
+                                </Button>
                             </div>
                         </div>
                     </div>
                     <Suspense fallback={<p>Loading...<LinearProgress/></p>}>
-                        <ReviewCatalog companyId={params.cid}/>
+                        <ReviewCatalog companyId={params.cid} addComment={AddComment}/>
                     </Suspense>
                 </div>
             </div>
