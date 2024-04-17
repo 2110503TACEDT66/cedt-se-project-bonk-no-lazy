@@ -22,19 +22,21 @@ export default function CompanyDetailPage({params}:{params:{cid:string}}){
     const AddComment = () =>{
         var token = ''
         if (session) {
+
             token = session.user.token
+
             if (comment && ratingValue) {
                 const item:any = {
                     rating: ratingValue,
                     comment: comment,
                 }
-                addReview(token,params.cid,item).then(()=>{
-                    alert('add comment complete')
+                addReview(token, params.cid, item).then(()=>{
+                    alert('Comment added')
                     setComment('');
                     setRatingValue(0);
                 }).catch((error:Error)=>{
-                    console.error("Add Comment Failed",error)
-                    alert("Add Comment Failed")
+                    console.error("Failed to add comment",error)
+                    alert("Failed to add comment")
                 })
             } else {
                 alert('comment or rating are not fulfilled')
