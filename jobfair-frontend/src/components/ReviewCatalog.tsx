@@ -83,7 +83,7 @@ export default function ReviewCatalog({companyId, addComment}:{companyId:string,
                             reviews.count == 0 ?
                             <div>No Ratings Yet</div>
                             :
-                            totalRating/reviews.count
+                            Math.round(((totalRating/reviews.count) + Number.EPSILON) * 10) / 10
                         }
                     </div>
                     <div className="m-2">
