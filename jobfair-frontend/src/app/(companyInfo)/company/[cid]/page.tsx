@@ -63,43 +63,53 @@ export default function CompanyDetailPage({params}:{params:{cid:string}}){
         };
 
         fetchCompany();
-    }, [params.cid,AddComment]);
+    }, [params.cid]);
 
     if (!companyDetail) {
         return <div>Loading...<LinearProgress/></div>;
     }
     return(
-        <main className="text-center p-5">
-            <h1 className="text-lg font-medium "> Company: {companyDetail.data.name}</h1>
-            <div className="flex flex-row ">
-                <Image src={companyDetail.data.quote}
-                alt="company Picture"
-                width={0} height={0} sizes="100vw"
-                className="rounded-lg w-[30%] bg-black shadow-xl shadow-slate-500/50"
+        <main className="p-5">
+            <div className="flex flex-row">
+                <Image 
+                    src={companyDetail.data.quote}
+                    alt="company Picture"
+                    width={0} height={0} sizes="100vw"
+                    className="rounded-lg w-[30%] h-[80vh] bg-black shadow-xl shadow-slate-500/50"
                 />
-                <div className="text-md mx-5 text-left"> 
-                <h3 className="text-lg font-bold">
-                {companyDetail.data.name}
-                </h3>
+                <div className="flex flex-col text-md mx-5 flex-auto text-center"> 
+                    <h3 className="text-lg font-bold"> {companyDetail.data.name}</h3>
                     <div>Description : {companyDetail.data.description}</div>
                     <div>Address : {companyDetail.data.address}</div>
                     <div>
-                    Website :
-                    <Link href={companyDetail.data.website} className="hover:text-sky-400"> {companyDetail.data.website}</Link>
+                        Website : <Link href={companyDetail.data.website} className="hover:text-sky-400"> {companyDetail.data.website}</Link>
                     </div>
                     <div>Tel. : {companyDetail.data.tel}</div>
-                    <Link href={`/booking?id=${params.cid}`}>
+                    <Link href={`/booking?id=${params.cid}`} className="flex justify-center">
                         <button className="block rounded-md bg-sky-600 hover:bg-indigo-600 px-3 py-2 text-white shadow-sm ">
-                             Make Booking
+                            Make Booking
                         </button>
                     </Link>
-                    <Rating value={ratingValue} className=""  onChange={(e, newValue) => handleRatingChange(newValue)}/>
-                    <TextField variant="standard" label='add your comment'  className="m-5" onChange={(e)=>setComment(e.target.value)} value={comment}/>
-                    <Button name='submit' 
-                    className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full align-left "
-                    onClick={AddComment}>
-                    add review
-                    </Button>
+                    <div className="bg-slate-200 rounded py-2 my-2 rounded-lg flex justify-center text-left w-full">
+                        <div className="bg-slate-300 rounded rounded-lg flex justify-center text-left my-2 w-[95%]">
+                            <div className="flex-col py-2 my-2 w-4/5">
+                                <div className="w-full mb-2">
+                                    <TextField variant="standard" label='Add your comment' className="w-full" onChange={(e)=>setComment(e.target.value)} value={comment}/>
+                                </div>
+                                <div className="flex justify-center">
+                                    <Rating value={ratingValue} onChange={(e, newValue) => handleRatingChange(newValue)}/>
+                                </div>
+                                <div className="flex justify-center">
+                                    <Button 
+                                        name='submit' 
+                                        className="bg-blue-500 hover:bg-blue-700 text-white font-bold rounded-full"
+                                        onClick={AddComment}>
+                                        add review
+                                    </Button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <Suspense fallback={<p>Loading...<LinearProgress/></p>}>
                         <ReviewCatalog companyId={params.cid}/>
                     </Suspense>
