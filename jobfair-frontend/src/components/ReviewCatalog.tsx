@@ -79,10 +79,20 @@ export default function ReviewCatalog({companyId, addComment}:{companyId:string,
                         Company Rating
                     </div>
                     <div className="text-3xl text-yellow-500 font-bold m-2">
-                        {totalRating/reviews.count}
+                        {
+                            reviews.count == 0 ?
+                            <div>No Ratings Yet</div>
+                            :
+                            totalRating/reviews.count
+                        }
                     </div>
                     <div className="m-2">
-                        <Rating name="read-only" value={totalRating/reviews.count} readOnly size="large"/>
+                        {
+                            reviews.count == 0 ?
+                            <Rating name="read-only" value={0} readOnly size="large"/> 
+                            :
+                            <Rating name="read-only" value={totalRating/reviews.count} readOnly size="large"/>
+                        }
                     </div>
                     <div className="text-m text-gray-500 m-2">
                         {reviews.count} reviews
