@@ -10,11 +10,11 @@ import { useDispatch } from "react-redux";
 import { AppDispatch } from "@/redux/store";
 import { useSession } from "next-auth/react";
 import addReview from "@/libs/addReview";
+import getReviewsByCompanyId from "@/libs/getReviewsByCompanyId";
 
 export default function CompanyDetailPage({params}:{params:{cid:string}}){
     const {data:session} = useSession();
 
-<<<<<<< HEAD
     const reviews = getReviewsByCompanyId(params.cid)
     const [comment,setComment] = useState<string>('');
     const [ratingValue,setRatingValue] = useState(0);
@@ -49,8 +49,6 @@ export default function CompanyDetailPage({params}:{params:{cid:string}}){
       };
       
     
-=======
->>>>>>> c3ab2c94a744e26a77079dfa6c7f925761234572
     const [companyDetail, setCompanyDetail] = useState<any>(null);
 
     useEffect(() => {
