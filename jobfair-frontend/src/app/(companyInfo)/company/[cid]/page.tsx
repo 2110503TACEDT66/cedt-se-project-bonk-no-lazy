@@ -2,15 +2,12 @@
 
 import Image from "next/image"
 import getCompany from "@/libs/getCompany";
-import getReviewsByCompanyId from "@/libs/getReviewsByCompanyId";
 import Link from "next/link";
 import { LinearProgress } from "@mui/material";
 import { Suspense, useEffect, useState } from "react";
 import ReviewCatalog from "@/components/ReviewCatalog";
 
 export default function CompanyDetailPage({params}:{params:{cid:string}}){
-
-    const reviews = getReviewsByCompanyId(params.cid)
 
     const [companyDetail, setCompanyDetail] = useState<any>(null);
 
@@ -52,7 +49,7 @@ export default function CompanyDetailPage({params}:{params:{cid:string}}){
                         </button>
                     </Link>
                     <Suspense fallback={<p>Loading...<LinearProgress/></p>}>
-                        <ReviewCatalog reviewJson={reviews} companyId={params.cid}/>
+                        <ReviewCatalog companyId={params.cid}/>
                     </Suspense>
                 </div>
             </div>
