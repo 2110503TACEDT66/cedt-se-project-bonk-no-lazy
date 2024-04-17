@@ -1,4 +1,4 @@
-interface CompanyItem {
+  interface CompanyItem {
     _id: string,
     name: string,
     address: string,
@@ -16,6 +16,22 @@ interface CompanyItem {
     count: number,
     pagination: Object,
     data: CompanyItem[]
+  }
+
+  interface ReviewItem {
+    _id: string,
+    rating: number,
+    comment: string,
+    user: user,
+    company: CompanyItem,
+    createdAt: Date,
+    __v: number
+  }
+
+  interface ReviewJson {
+    success: boolean,
+    count: number,
+    data: ReviewItem[]
   }
 
   interface BookingItem{
