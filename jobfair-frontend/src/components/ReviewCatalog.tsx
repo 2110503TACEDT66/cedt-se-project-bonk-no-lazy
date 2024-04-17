@@ -11,12 +11,12 @@ export default async function ReviewCatalog({companyId}:{companyId:string}){
     }
 
     return(
-        <>      
+        <div>      
         This company has {reviews.count} reviews.
         {   
             reviews.data.map((ReviewItem:ReviewItem) => (
-                <div className="flex flex-row items-center justify-around flex-wrap p-1 text-center w-full h-full">
-                <div className="bg-slate-200 rounded px-5 mx-5 py-2 my-2 rounded-lg flex flex-row text-left w-4/5 " key={ReviewItem._id}>
+                
+                <div className="bg-slate-200 rounded px-5 mx-5 py-2 my-2 rounded-lg flex flex-row text-left w-full " key={ReviewItem._id}>
                     {
                         <>
                             <div className="m-5">
@@ -26,12 +26,12 @@ export default async function ReviewCatalog({companyId}:{companyId:string}){
                             </div>
                         </>
                     }
-                </div>
+                
                 </div>
         
         ))
         }
-        </>
+        </div>
     )
 } 
 
