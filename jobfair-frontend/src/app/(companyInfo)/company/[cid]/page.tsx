@@ -15,32 +15,35 @@ import getReviewsByCompanyId from "@/libs/getReviewsByCompanyId";
 export default function CompanyDetailPage({params}:{params:{cid:string}}){
     const {data:session} = useSession();
 
-    const reviews = getReviewsByCompanyId(params.cid)
     const [comment,setComment] = useState<string>('');
+
     const [ratingValue,setRatingValue] = useState(0);
+
     const AddComment = () =>{
         var token = ''
         if (session) {
             token = session.user.token
-        }
-        else{ alert('no session token')}
-        if(comment && ratingValue){
-            const item:any = {
-                rating:ratingValue,
-                comment: comment,
+            if (comment && ratingValue) {
+                const item:any = {
+                    rating: ratingValue,
+                    comment: comment,
+                }
+                addReview(token,params.cid,item).then(()=>{
+                    alert('add comment complete')
+                    setComment('');
+                    setRatingValue(0);
+                }).catch((error:Error)=>{
+                    console.error("Add Comment Failed",error)
+                    alert("Add Comment Failed")
+                })
+            } else {
+                alert('comment or rating are not fulfilled')
+                console.log(comment);
+                console.log(ratingValue);   
             }
-            addReview(token,params.cid,item).then(()=>{
-                alert('add comment complete')
-                setComment('');
-                setRatingValue(0);
-            }).catch((error:Error)=>{
-                console.error("Add Comment Failed",error)
-                alert("Add Comment Failed")
-            })
-        }else{
-            alert('comment or rating are not fulfilled')
-            console.log(comment);
-            console.log(ratingValue);   
+        }
+        else { 
+            alert('Please login first')
         }
     }
 
