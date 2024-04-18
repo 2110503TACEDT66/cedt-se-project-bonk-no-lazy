@@ -73,31 +73,31 @@ export default function ReviewCatalog({companyId, addComment}:{companyId:string,
 
     return(
         <div>    
-            <div className="bg-slate-200 rounded py-2 my-2 rounded-lg flex flex-col justify-center w-full">
-                <div className="justify-center m-2">
-                    <div className="text-xl text-black font-bold m-2">
+            <div className="bg-slate-200 rounded py-2 my-2 rounded-lg grid grid-rows-1 grid-cols-3 justify-center w-full">
+                    <span className="text-xl text-black font-bold m-2 ml-4 justify-self-start">
                         Company Rating
+                    </span>
+                    <div className="justify-self-center flex flex-row">
+                        <div className="text-3xl text-yellow-500 font-bold my-[0.2em]">
+                            {
+                                reviews.count == 0 ?
+                                <span className="text-gray-500">N/A</span>
+                                :
+                                Math.round(((totalRating/reviews.count) + Number.EPSILON) * 10) / 10
+                            }
+                        </div>
+                        <div className="m-2 mt-[0.4em]">
+                            {
+                                reviews.count == 0 ?
+                                <Rating name="read-only" value={0} readOnly size="large"/> 
+                                :
+                                <Rating name="read-only" value={totalRating/reviews.count} precision={0.1} readOnly size="large"/>
+                            }
+                        </div>
                     </div>
-                    <div className="text-3xl text-yellow-500 font-bold m-2">
-                        {
-                            reviews.count == 0 ?
-                            <div>No Ratings Yet</div>
-                            :
-                            Math.round(((totalRating/reviews.count) + Number.EPSILON) * 10) / 10
-                        }
-                    </div>
-                    <div className="m-2">
-                        {
-                            reviews.count == 0 ?
-                            <Rating name="read-only" value={0} readOnly size="large"/> 
-                            :
-                            <Rating name="read-only" value={totalRating/reviews.count} readOnly size="large"/>
-                        }
-                    </div>
-                    <div className="text-m text-gray-500 m-2">
+                    <span className="text-m text-gray-500 m-2 mr-4 mt-[0.8em] justify-self-end">
                         {reviews.count} reviews
-                    </div>
-                </div>
+                    </span>
             </div>
         {   
             reviews.data.map((ReviewItem:ReviewItem) => (
@@ -105,7 +105,7 @@ export default function ReviewCatalog({companyId, addComment}:{companyId:string,
                 <div className="bg-slate-200 rounded py-2 my-2 rounded-lg flex flex-row text-left w-full" key={ReviewItem._id}>
                     {
                         <>
-                            <div className="flex m-5">
+                            <div className="flex mx-5 my-3">
                                 <Image 
                                     src={ReviewItem.user.profile_picture}
                                     alt="Profile Picture"
@@ -113,12 +113,14 @@ export default function ReviewCatalog({companyId, addComment}:{companyId:string,
                                     className="rounded-full w-[50px] h-[50px] shadow-md shadow-slate-500/50"
                                 />
                                 <div className="flex flex-col ml-5">
-                                    <div className="text-xl m-2 text-black font-bold">{ReviewItem.user.name} </div>
-                                    <div className="m-1 flex">
-                                        <Rating name="read-only" value={ReviewItem.rating} readOnly />
-                                        <div className="text-sm text-gray-500 mt-1 ml-2">{timeElapsedString(ReviewItem.createdAt)}</div>
+                                    <div className="mt-[-0.2em] ml-[-0.2em] text-gray-500">
+                                        <span className="text-xl font-bold">{ReviewItem.user.name} </span>
+                                        <span className="text-sm text-gray-500 mx-[0.2em]">{timeElapsedString(ReviewItem.createdAt)}</span>
                                     </div>
-                                    <div className="text-m m-2 text-black font-semibold">{ReviewItem.comment} </div>
+                                    <div className="flex ml-[-0.3em]">
+                                        <Rating name="read-only" value={ReviewItem.rating} readOnly />
+                                    </div>
+                                    <div className="text-m my-2 text-black font-semibold">{ReviewItem.comment} </div>
                                 </div>
                             </div>
                         </>
