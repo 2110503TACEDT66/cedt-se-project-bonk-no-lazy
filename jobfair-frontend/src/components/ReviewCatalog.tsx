@@ -86,7 +86,7 @@ export default function ReviewCatalog({companyId, addComment}:{companyId:string,
                                 Math.round(((totalRating/reviews.count) + Number.EPSILON) * 10) / 10
                             }
                         </div>
-                        <div className="m-2 mt-[0.4em]">
+                        <div className="m-2 mt-[0.6em]">
                             {
                                 reviews.count == 0 ?
                                 <Rating name="read-only" value={0} readOnly size="large"/> 
@@ -113,7 +113,7 @@ export default function ReviewCatalog({companyId, addComment}:{companyId:string,
                                     className="rounded-full w-[50px] h-[50px] shadow-md shadow-slate-500/50"
                                 />
                                 <div className="flex flex-col ml-5">
-                                    <div className="mt-[-0.2em] ml-[-0.2em] text-gray-500">
+                                    <div className="mt-[-0.2em] ml-[-0.2em] text-gray-800">
                                         <span className="text-xl font-bold">{ReviewItem.user.name} </span>
                                         <span className="text-sm text-gray-500 mx-[0.2em]">{timeElapsedString(ReviewItem.createdAt)}</span>
                                     </div>

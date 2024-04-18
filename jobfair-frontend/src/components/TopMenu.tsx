@@ -47,7 +47,7 @@ export default async function TopMenu(){
                             className='flex items-center h-[70%] px-2 py-2 rounded-lg 
                             text-black bg-white text-sm
                             flex-start top-2 mr-2 transition transform duration-200 ease hover:scale-105'>
-                            My Booking
+                            My Bookings
                         </div>
                     </Link>
                     {
@@ -67,7 +67,7 @@ export default async function TopMenu(){
                         <div className='absolute right-20 h-[70%] px-2 py-2 rounded-lg 
                             text-black bg-white text-sm
                             flex-start top-2 mx-2 transition transform duration-200 ease hover:scale-105'>
-                                Booking
+                                Book an Interview
                         </div>
                     </Link>
                 </>
