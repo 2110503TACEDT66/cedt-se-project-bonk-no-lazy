@@ -34,7 +34,7 @@ export default function CompanyCatalog({companyJson}:{companyJson:Promise<Compan
                 companies.data.map((CompanyItem)=>(
                     <Link href={`/company/${CompanyItem.id}`} className="w-1/5">
                         <Card companyName={CompanyItem.name} imgSrc={CompanyItem.quote} />
-                    </Link>
+                    </Link> 
                 ))
             }
             </div>
