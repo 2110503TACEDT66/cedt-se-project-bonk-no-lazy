@@ -91,7 +91,7 @@ export default function ReviewCatalog({companyId, addComment}:{companyId:string,
                             reviews.count == 0 ?
                             <Rating name="read-only" value={0} readOnly size="large"/> 
                             :
-                            <Rating name="read-only" value={totalRating/reviews.count} readOnly size="large"/>
+                            <Rating name="read-only" value={Math.round(((totalRating/reviews.count) + Number.EPSILON) * 10) / 10} readOnly size="large"/>
                         }
                     </div>
                     <div className="text-m text-gray-500 m-2">
