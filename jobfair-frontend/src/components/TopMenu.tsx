@@ -27,8 +27,16 @@ export default async function TopMenu(){
                 <div
                     className='flex items-center h-[70%] px-2 py-2 rounded-lg 
                     text-black bg-white text-sm
-                    flex-start top-2 mx-2 transition transform duration-200 ease hover:scale-105' >
+                    flex-start top-2 mr-2 transition transform duration-200 ease hover:scale-105' >
                     Home
+                </div>
+            </Link>
+            <Link href='/company' >
+                <div
+                    className='flex items-center h-[70%] px-2 py-2 rounded-lg 
+                    text-black bg-white text-sm
+                    flex-start top-2 mr-2 transition transform duration-200 ease hover:scale-105' >
+                    Companies
                 </div>
             </Link>
             {
@@ -77,14 +85,14 @@ export default async function TopMenu(){
                         <Link href='api/auth/signin' >
                             <div id='sigin-button' className='flex items-center h-[70%] px-2 py-2 rounded-lg 
                             text-black bg-white text-sm
-                            flex-start top-2 mx-2 transition transform duration-200 ease hover:scale-105'>
+                            flex-start top-2 mr-2 transition transform duration-200 ease hover:scale-105'>
                                 Sign in 
                             </div>
                         </Link>
                             <Link href='/register' >
                             <div id='tegister-button' className='flex items-center h-[70%] px-2 py-2 rounded-lg 
                             text-black bg-white text-sm
-                            flex-start top-2 mx-2 transition transform duration-200 ease hover:scale-105'>
+                            flex-start top-2 mr-2 transition transform duration-200 ease hover:scale-105'>
                                 Register
                             </div>
                         </Link>
