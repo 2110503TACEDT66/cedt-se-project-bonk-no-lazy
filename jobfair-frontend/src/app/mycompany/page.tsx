@@ -18,7 +18,7 @@ export default async function MyCompanyPage(){
     return(
         <main className="m-5">
             <Suspense fallback={<p>Loading...<LinearProgress/></p>}>
-                <MyCompanyCard user={profile} ></MyCompanyCard>
+                <MyCompanyCard companyId={profile.data.companyID} ></MyCompanyCard>
             </Suspense>
         </main>
     )
