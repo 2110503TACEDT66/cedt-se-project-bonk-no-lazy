@@ -71,7 +71,7 @@ export default function CompanyDetailPage({params}:{params:{cid:string}}){
     return(
         <main className="p-5">
             <div className="flex flex-col">
-                <div className="flex flex-col text-md mx-5 flex-auto text-center mb-10"> 
+                <div className="flex flex-col text-md mx-5 flex-auto text-center mb-5"> 
                     <div className="bg-slate-200 rounded rounded-b-lg rounded-t-xl flex flex-col text-center w-full shadow-2xl shadow-slate-400/50">
                         <Image 
                             src={companyDetail.data.quote}

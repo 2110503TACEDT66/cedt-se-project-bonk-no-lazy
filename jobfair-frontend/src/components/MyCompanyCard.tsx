@@ -13,47 +13,7 @@ import addReview from "@/libs/addReview";
 import getReviewsByCompanyId from "@/libs/getReviewsByCompanyId";
 
 export default function MyCompanyCard({companyId}:{companyId:string}){
-    const {data:session} = useSession();
-
-    const [comment,setComment] = useState<string>('');
-
-    const [ratingValue,setRatingValue] = useState(0);
-
-    const AddComment = () =>{
-        var token = ''
-        if (session) {
-
-            token = session.user.token
-
-            if (comment && ratingValue) {
-                const item:any = {
-                    rating: ratingValue,
-                    comment: comment,
-                }
-                addReview(token, companyId, item).then(()=>{
-                    alert('Comment added')
-                    setComment('');
-                    setRatingValue(0);
-                }).catch((error:Error)=>{
-                    console.error("Failed to add comment",error)
-                    alert("Failed to add comment")
-                })
-            } else {
-                alert('comment or rating are not fulfilled')
-                console.log(comment);
-                console.log(ratingValue);   
-            }
-        }
-        else { 
-            alert('Please login first')
-        }
-    }
-
-    const handleRatingChange = (newValue: number | null) => {
-        setRatingValue(newValue || 0); // If newValue is null, set it to 0
-      };
-      
-    
+          
     const [companyDetail, setCompanyDetail] = useState<any>(null);
 
     useEffect(() => {
@@ -92,26 +52,8 @@ export default function MyCompanyCard({companyId}:{companyId:string}){
                             </button>
                         </Link>
                     </div>
-                    <div className="bg-slate-200 rounded pt-2 mt-2 rounded-lg flex justify-center text-left w-full">
-                        <div className="flex-col py-2 my-2 w-4/5">
-                            <div className="w-full mb-2">
-                                <TextField variant="standard" label='Add your comment' className="w-full m-2" onChange={(e)=>setComment(e.target.value)} value={comment}/>
-                            </div>
-                            <div className="flex justify-center mt-5 mb-3">
-                                <Rating value={ratingValue} onChange={(e, newValue) => handleRatingChange(newValue)} size="large"/>
-                            </div>
-                            <div className="flex justify-center">
-                                <Button 
-                                    name='submit' 
-                                    className="bg-blue-500 hover:bg-blue-700 text-white font-bold rounded-full"
-                                    onClick={AddComment}>
-                                    add review
-                                </Button>
-                            </div>
-                        </div>
-                    </div>
                     <Suspense fallback={<p>Loading...<LinearProgress/></p>}>
-                        <ReviewCatalog companyId={companyId} addComment={AddComment}/>
+                        <ReviewCatalog companyId={companyId} addComment={null}/>
                     </Suspense>
                 </div>
             </div>

@@ -16,7 +16,7 @@ export default async function MyCompanyPage(){
         token = session.user.token
     }
     return(
-        <main className="m-5">
+        <main>
             <Suspense fallback={<p>Loading...<LinearProgress/></p>}>
                 <MyCompanyCard companyId={profile.data.companyID} ></MyCompanyCard>
             </Suspense>
