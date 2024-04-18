@@ -29,7 +29,7 @@ export default function MyCompanyCard({companyId}:{companyId:string}){
         return <div>Loading...<LinearProgress/></div>;
     }
     return(
-        <main className="p-5">
+        <main className="p-5 pb-0">
             <div className="flex flex-col">
                 <div className="flex flex-col text-md mx-5 flex-auto text-center mb-10"> 
                     <div className="bg-slate-200 rounded rounded-b-lg rounded-t-xl flex flex-col text-center w-full shadow-2xl shadow-slate-400/50">
