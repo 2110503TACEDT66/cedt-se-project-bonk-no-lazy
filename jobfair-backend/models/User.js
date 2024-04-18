@@ -40,6 +40,9 @@ const UserSchema = new mongoose.Schema({
     profile_picture:{
         type:String,
         default:'https://avatar.iran.liara.run/public?username=[default]'
+    },
+    companyID:{
+        type:String,
     }
 });
 

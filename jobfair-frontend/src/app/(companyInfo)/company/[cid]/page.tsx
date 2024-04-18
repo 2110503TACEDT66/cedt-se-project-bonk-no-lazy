@@ -70,26 +70,28 @@ export default function CompanyDetailPage({params}:{params:{cid:string}}){
     }
     return(
         <main className="p-5">
-            <div className="flex flex-row">
-                <Image 
-                    src={companyDetail.data.quote}
-                    alt="company Picture"
-                    width={0} height={0} sizes="100vw"
-                    className="rounded-lg w-[30%] h-[80vh] bg-black shadow-xl shadow-slate-500/50"
-                />
+            <div className="flex flex-col">
                 <div className="flex flex-col text-md mx-5 flex-auto text-center mb-10"> 
-                    <h3 className="text-lg font-bold"> {companyDetail.data.name}</h3>
-                    <div>Description : {companyDetail.data.description}</div>
-                    <div>Address : {companyDetail.data.address}</div>
-                    <div>
-                        Website : <Link href={companyDetail.data.website} className="hover:text-sky-400"> {companyDetail.data.website}</Link>
+                    <div className="bg-slate-200 rounded rounded-b-lg rounded-t-xl flex flex-col text-center w-full shadow-2xl shadow-slate-400/50">
+                        <Image 
+                            src={companyDetail.data.quote}
+                            alt="company Picture"
+                            width={0} height={0} sizes="100vw"
+                            className="rounded-t-lg w-full h-[70vh] bg-black flex-auto object-cover mb-2"
+                        />
+                        <h3 className="text-lg font-bold text-black"> {companyDetail.data.name}</h3>
+                        <div className="text-black">{companyDetail.data.description}</div>
+                        <div className="text-black">{companyDetail.data.address}</div>
+                        <div className="text-black">
+                            <Link href={companyDetail.data.website} className="hover:text-sky-400"> {companyDetail.data.website}</Link>
+                        </div>
+                        <div className="text-black">{companyDetail.data.tel}</div>
+                        <Link href={`/booking?id=${params.cid}`} className="flex justify-center m-2">
+                            <button className="block rounded-md bg-sky-600 hover:bg-indigo-600 px-3 py-2 text-white shadow-sm ">
+                                Make Booking
+                            </button>
+                        </Link>
                     </div>
-                    <div>Tel. : {companyDetail.data.tel}</div>
-                    <Link href={`/booking?id=${params.cid}`} className="flex justify-center m-2">
-                        <button className="block rounded-md bg-sky-600 hover:bg-indigo-600 px-3 py-2 text-white shadow-sm ">
-                            Make Booking
-                        </button>
-                    </Link>
                     <div className="bg-slate-200 rounded py-2 my-2 rounded-lg flex justify-center text-left w-full">
                         <div className="flex-col py-2 my-2 w-4/5">
                             <div className="w-full mb-2">
