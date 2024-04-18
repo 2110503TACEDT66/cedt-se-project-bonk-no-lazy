@@ -58,7 +58,8 @@
     role: string,
     profile_picture: string,
     createdAt: string,
-    token: string
+    token: string,
+    companyID:string
   }
 
   interface userJSON{
