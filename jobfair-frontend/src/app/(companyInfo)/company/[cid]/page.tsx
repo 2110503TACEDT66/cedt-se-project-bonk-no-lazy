@@ -92,7 +92,7 @@ export default function CompanyDetailPage({params}:{params:{cid:string}}){
                             </button>
                         </Link>
                     </div>
-                    <div className="bg-slate-200 rounded py-2 my-2 rounded-lg flex justify-center text-left w-full">
+                    <div className="bg-slate-200 rounded pt-2 mt-2 rounded-lg flex justify-center text-left w-full">
                         <div className="flex-col py-2 my-2 w-4/5">
                             <div className="w-full mb-2">
                                 <TextField variant="standard" label='Add your comment' className="w-full m-2" onChange={(e)=>setComment(e.target.value)} value={comment}/>
