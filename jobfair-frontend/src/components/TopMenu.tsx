@@ -20,7 +20,6 @@ export default async function TopMenu(){
         profile = await getUserProfile(session.user.token) as userJSON
     }
     console.log(profile?.data.role)
-    
     return(
         <div className='h-[50px] bg-neutral-900 border-neutral-700 border-t-0 border-l-0 border-r-0 border-2 fixed top-0 right-0 z-30 flex flex-row
         rounded-b-lg w-[100vw] items-center pl-[10px] pr-[50px]'>
@@ -38,7 +37,7 @@ export default async function TopMenu(){
                         <div className='flex items-center h-[70%] px-2 py-2 rounded-lg 
                         text-black bg-white text-sm
                         left-10 top-2 transition transform duration-200 ease hover:scale-105'>
-                            Sign Out of {profile.data.name}
+                            Sign Out of {profile?.data.name}
                         </div>
                     </Link>
                     <Link href='/mybooking' >
