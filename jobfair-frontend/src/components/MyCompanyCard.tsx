@@ -46,11 +46,6 @@ export default function MyCompanyCard({companyId}:{companyId:string}){
                             <Link href={companyDetail.data.website} className="hover:text-sky-400"> {companyDetail.data.website}</Link>
                         </div>
                         <div className="text-black">{companyDetail.data.tel}</div>
-                        <Link href={`/booking?id=${companyId}`} className="flex justify-center m-2">
-                            <button className="block rounded-md bg-sky-600 hover:bg-indigo-600 px-3 py-2 text-white shadow-sm ">
-                                Make Booking
-                            </button>
-                        </Link>
                     </div>
                     <Suspense fallback={<p>Loading...<LinearProgress/></p>}>
                         <ReviewCatalog companyId={companyId} addComment={null}/>
