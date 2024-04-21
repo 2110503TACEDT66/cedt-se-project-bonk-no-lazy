@@ -1,6 +1,6 @@
 
 import { Suspense } from "react"
-import MyCompanyCard from "@/components/MyCompanyCard"
+import MyCompanyCard from "@/componentsOLD/MyCompanyCard"
 import getUserProfile from "@/libs/getUserProfile"
 import { getServerSession } from "next-auth"
 import { authOptions } from "../api/auth/[...nextauth]/route"

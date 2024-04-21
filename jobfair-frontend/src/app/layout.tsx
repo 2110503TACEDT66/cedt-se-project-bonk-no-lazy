@@ -3,6 +3,8 @@ import type { Metadata } from 'next'
 import { Nunito } from 'next/font/google'
 import Navbar from '@/components/Navbar/Navbar'
 import ClientOnly from '@/components/ClientOnly'
+import RegisterModal from '@/components/modals/RegisterModal'
+import LoginModal from '@/components/modals/LoginModal'
 
 export const metadata: Metadata = { 
   title: 'hireFest',
@@ -22,7 +24,9 @@ export default async function RootLayout({
     <html lang="en">
       <body className={font.className}>
         <ClientOnly>
-          <Navbar/>
+          <LoginModal/>
+          <RegisterModal/>
+          <Navbar/> 
         </ClientOnly>
         {children}
       </body>
