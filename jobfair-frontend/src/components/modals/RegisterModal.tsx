@@ -139,7 +139,7 @@ const RegisterModal= () => {
       title="Register"
       actionLabel="Continue"
       onClose={registerModal.onClose}
-      onSubmit={handleSubmit(onSubmit)}
+      onSubmit={()=>{}} // use this handleSubmit(onSubmit)
       body={bodyContent}
       footer={footerContent}
     />
