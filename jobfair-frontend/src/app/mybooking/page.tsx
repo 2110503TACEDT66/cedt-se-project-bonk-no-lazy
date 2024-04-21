@@ -1,6 +1,6 @@
 import { getServerSession } from "next-auth";
 import { authOptions } from "../api/auth/[...nextauth]/route";
-import BookingList from "@/components/BookingList"
+import BookingList from "@/componentsOLD/BookingList"
 import getUserProfile from "@/libs/getUserProfile";
 import getInterviews from "@/libs/getInterviews"
 

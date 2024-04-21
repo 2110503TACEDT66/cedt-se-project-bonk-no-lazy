@@ -5,7 +5,7 @@ import getCompany from "@/libs/getCompany";
 import Link from "next/link";
 import { Button, LinearProgress, Rating, TextField } from "@mui/material";
 import { Suspense, useEffect, useState } from "react";
-import ReviewCatalog from "@/components/ReviewCatalog";
+import ReviewCatalog from "@/componentsOLD/ReviewCatalog";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "@/redux/store";
 import { useSession } from "next-auth/react";

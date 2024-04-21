@@ -1,4 +1,4 @@
-import CompanyCatalog from "@/components/CompanyCatalog";
+import CompanyCatalog from "@/componentsOLD/CompanyCatalog";
 import getCompanies from "@/libs/getCompanies";
 import { LinearProgress } from "@mui/material";
 import { Suspense } from "react";
