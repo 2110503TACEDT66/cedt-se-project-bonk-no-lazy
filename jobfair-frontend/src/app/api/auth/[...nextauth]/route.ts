@@ -1,4 +1,5 @@
 import userLogIn from '@/libs/userLogIn';
+import { error } from 'console';
 import NextAuth from 'next-auth';
 import { AuthOptions } from 'next-auth';
 import  CredentialsProvider  from 'next-auth/providers/credentials';
@@ -18,7 +19,10 @@ export const authOptions:AuthOptions = {
             password: { label: "Password", type: "password", placeholder: "password" }
           },
           async authorize(credentials, req) {
-            if(!credentials) return null
+            if(!credentials){
+              console.log('invalid credential')
+              return { error: 'Invalid credentials' };
+            }
             const user = await userLogIn(credentials.email, credentials.password)
 
             if (user) {
