@@ -55,7 +55,18 @@ const RegisterModal= () => {
       loginModal.onOpen();
     })
     .catch((error) => {
-      toast.error(error);
+      if (error.response) {
+        // The request was made, but the server responded with an error status code
+        toast.error('Failed to register. Please try again later.');
+      } else if (error.request) {
+        // The request was made but no response was received
+        console.error('No response received:', error.request);
+        toast.error('Failed to register. Please check your internet connection.');
+      } else {
+        // Something happened in setting up the request that triggered an error
+        console.error('Request setup error:', error.message);
+        toast.error('Failed to register. Please try again later.');
+      }
     })
     .finally(() => {
       setIsLoading(false);
