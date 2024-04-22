@@ -1,53 +1,60 @@
 import userLogIn from '@/libs/userLogIn';
-import { error } from 'console';
 import NextAuth from 'next-auth';
 import { AuthOptions } from 'next-auth';
-import  CredentialsProvider  from 'next-auth/providers/credentials';
+import CredentialsProvider from 'next-auth/providers/credentials';
+import GithubProvider from 'next-auth/providers/github';
+import GoogleProvider from 'next-auth/providers/google';
  
-export const authOptions:AuthOptions = {
-    providers: [
-        //Authentication Provider , use Credentials Provider
-        CredentialsProvider({
-          // The name to display on the sign in form (e.g. "Sign in with...")
-          name: "Credentials",
-          // `credentials` is used to generate a form on the sign in page.
-          // You can specify which fields should be submitted, by adding keys to the `credentials` object.
-          // e.g. domain, username, password, 2FA token, etc.
-          // You can pass any HTML attribute to the <input> tag through the object.
-          credentials: {
-            email: { label: "Email", type: "email", placeholder: "email" },
-            password: { label: "Password", type: "password", placeholder: "password" }
-          },
-          async authorize(credentials, req) {
-            if(!credentials){
-              console.log('invalid credential')
-              return { error: 'Invalid credentials' };
-            }
-            const user = await userLogIn(credentials.email, credentials.password)
-
-            if (user) {
-              // Any object returned will be saved in `user` property of the JWT
-              return user
-            } else {
-              // If you return null then an error will be displayed advising the user to check their details.
-              return null
-      
-              // You can also Reject this callback with an Error thus the user will be sent to the error page with the error message as a query parameter
-            }
-          }
-        })
-      ],
-    session: { strategy:'jwt'},
-    // callback for more data 
-    callbacks:{
-      async jwt({token, user}) {
-        return {...token, ...user}
+export const authOptions: AuthOptions = {
+  providers: [
+    GithubProvider({
+      clientId: process.env.GITHUB_ID as string,
+      clientSecret: process.env.GITHUB_SECRET as string,
+    }),
+    GoogleProvider({
+      clientId: process.env.GOOGLE_CLIENT_ID as string,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
+    }),
+    CredentialsProvider({
+      name: "Credentials",
+      credentials: {
+        email: { label: "Email", type: "email", placeholder: "email" },
+        password: { label: "Password", type: "password", placeholder: "password" }
       },
-      async session({session, token, user}) {
-        session.user = token as any
-        return session
+      async authorize(credentials) {
+        if(!credentials?.email || credentials?.password){
+          throw new Error('Invalid credentials')
+        }
+
+        const user = await userLogIn(credentials.email, credentials.password)
+
+        if (user) {
+          return user
+        } else {
+          throw new Error('Invalid credentials')
+        }
       }
+    })
+  ],
+  pages: {
+    signIn: '/',
+  },
+  debug: process.env.NODE_ENV === 'development',
+  session: { 
+    strategy:'jwt'
+  },
+  secret: process.env.NEXTAUTH_SECRET,
+  // callback for more data 
+  callbacks:{
+    async jwt({token, user}) {
+      return {...token, ...user}
+    },
+    async session({session, token, user}) {
+      session.user = token as any
+      return session
     }
+  }
 }
+
 const handler = NextAuth(authOptions)
-export {handler as GET ,handler as POST};
+export default handler

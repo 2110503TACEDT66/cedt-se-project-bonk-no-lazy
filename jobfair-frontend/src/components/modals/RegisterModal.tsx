@@ -19,6 +19,7 @@ import Modal from "./Modal";
 import Input from "../inputs/Input";
 import Heading from "../Heading";
 import Button from "../Button";
+import { Divider } from "@mui/material";
 
 const RegisterModal= () => {
   const registerModal = useRegisterModal();
@@ -41,8 +42,13 @@ const RegisterModal= () => {
 
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
     setIsLoading(true);
+    console.log(process.env.BACKEND_URL)
 
-    axios.post('/api/register', data)
+    axios.post(`${process.env.BACKEND_URL}/api/v1/auth/register`, data, {
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
     .then(() => {
       toast.success('Registered!');
       registerModal.onClose();
@@ -97,7 +103,7 @@ const RegisterModal= () => {
 
   const footerContent = (
     <div className="flex flex-col gap-4 mt-3">
-      <hr />
+      <Divider>or</Divider>
       <Button 
         outline 
         label="Continue with Google"
@@ -139,7 +145,7 @@ const RegisterModal= () => {
       title="Register"
       actionLabel="Continue"
       onClose={registerModal.onClose}
-      onSubmit={()=>{}} // use this handleSubmit(onSubmit)
+      onSubmit={handleSubmit(onSubmit)} // use this handleSubmit(onSubmit)
       body={bodyContent}
       footer={footerContent}
     />

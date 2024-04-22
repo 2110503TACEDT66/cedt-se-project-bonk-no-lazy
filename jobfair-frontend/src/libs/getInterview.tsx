@@ -1,6 +1,6 @@
 export default async function getInterview(token:string, Id:string){
     
-    const response = await fetch(`https://cedt-se-project-bonk-no-lazy-backend.vercel.app/api/v1/interviews/${Id}`,{
+    const response = await fetch(`${process.env.BACKEND_URL}/api/v1/interviews/${Id}`,{
         method:'GET',
         headers:{
             authorization: `Bearer ${token}`,

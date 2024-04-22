@@ -19,6 +19,7 @@ import Modal from "./Modal";
 import Input from "../inputs/Input";
 import Heading from "../Heading";
 import Button from "../Button";
+import { Divider } from "@mui/material";
 
 const LoginModal = () => {
   const router = useRouter();
@@ -95,7 +96,7 @@ const LoginModal = () => {
 
   const footerContent = (
     <div className="flex flex-col gap-4 mt-3">
-      <hr />
+      <Divider>or</Divider>
       <Button 
         outline 
         label="Continue with Google"
@@ -110,7 +111,7 @@ const LoginModal = () => {
       />
       <div className="
       text-neutral-500 text-center mt-4 font-light">
-        <p>First time using Airbnb?
+        <p>First time using hireFest?
           <span 
             onClick={onToggle} 
             className="
