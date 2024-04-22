@@ -3,12 +3,19 @@
 import { AiOutlineMenu } from "react-icons/ai"
 import Avatar from "../Avatar"
 import MenuItem from "../navbar/MenuItem"
-import { useState, useCallback } from "react"
+import { useState, useCallback, useRef } from "react"
 import LoginModal from "../modals/LoginModal"
 import useLoginModal from "@/hooks/useLoginModal"
 import useRegisterModal from "@/hooks/useRegisterModal"
+import useOnClickOutside from "@/hooks/useOnClickOutside"
 
-const UserMenu = () => {
+interface UserMenuProps {
+    currentUser?: UserJSON | null
+}
+
+const UserMenu: React.FC<UserMenuProps> = ({
+    currentUser
+}) => {
     const [isOpen, setIsOpen] = useState(false)
 
     const loginModal = useLoginModal();
@@ -17,6 +24,21 @@ const UserMenu = () => {
     const toggleOpen = useCallback(() => {
         setIsOpen((value) => !value)
     }, [])
+
+    const closeMenu = useCallback(() => {
+        setIsOpen(false);
+    }, []);
+
+    const ref = useRef<HTMLDivElement>(null);
+    const toggleButtonRef = useRef<HTMLDivElement>(null)
+
+    useOnClickOutside(ref, (event) => {
+        // Check if the click occurred outside of the modal and not on the toggle button
+        if (!toggleButtonRef.current || !toggleButtonRef.current.contains(event.target as Node)) {
+            closeMenu();
+        }
+    });
+
     
     return(
         <div
@@ -47,7 +69,7 @@ const UserMenu = () => {
                         cursor-pointer
                     "
                 >
-                    Book your interview
+                    Book an interview
                 </div>
                 <div
                     onClick={toggleOpen}
@@ -66,6 +88,8 @@ const UserMenu = () => {
                         hover:shadow-md
                         transition
                     "
+
+                    ref={toggleButtonRef}
                 >
                     <AiOutlineMenu/>
                     <div
@@ -93,6 +117,8 @@ const UserMenu = () => {
                         top-12
                         text-sm
                     "
+
+                    ref={ref}
                 >
                     <div
                         className="
@@ -100,17 +126,39 @@ const UserMenu = () => {
                             flex-col
                             cursor-pointer
                         "
-                    >   
-                        <>
-                            <MenuItem
-                                onClick={loginModal.onOpen}
-                                label="Login"
-                            />
-                            <MenuItem
-                                onClick={registerModal.onOpen}
-                                label="Sign Up"
-                            />
-                        </>
+                    >
+                        {currentUser ? (
+                            <>
+                                <MenuItem
+                                    onClick={() => {}}
+                                    label="My interviews"
+                                />
+                                <MenuItem
+                                    onClick={() => {}}
+                                    label="My favourites"
+                                />
+                                <MenuItem
+                                    onClick={() => {}}
+                                    label="Book an interview"
+                                />
+                                <hr />
+                                <MenuItem
+                                    onClick={() => {}}
+                                    label="Sign out"
+                                />
+                            </>
+                        ) : (
+                            <>
+                                <MenuItem
+                                    onClick={loginModal.onOpen}
+                                    label="Login"
+                                />
+                                <MenuItem
+                                    onClick={registerModal.onOpen}
+                                    label="Sign Up"
+                                />
+                            </>
+                        )}
                     </div>
                 </div>
             )}

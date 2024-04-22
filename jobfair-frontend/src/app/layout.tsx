@@ -5,7 +5,8 @@ import Navbar from '@/components/navbar/Navbar'
 import ClientOnly from '@/components/ClientOnly'
 import RegisterModal from '@/components/modals/RegisterModal'
 import LoginModal from '@/components/modals/LoginModal'
-import ToasterProvider from './providers/ToasterProvider'
+import ToasterProvider from '../providers/ToasterProvider'
+import getCurrentUser from '@/actions/getCurrentUser'
 
 export const metadata: Metadata = { 
   title: 'hireFest',
@@ -21,6 +22,7 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode
 }) {
+  const currentUser = await getCurrentUser()
   return (
     <html lang="en">
       <body className={font.className}>
@@ -28,7 +30,7 @@ export default async function RootLayout({
           <ToasterProvider/>
           <LoginModal/>
           <RegisterModal/>
-          <Navbar/> 
+          <Navbar currentUser={currentUser}/> 
         </ClientOnly>
         {children}
       </body>

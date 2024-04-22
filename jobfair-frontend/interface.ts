@@ -22,7 +22,7 @@
     _id: string,
     rating: number,
     comment: string,
-    user: user,
+    user: User,
     company: CompanyItem,
     createdAt: Date,
     __v: number
@@ -50,21 +50,24 @@
     data: BookingItem[];
   }
 
-  interface user{
+  interface User{
     _id: string,
     name: string,
-    tel: string,
     email: string,
-    role: string,
+    emailVerified: string,
     profile_picture: string,
-    createdAt: string,
+    favouriteIds: CompanyItem[]
+    tel: string,
+    role: string,
+    companyID:string,
     token: string,
-    companyID:string
+    createdAt: string,
+    updatedAt: string,
   }
 
-  interface userJSON{
+  interface UserJSON{
     success: boolean,
-    data: user
+    data: User
   }
 
   
