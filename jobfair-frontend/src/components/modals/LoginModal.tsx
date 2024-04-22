@@ -132,7 +132,7 @@ const LoginModal = () => {
       title="Login"
       actionLabel="Continue"
       onClose={loginModal.onClose}
-      onSubmit={()=>{}}  // you may want this handleSubmit(onSubmit)
+      onSubmit={handleSubmit(onSubmit)}  // you may want this handleSubmit(onSubmit)
       body={bodyContent}
       footer={footerContent}
     />

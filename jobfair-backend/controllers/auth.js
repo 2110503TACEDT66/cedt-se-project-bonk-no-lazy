@@ -51,7 +51,7 @@ exports.login = async (req, res, next) => {
         if(!user) {
             return res.status(401).json({
                 success: false,
-                message: 'Invalid credentials'
+                message: 'Invalid credentials (2)'
             });
         }
 
@@ -61,7 +61,7 @@ exports.login = async (req, res, next) => {
         if(!isMatch) {
             return res.status(401).json({
                 success: false,
-                message: 'Invalid credentials'
+                message: 'Invalid credentials (3)'
             });
         }
 

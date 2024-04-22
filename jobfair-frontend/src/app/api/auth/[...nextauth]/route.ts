@@ -18,12 +18,12 @@ export const authOptions: AuthOptions = {
     CredentialsProvider({
       name: "Credentials",
       credentials: {
-        email: { label: "Email", type: "email", placeholder: "email" },
-        password: { label: "Password", type: "password", placeholder: "password" }
+        email: { label: "Email", type: "email" },
+        password: { label: "Password", type: "password" }
       },
       async authorize(credentials) {
-        if(!credentials?.email || credentials?.password){
-          throw new Error('Invalid credentials')
+        if(!credentials?.email || !credentials?.password){
+          throw new Error('Invalid credentials (1)')
         }
 
         const user = await userLogIn(credentials.email, credentials.password)
@@ -31,7 +31,7 @@ export const authOptions: AuthOptions = {
         if (user) {
           return user
         } else {
-          throw new Error('Invalid credentials')
+          throw new Error('Invalid credentials (4)')
         }
       }
     })
@@ -57,4 +57,4 @@ export const authOptions: AuthOptions = {
 }
 
 const handler = NextAuth(authOptions)
-export default handler
+export {handler as GET ,handler as POST};
