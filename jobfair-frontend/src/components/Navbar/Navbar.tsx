@@ -4,7 +4,8 @@ import Container from "../Container"
 import Logo from "../Navbar/Logo"
 import Search from "../Navbar/Search"
 import UserMenu from "../Navbar/UserMenu"
-import Categories from "../Navbar/Catagories";
+import Categories from "../Navbar/Categories";
+
 const Navbar = () => {
     return (
       <div className="fixed w-full bg-white z-10 shadow-sm">
