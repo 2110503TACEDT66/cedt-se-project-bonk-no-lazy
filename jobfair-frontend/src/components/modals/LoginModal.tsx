@@ -19,7 +19,7 @@ import Modal from "./Modal";
 import Input from "../inputs/Input";
 import Heading from "../Heading";
 import Button from "../Button";
-import { Divider } from "@mui/material";
+import Divider from '@mui/material/Divider'
 
 const LoginModal = () => {
   const router = useRouter();
@@ -57,7 +57,7 @@ const LoginModal = () => {
         loginModal.onClose();
       }
       
-      if (callback?.error) {
+      else if (callback?.error) {
         toast.error(callback.error);
       }
     });
@@ -132,7 +132,7 @@ const LoginModal = () => {
       title="Login"
       actionLabel="Continue"
       onClose={loginModal.onClose}
-      onSubmit={handleSubmit(onSubmit)}  // you may want this handleSubmit(onSubmit)
+      onSubmit={handleSubmit(onSubmit)}
       body={bodyContent}
       footer={footerContent}
     />

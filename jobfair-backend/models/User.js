@@ -13,10 +13,10 @@ const UserSchema = new mongoose.Schema({
     emailVerified:{
         type: Date
     },
-    profile_picture:{
+    image:{
         type: String,
     },
-    password:{
+    hashedPassword:{
         type: String,
         select: false,
     },
@@ -29,12 +29,12 @@ const UserSchema = new mongoose.Schema({
     },
     role:{
         type: String,
-        enum: ['user', 'admin', 'company'],
-        default: 'user'
+        enum: ['USER', 'ADMIN', 'COMPANY'],
+        default: 'USER'
     },
     resetPasswordToken: String,
     resetPasswordExpire: Date,
-    companyID:{
+    companyId:{
         type: String,
     }
 }, {
@@ -74,7 +74,7 @@ UserSchema.virtual('reviews', {
 //Encrypt password using bcrypt
 UserSchema.pre('save', async function(next) {
     const salt = await bcrypt.genSalt(10);
-    this.password = await bcrypt.hash(this.password, salt);
+    this.hashedPassword = await bcrypt.hash(this.hashedPassword, salt);
 });
 
 //Sign JWT and return
@@ -86,7 +86,7 @@ UserSchema.methods.getSignedJwtToken = function() {
 
 //Match user entered password to hashed password in db
 UserSchema.methods.matchPassword = async function(enteredPassword) {
-    return await bcrypt.compare(enteredPassword, this.password);
+    return await bcrypt.compare(enteredPassword, this.hashedPassword);
 }
 
 UserSchema.pre('deleteOne', { document: true, query: false }, async function(next) {
@@ -107,4 +107,10 @@ UserSchema.pre('deleteOne', { document: true, query: false }, async function(nex
     next();
 })
 
-module.exports = mongoose.model('User', UserSchema);
+UserSchema.pre('deleteOne', { document: true, query: false }, async function(next) {
+    console.log(`All reviews associated with user ${this.name} (id: ${this._id}) are being removed`);
+    await this.model('Review').deleteMany({userId: this._id});
+    next();
+})
+
+module.exports = mongoose.model('User', UserSchema, 'User');

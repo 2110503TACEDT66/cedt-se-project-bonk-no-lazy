@@ -14,7 +14,7 @@ const Logo = () => {
         //     width="100"
         //     src="/img/logo.png"
         // />
-        <div className="text-2xl font-semibold text-blue-500 hidden md:block cursor-pointer">
+        <div className="text-2xl font-semibold text-blue-500 hidden md:block cursor-pointer" onClick={() => router.push('/')}>
             hireFest
         </div>
     )

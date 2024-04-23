@@ -51,18 +51,17 @@
   }
 
   interface User{
-    _id: string,
+    id: string,
     name: string,
-    email: string,
-    emailVerified: string,
-    profile_picture: string,
-    favouriteIds: CompanyItem[]
     tel: string,
     role: string,
-    companyID:string,
-    token: string,
+    email: string,
+    emailVerified: string,
+    image: string,
     createdAt: string,
     updatedAt: string,
+    favouriteIds: CompanyItem[],
+    companyID:string,
   }
 
   interface UserJSON{

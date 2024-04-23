@@ -1,46 +1,48 @@
-'use client'
+import { SafeUser } from "@/types";
 
-import Container from "../Container"
-import Logo from "../navbar/Logo"
-import Search from "../navbar/Search"
-import UserMenu from "../navbar/UserMenu"
-import Categories from "../navbar/Categories";
+import Categories from "./Categories";
+import Container from "../Container";
+import Logo from "./Logo";
+import Search from "./Search";
+import UserMenu from "./UserMenu";
 
 interface NavbarProps {
-    currentUser?: UserJSON | null
+  currentUser?: SafeUser | null;
 }
 
 const Navbar: React.FC<NavbarProps> = ({
-    currentUser
+  currentUser,
 }) => {
-    return(
-        <div className="fixed w-full bg-white z-10 shadow-sm">
-            <div
-                className="
-                    py-4
-                    border-b-[1px]
-                "
+  console.log(currentUser)
+  return ( 
+    <div className="fixed w-full bg-white z-10 shadow-sm">
+      <div
+        className="
+          py-4 
+          border-b-[1px]
+        "
+      >
+      <Container>
+        <div 
+          className="
+            flex 
+            flex-row 
+            items-center 
+            justify-between
+            gap-3
+            md:gap-0
+          "
         >
-          <Container>
-            <div
-              className="
-                flex
-                flex-row
-                items-center
-                justify-between
-                gap-3
-                md:gap-0
-              "
-            >
-              <Logo />
-              <Search />
-              <UserMenu />
-            </div>
-          </Container>
+          <Logo />
+          <Search />
+          <UserMenu currentUser={currentUser} />
         </div>
-        <Categories />
-      </div>
-    );
+      </Container>
+    </div>
+    <Categories />
+  </div>
+  );
 }
 
-export default Navbar
+
+export default Navbar;
