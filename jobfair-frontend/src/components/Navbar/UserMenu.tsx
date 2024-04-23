@@ -8,6 +8,7 @@ import LoginModal from "../modals/LoginModal"
 import useLoginModal from "@/hooks/useLoginModal"
 import useRegisterModal from "@/hooks/useRegisterModal"
 
+
 const UserMenu = () => {
     const [isOpen, setIsOpen] = useState(false)
 
@@ -18,6 +19,14 @@ const UserMenu = () => {
         setIsOpen((value) => !value)
     }, [])
     
+    const onBook = useCallback(()=>{
+        // if(!currentUser){
+        //     return loginModal.onOpen
+        // }
+
+        //Open book modal
+    },[loginModal])  // currentuser
+
     return(
         <div
             className="
@@ -33,7 +42,7 @@ const UserMenu = () => {
                 "
             >
                 <div
-                    onClick={() => {}}
+                    onClick={onBook}
                     className="
                         hidden
                         md:block
