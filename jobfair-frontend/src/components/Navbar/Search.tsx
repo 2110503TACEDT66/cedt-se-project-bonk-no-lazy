@@ -32,7 +32,7 @@ const Search = () => {
                         px-6
                     "
                 >
-                    Anywhere
+                    Companies
                 </div>
                 <div
                     className="
@@ -46,7 +46,7 @@ const Search = () => {
                         text-center
                     "
                 >
-                    Any Week
+                    Jobs
                 </div>
                 <div
                     className="
@@ -66,7 +66,7 @@ const Search = () => {
                             sm:block
                         "
                     >
-                        Add Guests
+                        Salaries
                     </div>
                     <div
                         className="

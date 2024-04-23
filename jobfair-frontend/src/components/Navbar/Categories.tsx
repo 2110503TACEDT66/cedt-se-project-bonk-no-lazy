@@ -12,92 +12,149 @@ import {
   GiIsland,
   GiWindmill,
   GiOfficeChair,
+  GiArchiveResearch,
+  GiGreekTemple,
 } from "react-icons/gi";
-import { FaSkiing } from "react-icons/fa";
+import {
+  FaSkiing,
+  FaChalkboardTeacher,
+
+} from "react-icons/fa";
+import { FaMoneyBill1Wave, FaPeopleGroup } from "react-icons/fa6";
+
+import { IoStorefrontSharp } from "react-icons/io5";
+
 import { BsSnow } from "react-icons/bs";
 import { IoDiamond } from "react-icons/io5";
-import { MdOutlineVilla } from "react-icons/md";
+import {
+  MdOutlineVilla,
+  MdDesignServices,
+  MdBusinessCenter,
+  MdEmojiPeople,
+  MdOutlineSupportAgent,
+  MdEngineering,
+  MdHealthAndSafety,
+  MdOutlineProductionQuantityLimits,
+  MdFastfood,
+  MdOutlineCurrencyExchange,
+  MdOutlinePrecisionManufacturing,
+  MdEmojiTransportation,
+} from "react-icons/md";
+import { RiAdminFill } from "react-icons/ri";
+import { GrTechnology } from "react-icons/gr";
 
 import CategoryBox from "../CategoryBox";
 import Container from "../Container";
+import { TiShoppingCart } from "react-icons/ti";
 
 export const categories = [
   {
-    label: "Beach",
-    icon: TbBeach,
+    label: "Administrative",
+    icon: RiAdminFill,
     description: "This property is close to the beach!",
   },
   {
-    label: "Windmills",
-    icon: GiWindmill,
+    label: "Design",
+    icon: MdDesignServices,
     description: "This property is has windmills!",
   },
   {
-    label: "Modern",
-    icon: MdOutlineVilla,
+    label: "Business",
+    icon: MdBusinessCenter,
     description: "This property is modern!",
   },
   {
-    label: "Countryside",
-    icon: TbMountain,
+    label: "Consulting",
+    icon: MdEmojiPeople,
     description: "This property is in the countryside!",
   },
   {
-    label: "Pools",
-    icon: TbPool,
+    label: "Support",
+    icon: MdOutlineSupportAgent,
     description: "This is property has a beautiful pool!",
   },
   {
-    label: "Islands",
-    icon: GiIsland,
+    label: "Education",
+    icon: FaChalkboardTeacher,
     description: "This property is on an island!",
   },
   {
-    label: "Lake",
-    icon: GiBoatFishing,
+    label: "Engineering",
+    icon: MdEngineering,
     description: "This property is near a lake!",
   },
   {
-    label: "Skiing",
-    icon: FaSkiing,
+    label: "Fin&Acc",
+    icon: FaMoneyBill1Wave,
     description: "This property has skiing activies!",
   },
   {
-    label: "Castles",
-    icon: GiCastle,
+    label: "Healthcare",
+    icon: MdHealthAndSafety,
     description: "This property is an ancient castle!",
   },
   {
-    label: "Caves",
-    icon: GiCaveEntrance,
+    label: "HR",
+    icon: FaPeopleGroup,
     description: "This property is in a spooky cave!",
   },
   {
-    label: "Camping",
-    icon: GiForestCamp,
+    label: "IT",
+    icon: GrTechnology,
     description: "This property offers camping activities!",
   },
   {
-    label: "Arctic",
-    icon: BsSnow,
+    label: "Legal",
+    icon: GiGreekTemple,
     description: "This property is in arctic environment!",
   },
   {
-    label: "Desert",
-    icon: GiCactus,
+    label: "Marketing",
+    icon: IoStorefrontSharp,
     description: "This property is in the desert!",
   },
   {
-    label: "Barns",
+    label: "Media&Com",
     icon: GiBarn,
     description: "This property is in a barn!",
   },
   {
-    label: "Lux",
+    label: "Other",
     icon: IoDiamond,
     description: "This property is brand new and luxurious!",
   },
+  {
+    label: "Product",
+    icon: TiShoppingCart,
+    description: "This property is brand new and luxurious!",
+  },
+  {
+    label: "Research",
+    icon: GiArchiveResearch,
+    description: "This property is brand new and luxurious!",
+  },
+  {
+    label: "Food",
+    icon: MdFastfood,
+    description: "This property is brand new and luxurious!",
+  },
+  {
+    label: "Sales",
+    icon: MdOutlineCurrencyExchange,
+    description: "This property is brand new and luxurious!",
+  },
+  {
+    label: "Manufacturing",
+    icon: MdOutlinePrecisionManufacturing,
+    description: "This property is brand new and luxurious!",
+  },
+  {
+    label: "Transportation",
+    icon: MdEmojiTransportation,
+    description: "This property is brand new and luxurious!",
+  },
 ];
+
 
 const Categories = () => {
   const params = useSearchParams();
