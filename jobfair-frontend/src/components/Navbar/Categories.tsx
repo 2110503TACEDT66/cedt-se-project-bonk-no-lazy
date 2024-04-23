@@ -45,6 +45,7 @@ import { GrTechnology } from "react-icons/gr";
 
 import CategoryBox from "../CategoryBox";
 import Container from "../Container";
+import { TiShoppingCart } from "react-icons/ti";
 
 export const categories = [
   {
@@ -124,7 +125,7 @@ export const categories = [
   },
   {
     label: "Product",
-    icon: MdOutlineProductionQuantityLimits,
+    icon: TiShoppingCart,
     description: "This property is brand new and luxurious!",
   },
   {
@@ -133,7 +134,7 @@ export const categories = [
     description: "This property is brand new and luxurious!",
   },
   {
-    label: "Food Services",
+    label: "Food",
     icon: MdFastfood,
     description: "This property is brand new and luxurious!",
   },
