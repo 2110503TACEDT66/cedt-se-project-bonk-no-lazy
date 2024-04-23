@@ -21,6 +21,8 @@ import {
 } from "react-icons/fa";
 import { FaMoneyBill1Wave, FaPeopleGroup } from "react-icons/fa6";
 
+import { IoStorefrontSharp } from "react-icons/io5";
+
 import { BsSnow } from "react-icons/bs";
 import { IoDiamond } from "react-icons/io5";
 import {
@@ -106,7 +108,7 @@ export const categories = [
   },
   {
     label: "Marketing",
-    icon: GiCactus,
+    icon: IoStorefrontSharp,
     description: "This property is in the desert!",
   },
   {
