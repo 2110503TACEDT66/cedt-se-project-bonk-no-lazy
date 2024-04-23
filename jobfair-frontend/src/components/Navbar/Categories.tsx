@@ -13,6 +13,7 @@ import {
   GiWindmill,
   GiOfficeChair,
   GiArchiveResearch,
+  GiGreekTemple,
 } from "react-icons/gi";
 import {
   FaSkiing,
@@ -103,7 +104,7 @@ export const categories = [
   },
   {
     label: "Legal",
-    icon: BsSnow,
+    icon: GiGreekTemple,
     description: "This property is in arctic environment!",
   },
   {
