@@ -12,11 +12,33 @@ import {
   GiIsland,
   GiWindmill,
   GiOfficeChair,
+  GiArchiveResearch,
 } from "react-icons/gi";
-import { FaSkiing } from "react-icons/fa";
+import {
+  FaSkiing,
+  FaChalkboardTeacher,
+
+} from "react-icons/fa";
+import { FaMoneyBill1Wave, FaPeopleGroup } from "react-icons/fa6";
+
 import { BsSnow } from "react-icons/bs";
 import { IoDiamond } from "react-icons/io5";
-import { MdOutlineVilla } from "react-icons/md";
+import {
+  MdOutlineVilla,
+  MdDesignServices,
+  MdBusinessCenter,
+  MdEmojiPeople,
+  MdOutlineSupportAgent,
+  MdEngineering,
+  MdHealthAndSafety,
+  MdOutlineProductionQuantityLimits,
+  MdFastfood,
+  MdOutlineCurrencyExchange,
+  MdOutlinePrecisionManufacturing,
+  MdEmojiTransportation,
+} from "react-icons/md";
+import { RiAdminFill } from "react-icons/ri";
+import { GrTechnology } from "react-icons/gr";
 
 import CategoryBox from "../CategoryBox";
 import Container from "../Container";
@@ -24,57 +46,57 @@ import Container from "../Container";
 export const categories = [
   {
     label: "Administrative",
-    icon: TbBeach,
+    icon: RiAdminFill,
     description: "This property is close to the beach!",
   },
   {
     label: "Design",
-    icon: GiWindmill,
+    icon: MdDesignServices,
     description: "This property is has windmills!",
   },
   {
     label: "Business",
-    icon: MdOutlineVilla,
+    icon: MdBusinessCenter,
     description: "This property is modern!",
   },
   {
     label: "Consulting",
-    icon: TbMountain,
+    icon: MdEmojiPeople,
     description: "This property is in the countryside!",
   },
   {
     label: "Support",
-    icon: TbPool,
+    icon: MdOutlineSupportAgent,
     description: "This is property has a beautiful pool!",
   },
   {
     label: "Education",
-    icon: GiIsland,
+    icon: FaChalkboardTeacher,
     description: "This property is on an island!",
   },
   {
     label: "Engineering",
-    icon: GiBoatFishing,
+    icon: MdEngineering,
     description: "This property is near a lake!",
   },
   {
     label: "Fin&Acc",
-    icon: FaSkiing,
+    icon: FaMoneyBill1Wave,
     description: "This property has skiing activies!",
   },
   {
     label: "Healthcare",
-    icon: GiCastle,
+    icon: MdHealthAndSafety,
     description: "This property is an ancient castle!",
   },
   {
     label: "HR",
-    icon: GiCaveEntrance,
+    icon: FaPeopleGroup,
     description: "This property is in a spooky cave!",
   },
   {
     label: "IT",
-    icon: GiForestCamp,
+    icon: GrTechnology,
     description: "This property offers camping activities!",
   },
   {
@@ -93,43 +115,38 @@ export const categories = [
     description: "This property is in a barn!",
   },
   {
-    label: "Operations",
-    icon: IoDiamond,
-    description: "This property is brand new and luxurious!",
-  },
-  {
     label: "Other",
     icon: IoDiamond,
     description: "This property is brand new and luxurious!",
   },
   {
     label: "Product",
-    icon: IoDiamond,
+    icon: MdOutlineProductionQuantityLimits,
     description: "This property is brand new and luxurious!",
   },
   {
     label: "Research",
-    icon: IoDiamond,
+    icon: GiArchiveResearch,
     description: "This property is brand new and luxurious!",
   },
   {
     label: "Food Services",
-    icon: IoDiamond,
+    icon: MdFastfood,
     description: "This property is brand new and luxurious!",
   },
   {
     label: "Sales",
-    icon: IoDiamond,
+    icon: MdOutlineCurrencyExchange,
     description: "This property is brand new and luxurious!",
   },
   {
     label: "Manufacturing",
-    icon: IoDiamond,
+    icon: MdOutlinePrecisionManufacturing,
     description: "This property is brand new and luxurious!",
   },
   {
     label: "Transportation",
-    icon: IoDiamond,
+    icon: MdEmojiTransportation,
     description: "This property is brand new and luxurious!",
   },
 ];
