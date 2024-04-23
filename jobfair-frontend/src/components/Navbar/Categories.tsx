@@ -23,81 +23,117 @@ import Container from "../Container";
 
 export const categories = [
   {
-    label: "Beach",
+    label: "Administrative",
     icon: TbBeach,
     description: "This property is close to the beach!",
   },
   {
-    label: "Windmills",
+    label: "Design",
     icon: GiWindmill,
     description: "This property is has windmills!",
   },
   {
-    label: "Modern",
+    label: "Business",
     icon: MdOutlineVilla,
     description: "This property is modern!",
   },
   {
-    label: "Countryside",
+    label: "Consulting",
     icon: TbMountain,
     description: "This property is in the countryside!",
   },
   {
-    label: "Pools",
+    label: "Support",
     icon: TbPool,
     description: "This is property has a beautiful pool!",
   },
   {
-    label: "Islands",
+    label: "Education",
     icon: GiIsland,
     description: "This property is on an island!",
   },
   {
-    label: "Lake",
+    label: "Engineering",
     icon: GiBoatFishing,
     description: "This property is near a lake!",
   },
   {
-    label: "Skiing",
+    label: "Fin&Acc",
     icon: FaSkiing,
     description: "This property has skiing activies!",
   },
   {
-    label: "Castles",
+    label: "Healthcare",
     icon: GiCastle,
     description: "This property is an ancient castle!",
   },
   {
-    label: "Caves",
+    label: "HR",
     icon: GiCaveEntrance,
     description: "This property is in a spooky cave!",
   },
   {
-    label: "Camping",
+    label: "IT",
     icon: GiForestCamp,
     description: "This property offers camping activities!",
   },
   {
-    label: "Arctic",
+    label: "Legal",
     icon: BsSnow,
     description: "This property is in arctic environment!",
   },
   {
-    label: "Desert",
+    label: "Marketing",
     icon: GiCactus,
     description: "This property is in the desert!",
   },
   {
-    label: "Barns",
+    label: "Media&Com",
     icon: GiBarn,
     description: "This property is in a barn!",
   },
   {
-    label: "Lux",
+    label: "Operations",
+    icon: IoDiamond,
+    description: "This property is brand new and luxurious!",
+  },
+  {
+    label: "Other",
+    icon: IoDiamond,
+    description: "This property is brand new and luxurious!",
+  },
+  {
+    label: "Product",
+    icon: IoDiamond,
+    description: "This property is brand new and luxurious!",
+  },
+  {
+    label: "Research",
+    icon: IoDiamond,
+    description: "This property is brand new and luxurious!",
+  },
+  {
+    label: "Food Services",
+    icon: IoDiamond,
+    description: "This property is brand new and luxurious!",
+  },
+  {
+    label: "Sales",
+    icon: IoDiamond,
+    description: "This property is brand new and luxurious!",
+  },
+  {
+    label: "Manufacturing",
+    icon: IoDiamond,
+    description: "This property is brand new and luxurious!",
+  },
+  {
+    label: "Transportation",
     icon: IoDiamond,
     description: "This property is brand new and luxurious!",
   },
 ];
+
 
 const Categories = () => {
   const params = useSearchParams();
