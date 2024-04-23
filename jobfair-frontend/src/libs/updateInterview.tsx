@@ -1,5 +1,5 @@
 export default async function updateInterview(token:string, id:string, json:JSON){
-    const response = await fetch(`https://cedt-se-project-bonk-no-lazy-backend.vercel.app/api/v1/interviews/${id}`,{
+    const response = await fetch(`${process.env.BACKEND_URL}/api/v1/interviews/${id}`,{
         method:'PUT',
         headers:{
             "Content-Type":"application/json",

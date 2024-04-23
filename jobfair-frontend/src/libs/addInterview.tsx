@@ -1,5 +1,5 @@
 export default async function addInterview(token:string, id:string, json:JSON){
-    const response = await fetch(`https://cedt-se-project-bonk-no-lazy-backend.vercel.app/api/v1/companies/${id}/interviews/`,{
+    const response = await fetch(`${process.env.BACKEND_URL}/api/v1/companies/${id}/interviews/`,{
         method:'POST',
         headers:{
             "Content-Type":"application/json",

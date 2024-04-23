@@ -1,6 +1,6 @@
 export default async function deleteReview(token:string, Id:string){
     
-    const response = await fetch(`https://cedt-se-project-bonk-no-lazy-backend.vercel.app/api/v1/reviews/${Id}`,{
+    const response = await fetch(`${process.env.BACKEND_URL}/api/v1/reviews/${Id}`,{
         method:'DELETE',
         headers:{
             authorization: `Bearer ${token}`,

@@ -1,6 +1,16 @@
 const mongoose = require('mongoose');
 
 const InterviewSchema = new mongoose.Schema({
+    userId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
+        required: true,
+    },
+    companyId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Company',
+        required: true
+    },
     interviewDate: {
         type: Date,
         required: true
@@ -8,21 +18,9 @@ const InterviewSchema = new mongoose.Schema({
     name: {
         type: String,
         required: true
-    },
-    user: {
-        type: mongoose.Schema.ObjectId,
-        ref: 'User',
-        required: true
-    },
-    company: {
-        type: mongoose.Schema.ObjectId,
-        ref: 'Company',
-        required: true
-    },
-    createdAt: {
-        type: Date,
-        default: Date.now
     }
+}, {
+    timestamps: true,
 });
 
 module.exports = mongoose.model('Interview', InterviewSchema);

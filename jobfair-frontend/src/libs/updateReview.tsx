@@ -6,7 +6,7 @@ export default async function updateReview(token:string, id:string, json:JSON) {
     //     "comment": String
     // }
 
-    const response = await fetch(`https://cedt-se-project-bonk-no-lazy-backend.vercel.app/api/v1/reviews/${id}`,{
+    const response = await fetch(`${process.env.BACKEND_URL}/api/v1/reviews/${id}`,{
         method:'PUT',
         headers:{
             "Content-Type":"application/json",

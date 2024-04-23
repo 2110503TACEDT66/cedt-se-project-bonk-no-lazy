@@ -20,6 +20,7 @@ import Modal from "./Modal";
 import Input from "../inputs/Input";
 import Heading from "../Heading";
 import Button from "../Button";
+import { Divider } from "@mui/material";
 
 const LoginModal = () => {
   const router = useRouter();
@@ -96,7 +97,7 @@ const LoginModal = () => {
 
   const footerContent = (
     <div className="flex flex-col gap-4 mt-3">
-      <hr />
+      <Divider>or</Divider>
       <Button 
         outline 
         label="Continue with Google"
@@ -132,7 +133,7 @@ const LoginModal = () => {
       title="Login"
       actionLabel="Continue"
       onClose={loginModal.onClose}
-      onSubmit={()=>{}}  // you may want this handleSubmit(onSubmit)
+      onSubmit={handleSubmit(onSubmit)}  // you may want this handleSubmit(onSubmit)
       body={bodyContent}
       footer={footerContent}
     />
