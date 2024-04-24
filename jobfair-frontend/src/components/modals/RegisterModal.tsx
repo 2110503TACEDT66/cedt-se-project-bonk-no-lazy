@@ -35,6 +35,7 @@ const RegisterModal= () => {
   } = useForm<FieldValues>({
     defaultValues: {
       name: '',
+      tel:'',
       email: '',
       password: ''
     },
@@ -85,16 +86,23 @@ const RegisterModal= () => {
         subtitle="Create an account!"
       />
       <Input
-        id="email"
-        label="Email"
+        id="name"
+        label="Name"
         disabled={isLoading}
         register={register}
         errors={errors}
         required
-      />
+      /><Input
+      id="tel"
+      label="Tel"
+      disabled={isLoading}
+      register={register}
+      errors={errors}
+      required
+    />
       <Input
-        id="name"
-        label="Name"
+        id="email"
+        label="Email"
         disabled={isLoading}
         register={register}
         errors={errors}

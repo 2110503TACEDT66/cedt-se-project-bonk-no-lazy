@@ -21,7 +21,6 @@ import Input from "../inputs/Input";
 import Heading from "../Heading";
 import Button from "../Button";
 import { Divider } from "@mui/material";
-
 const LoginModal = () => {
   const router = useRouter();
   const loginModal = useLoginModal();

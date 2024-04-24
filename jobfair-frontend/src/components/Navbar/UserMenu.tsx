@@ -2,7 +2,7 @@
 
 import { AiOutlineMenu } from "react-icons/ai"
 import Avatar from "../Avatar"
-import MenuItem from "../Navbar/MenuItem"
+import MenuItem from "./MenuItem"
 import { useState, useCallback } from "react"
 import LoginModal from "../modals/LoginModal"
 import useLoginModal from "@/hooks/useLoginModal"
@@ -18,7 +18,7 @@ const UserMenu = () => {
     const toggleOpen = useCallback(() => {
         setIsOpen((value) => !value)
     }, [])
-    
+
     const onBook = useCallback(()=>{
         // if(!currentUser){
         //     return loginModal.onOpen
