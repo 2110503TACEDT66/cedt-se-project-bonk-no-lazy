@@ -4,6 +4,7 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useCallback, useMemo } from "react";
 import { format } from "date-fns";
+import { TbBeach, TbMountain, TbPool } from "react-icons/tb";
 
 // import useCountries from "@/app/hooks/useCountries";
 import { SafeCompany, SafeInterview, SafeUser } from "@/types";
@@ -114,6 +115,9 @@ const CompanyCard: React.FC<CompanyCardProps> = ({
         <div className="flex items-center">
           <div className="font-light text-neutral-500 text-xs">
             {interviewDate || data.category}
+          </div>
+          <div className="icon">
+            <i className="fa fa-TbBeach"></i>
           </div>
           <div className="font-light text-neutral-500 text-xs ml-4">
             {" "}
