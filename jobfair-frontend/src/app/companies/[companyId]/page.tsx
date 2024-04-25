@@ -28,7 +28,7 @@ const CompanyPage = ({params}:{
     };
     const fetchCompanyDetail = async ()=>{
         try {
-            setCompanyDetail(company?.datal);
+            setCompanyDetail(company?.data);
         } catch (error) {
             toast.error("failed to get company data");
             return null; 
