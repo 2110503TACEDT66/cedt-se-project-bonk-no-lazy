@@ -14,6 +14,7 @@ import ClientOnly from "../ClientOnly";
 
 interface CompanyCardProps {
   data: SafeCompany;
+  name?: String;
   interview?: SafeInterview;
   onAction?: (id: string) => void;
   disabled?: boolean;
@@ -24,6 +25,7 @@ interface CompanyCardProps {
 
 const CompanyCard: React.FC<CompanyCardProps> = ({
   data,
+  name,
   interview,
   onAction,
   disabled,
@@ -57,6 +59,15 @@ const CompanyCard: React.FC<CompanyCardProps> = ({
   //   return data.price;
   // }, [interview, data.price]);
 
+
+  const companyName = useMemo(() => {
+    return name || null;
+}, [name]);
+
+
+    
+
+
   const interviewDate = useMemo(() => {
     if (!interview) {
       return null;
@@ -72,8 +83,8 @@ const CompanyCard: React.FC<CompanyCardProps> = ({
   return (
     <div onClick={() => router.push(`/company/${data.id}`)}
       className="col-span-1 cursor-pointer group"
-      >
-        <div className="flex flex-col gap-2 w-full">
+    >
+      <div className="flex flex-col gap-2 w-full">
         <div
           className="
             aspect-square 
@@ -84,19 +95,21 @@ const CompanyCard: React.FC<CompanyCardProps> = ({
           "
         >
           <Image
-            fill
             className="
-              object-cover 
-              h-full 
-              w-full 
-              group-hover:scale-110 
-              transition
-            "
+    object-cover 
+    h-full 
+    w-full 
+    group-hover:scale-110 
+    transition
+  "
             src={data.imageSrc}
-            alt="Listing"
+            alt="Company"
+            layout="fill"
+            objectFit="fit"
           />
-          </div>
-          <div className="font-light text-neutral-500">
+        </div>
+        <div className="font-semibold text-lg">{companyName || data.name}</div>
+        <div className="font-light text-neutral-500 text-xs">
           {interviewDate || data.category}
         </div>
         {onAction && actionLabel && (
@@ -107,10 +120,8 @@ const CompanyCard: React.FC<CompanyCardProps> = ({
             onClick={handleCancel}
           />
         )}
-        </div>
+      </div>
     </div>
-    
-
   );
 }
 //   return (
@@ -150,9 +161,9 @@ const CompanyCard: React.FC<CompanyCardProps> = ({
 //             <HeartButton listingId={data.id} currentUser={currentUser} />
 //           </div>
 //         </div>
-//         <div className="font-semibold text-lg">
-//           {location?.region}, {location?.label}
-//         </div>
+        // <div className="font-semibold text-lg">
+        //   {location?.region}, {location?.label}
+        // </div>
 //         <div className="font-light text-neutral-500">
 //           {interviewDate || data.category}
 //         </div>
