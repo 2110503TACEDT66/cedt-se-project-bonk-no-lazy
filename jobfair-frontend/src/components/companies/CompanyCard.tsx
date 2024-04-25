@@ -81,7 +81,8 @@ const CompanyCard: React.FC<CompanyCardProps> = ({
 
 
   return (
-    <div onClick={() => router.push(`/company/${data.id}`)}
+    <div
+      onClick={() => router.push(`/company/${data.id}`)}
       className="col-span-1 cursor-pointer group"
     >
       <div className="flex flex-col gap-2 w-full">
@@ -105,12 +106,19 @@ const CompanyCard: React.FC<CompanyCardProps> = ({
             src={data.imageSrc}
             alt="Company"
             layout="fill"
-            objectFit="fit"
+            objectFit="contain" // นี้เป็นส่วนที่เพิ่มเข้ามา
           />
         </div>
+
         <div className="font-semibold text-lg">{companyName || data.name}</div>
-        <div className="font-light text-neutral-500 text-xs">
-          {interviewDate || data.category}
+        <div className="flex items-center">
+          <div className="font-light text-neutral-500 text-xs">
+            {interviewDate || data.category}
+          </div>
+          <div className="font-light text-neutral-500 text-xs ml-4">
+            {" "}
+            {data.address}
+          </div>
         </div>
         {onAction && actionLabel && (
           <Button
