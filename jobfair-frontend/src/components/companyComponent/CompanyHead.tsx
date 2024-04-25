@@ -4,12 +4,13 @@ import React from "react";
 import { user } from "../../../interface";
 import Heading from "../Heading";
 import Image from "next/image";
+import { SafeUser } from "@/types";
 
 interface CompanyHeadProps{
     title:string;
     imageSrc:string;
     id:string;
-    currentUser?:user|null ;
+    currentUser?:SafeUser ;
 }
 
 const CompanyHead:React.FC<CompanyHeadProps> =({

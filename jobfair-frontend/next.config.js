@@ -1,7 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
-    domains: ["drive.google.com", "avatar.iran.liara.run"],
+    domains: ["drive.google.com", "avatar.iran.liara.run", "avatars.githubusercontent.com", "lh3.googleusercontent.com"],
   },
   async headers() {
     return [
@@ -29,7 +29,11 @@ const nextConfig = {
 module.exports = nextConfig;
 
 module.exports = {
+    ...nextConfig,
   env: {
     BACKEND_URL: process.env.BACKEND_URL,
+    DATABASE_URL: process.env.DATABASE_URL,
+    GITHUB_ID: process.env.GITHUB_ID,
+    GITHUB_SECRET: process.env.GITHUB_SECRET,
   },
 };

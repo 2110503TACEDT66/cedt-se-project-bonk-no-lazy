@@ -54,17 +54,19 @@
     _id: string,
     name: string,
     tel: string,
-    email: string,
     role: string,
-    profile_picture: string,
+    email: string,
+    emailVerified: string,
+    image: string,
     createdAt: string,
-    token: string,
-    companyID:string
+    updatedAt: string,
+    favouriteIds: CompanyItem[],
+    companyID:string,
   }
 
   export interface userJSON{
     success: boolean,
-    data: user
+    data: User
   }
 
   

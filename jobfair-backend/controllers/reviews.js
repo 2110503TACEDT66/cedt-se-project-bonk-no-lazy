@@ -64,7 +64,7 @@ exports.getReview= async (req,res,next)=>{
             })
             .populate({
                 path: 'user',
-                select: 'name tel email profile_picture'
+                select: 'name tel email image'
             });
         if (!review) {
             return res.status(404).json({success:false,massage:`No review with the id of ${req.params.id}`});

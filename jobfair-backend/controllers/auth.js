@@ -5,18 +5,18 @@ const User = require('../models/User');
 //@access       Public
 exports.register = async (req, res, next) => {
     try {
-        var {name, email, password} = req.body;
+        var {name, email, hashedPassword} = req.body;
 
-        var profile_picture = `https://avatar.iran.liara.run/username?username=${name}`;
+        var image = `https://avatar.iran.liara.run/username?username=${name}`;
         
-        var role = 'user'
+        var role = 'USER'
         //Create user
         const user = await User.create({
             name,
             email,
-            password,
+            hashedPassword,
             role,
-            profile_picture
+            image
         });
         //Create token
             //const token = user.getSignedJwtToken();
@@ -41,17 +41,17 @@ exports.login = async (req, res, next) => {
         if(!email || !password) {
             return res.status(400).json({
                 success: false,
-                message: 'Email and password are required'
+                message: 'Both email and password are required'
             });
         }
 
         //Check for user
-        const user = await User.findOne({email}).select('+password');
+        const user = await User.findOne({email}).select('+hashedPassword');
         
         if(!user) {
             return res.status(401).json({
                 success: false,
-                message: 'Invalid credentials (2)'
+                message: `Couldn\'t find your hireFest Account}`
             });
         }
 
@@ -61,7 +61,7 @@ exports.login = async (req, res, next) => {
         if(!isMatch) {
             return res.status(401).json({
                 success: false,
-                message: 'Invalid credentials (3)'
+                message: 'The password that you\'ve entered is incorrect'
             });
         }
 

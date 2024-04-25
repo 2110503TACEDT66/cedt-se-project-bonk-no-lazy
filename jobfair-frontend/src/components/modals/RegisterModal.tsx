@@ -19,7 +19,7 @@ import Modal from "./Modal";
 import Input from "../inputs/Input";
 import Heading from "../Heading";
 import Button from "../Button";
-import { Divider } from "@mui/material";
+import Divider from '@mui/material/Divider'
 
 const RegisterModal= () => {
   const registerModal = useRegisterModal();
@@ -43,31 +43,15 @@ const RegisterModal= () => {
 
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
     setIsLoading(true);
-    console.log(process.env.BACKEND_URL)
 
-    axios.post(`${process.env.BACKEND_URL}/api/v1/auth/register`, data, {
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    })
+    axios.post('/api/register', data)
     .then(() => {
       toast.success('Registered!');
       registerModal.onClose();
       loginModal.onOpen();
     })
     .catch((error) => {
-      if (error.response) {
-        // The request was made, but the server responded with an error status code
-        toast.error('Failed to register. Please try again later.');
-      } else if (error.request) {
-        // The request was made but no response was received
-        console.error('No response received:', error.request);
-        toast.error('Failed to register. Please check your internet connection.');
-      } else {
-        // Something happened in setting up the request that triggered an error
-        console.error('Request setup error:', error.message);
-        toast.error('Failed to register. Please try again later.');
-      }
+      toast.error(error);
     })
     .finally(() => {
       setIsLoading(false);
@@ -164,7 +148,7 @@ const RegisterModal= () => {
       title="Register"
       actionLabel="Continue"
       onClose={registerModal.onClose}
-      onSubmit={handleSubmit(onSubmit)} // use this handleSubmit(onSubmit)
+      onSubmit={handleSubmit(onSubmit)}
       body={bodyContent}
       footer={footerContent}
     />

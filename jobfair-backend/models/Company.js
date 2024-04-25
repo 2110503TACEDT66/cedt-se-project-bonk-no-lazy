@@ -68,4 +68,4 @@ CompanySchema.pre('deleteOne', { document: true, query: false }, async function(
     next();
 })
 
-module.exports = mongoose.model('Company', CompanySchema);
+module.exports = mongoose.model('Company', CompanySchema, 'Company');

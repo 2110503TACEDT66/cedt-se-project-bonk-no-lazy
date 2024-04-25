@@ -6,7 +6,7 @@ import { fetchData } from "next-auth/client/_utils";
 import { useState } from "react";
 import ClientOnly from "@/components/ClientOnly";
 import getCurrentUser from "@/libs/getCurrentUser";
-
+import CardClient from "./CardClient"; 
 interface Params {
     companyid?: string; 
 }

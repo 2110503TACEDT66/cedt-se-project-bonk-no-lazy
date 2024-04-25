@@ -5,11 +5,11 @@ import { CompanyItem, ReviewItem, user, } from "../../../../interface";
 import { categories } from "@/components/navbar/Categories";
 import { Container } from "@mui/system";
 import CompanyHead from "@/components/companyComponent/CompanyHead";
-
+import { SafeUser } from "@/types";
 interface CardClientProps{
     reviewItem?:ReviewItem[];
     company:CompanyItem
-    currentUser?:user| null;
+    currentUser?:SafeUser ;
 }
 const CardClient : React.FC<CardClientProps>=({
     company,
@@ -38,3 +38,5 @@ const CardClient : React.FC<CardClientProps>=({
         </Container>
     )
 }
+
+export default CardClient ;
