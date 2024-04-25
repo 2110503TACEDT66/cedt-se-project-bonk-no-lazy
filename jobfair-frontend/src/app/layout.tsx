@@ -6,7 +6,7 @@ import ClientOnly from '@/components/ClientOnly'
 import RegisterModal from '@/components/modals/RegisterModal'
 import LoginModal from '@/components/modals/LoginModal'
 import ToasterProvider from '../providers/ToasterProvider'
-import getCurrentUser from '@/actions/getCurrentUser'
+import getCurrentUser from './actions/getCurrentUser'
 
 export const metadata: Metadata = { 
   title: 'hireFest',

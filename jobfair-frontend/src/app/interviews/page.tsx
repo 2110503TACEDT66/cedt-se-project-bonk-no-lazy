@@ -7,7 +7,7 @@ import ClientOnly from "@/components/ClientOnly";
 import EmptyState from "@/components/EmptyState";
 import InterviewClient from "./InterviewClient"
 
-const MyInterViewPage = async () => {
+const MyInterviewPage = async () => {
 
     const currentUser:SafeUser =  await getCurrentUser();
     if(!currentUser){
