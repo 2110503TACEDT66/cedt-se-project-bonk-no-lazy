@@ -15,11 +15,7 @@ import {
   GiArchiveResearch,
   GiGreekTemple,
 } from "react-icons/gi";
-import {
-  FaSkiing,
-  FaChalkboardTeacher,
-
-} from "react-icons/fa";
+import { FaSkiing, FaChalkboardTeacher } from "react-icons/fa";
 import { FaMoneyBill1Wave, FaPeopleGroup } from "react-icons/fa6";
 
 import { IoStorefrontSharp } from "react-icons/io5";
@@ -154,7 +150,6 @@ export const categories = [
     description: "This property is brand new and luxurious!",
   },
 ];
-
 
 const Categories = () => {
   const params = useSearchParams();

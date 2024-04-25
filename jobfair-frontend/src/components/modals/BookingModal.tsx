@@ -15,7 +15,6 @@ import Modal from "./Modal";
 import Input from "../inputs/Input";
 import Heading from "../Heading";
 import Button from "../Button";
-import Divider from "@mui/material/Divider";
 
 const LoginModal = () => {
   const router = useRouter();
@@ -47,7 +46,9 @@ const LoginModal = () => {
         toast.success("Logged in");
         router.refresh();
         loginModal.onClose();
-      } else if (callback?.error) {
+      }
+
+      if (callback?.error) {
         toast.error(callback.error);
       }
     });
@@ -83,7 +84,7 @@ const LoginModal = () => {
 
   const footerContent = (
     <div className="flex flex-col gap-4 mt-3">
-      <Divider>or</Divider>
+      <hr />
       <Button
         outline
         label="Continue with Google"
@@ -125,7 +126,7 @@ const LoginModal = () => {
       title="Login"
       actionLabel="Continue"
       onClose={loginModal.onClose}
-      onSubmit={handleSubmit(onSubmit)}
+      onSubmit={() => {}} // you may want this handleSubmit(onSubmit)
       body={bodyContent}
       footer={footerContent}
     />
