@@ -7,7 +7,7 @@ import ClientOnly from "@/components/ClientOnly";
 import EmptyState from "@/components/EmptyState";
 import InterviewClient from "./InterviewClient"
 
-const MyInterviewPage = async () => {
+export default async function MyInterviewPage () {
 
     const currentUser:SafeUser =  await getCurrentUser();
     if(!currentUser){
@@ -36,7 +36,7 @@ const MyInterviewPage = async () => {
     return(
         <ClientOnly>
             <InterviewClient
-
+                interviews={interviews}
             />
         </ClientOnly>
     );

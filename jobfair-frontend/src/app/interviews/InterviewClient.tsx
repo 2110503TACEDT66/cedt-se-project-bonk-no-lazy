@@ -8,6 +8,7 @@ import { error } from "console";
 import { useRouter } from "next/navigation"
 import { useCallback, useState } from "react";
 import toast from "react-hot-toast";
+import CompanyCard from "@/components/companies/CompanyCard";
 
 interface InterviewClientProps{
     interviews:SafeInterview[],
@@ -57,13 +58,13 @@ const InterviewClient:React.FC<InterviewClientProps>=({
                 gap-8
                 "
             >
-                {/* {
+                {
                     interviews.map((interview:any)=>{
                         <CompanyCard 
-
+                        data={intervie}
                         />     
                     })
-                } */}
+                }
             </div>
         </Container>
     )

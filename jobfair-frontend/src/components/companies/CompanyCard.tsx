@@ -70,7 +70,7 @@ const CompanyCard: React.FC<CompanyCardProps> = ({
 
 
   return (
-    <div onClick={() => router.push(`/listings/${data.id}`)}
+    <div onClick={() => router.push(`/company/${data.id}`)}
       className="col-span-1 cursor-pointer group"
       >
         <div className="flex flex-col gap-2 w-full">
