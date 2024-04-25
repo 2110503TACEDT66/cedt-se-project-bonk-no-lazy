@@ -7,6 +7,7 @@ import { useRouter } from "next/navigation";
 
 import useLoginModal from "@/hooks/useLoginModal";
 import useRegisterModal from "@/hooks/useRegisterModal";
+import useRentModal from "@/hooks/useRentModal";
 import { SafeUser } from "@/types";
 
 import MenuItem from "./MenuItem";
@@ -24,12 +25,21 @@ const UserMenu: React.FC<UserMenuProps> = ({
 
   const loginModal = useLoginModal();
   const registerModal = useRegisterModal();
+  const rentModal = useRentModal()
 
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleOpen = useCallback(() => {
     setIsOpen((value) => !value);
   }, []);
+
+  const onRent = useCallback(() => {
+    if (!currentUser) {
+      return loginModal.onOpen()
+    }
+
+    rentModal.onOpen()
+  }, [currentUser, loginModal])
 
   const closeMenu = useCallback(() => {
     setIsOpen(false);
@@ -50,7 +60,7 @@ const UserMenu: React.FC<UserMenuProps> = ({
     <div className="relative">
       <div className="flex flex-row items-center gap-3">
         <div 
-          onClick={() => {}}
+          onClick={onRent}
           className="
             hidden
             md:block
@@ -120,7 +130,10 @@ const UserMenu: React.FC<UserMenuProps> = ({
                 />
                 <MenuItem 
                   label="Book an interview" 
-                  onClick={() => {}}
+                  onClick={() => {
+                    rentModal.onOpen()
+                    toggleOpen()
+                  }}
                 />
                 <hr />
                 <MenuItem 
@@ -132,11 +145,17 @@ const UserMenu: React.FC<UserMenuProps> = ({
               <>
                 <MenuItem 
                   label="Login" 
-                  onClick={loginModal.onOpen}
+                  onClick={() => {
+                    loginModal.onOpen()
+                    toggleOpen()
+                  }}
                 />
                 <MenuItem 
                   label="Sign up" 
-                  onClick={registerModal.onOpen}
+                  onClick={() => {
+                    registerModal.onOpen()
+                    toggleOpen()
+                  }}
                 />
               </>
             )}
