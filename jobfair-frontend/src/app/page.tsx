@@ -39,7 +39,12 @@ const Home = async ({ searchParams }: HomeProps) => {
           "
         >
           {companies.map((company: any) => {
-            return <div>{company.name}</div>;
+            return ( 
+            <CompanyCard 
+            currentUser={currentUser}
+              key = {company.id}
+              data = {company}/>
+          )
           })}
         </div>
       </Container>
