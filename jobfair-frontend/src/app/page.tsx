@@ -1,15 +1,23 @@
-import ClientOnly from "@/components/ClientOnly";
-import Container from "@/components/ClientOnly";
+import Container from "@/components/Container";
+import CompanyCard from "@/components/companies/CompanyCard";
 import EmptyState from "@/components/EmptyState";
 
+import getCompanies, { ICompaniesParams } from "@/app/actions/getCompanies";
+import getCurrentUser from "@/app/actions/getCurrentUser";
+import ClientOnly from "@/components/ClientOnly";
 
+interface HomeProps {
+  searchParams: ICompaniesParams;
+}
 
-export default function Home() {
-  const isEmpty = true;
-  if (isEmpty) {
+const Home = async ({ searchParams }: HomeProps) => {
+  const companies = await getCompanies(searchParams);
+  const currentUser = await getCurrentUser();
+
+  if (companies.length === 0) {
     return (
       <ClientOnly>
-        <EmptyState  />
+        <EmptyState showReset />
       </ClientOnly>
     );
   }
@@ -30,9 +38,13 @@ export default function Home() {
             gap-8
           "
         >
-          <div> My future listings</div>
+          {companies.map((company: any) => {
+            return <div>{company.name}</div>;
+          })}
         </div>
       </Container>
     </ClientOnly>
   );
-}
+};
+
+export default Home;
