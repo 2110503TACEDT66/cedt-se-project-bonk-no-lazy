@@ -6,7 +6,7 @@ import Image from "next/image";
 import { SafeUser } from "@/types";
 
 import Heading from "../Heading";
-import HeartButton from "../HeartButton";
+// import HeartButton from "../HeartButton";
 
 interface ListingHeadProps {
   title: string;
@@ -54,10 +54,10 @@ const ListingHead: React.FC<ListingHeadProps> = ({
             right-5
           "
         >
-          <HeartButton 
+          {/* <HeartButton 
             listingId={id}
             currentUser={currentUser}
-          />
+          /> */}
         </div>
       </div>
     </>

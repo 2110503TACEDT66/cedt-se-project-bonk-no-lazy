@@ -7,14 +7,14 @@ import { format } from "date-fns";
 import { TbBeach, TbMountain, TbPool } from "react-icons/tb";
 
 // import useCountries from "@/app/hooks/useCountries";
-import { SafeCompany, SafeInterview, SafeUser ,  } from "@/types";
+import { SafeJobPosition, SafeInterview, SafeUser } from "@/types";
 
 // import HeartButton from "../HeartButton";
 import Button from "../Button";
 import ClientOnly from "../ClientOnly";
 
-interface CompanyCardProps {
-  data: SafeCompany;
+interface JobPositionCardProps {
+  data: SafeJobPosition;
   name?: String;
   interview?: SafeInterview;
   onAction?: (id: string) => void;
@@ -22,10 +22,9 @@ interface CompanyCardProps {
   actionLabel?: string;
   actionId?: string;
   currentUser?: SafeUser | null;
-  jobPositions?: JobPosition[];
 }
 
-const CompanyCard: React.FC<CompanyCardProps> = ({
+const JobPositionCard: React.FC<JobPositionCardProps> = ({
   data,
   name,
   interview,
@@ -61,14 +60,9 @@ const CompanyCard: React.FC<CompanyCardProps> = ({
   //   return data.price;
   // }, [interview, data.price]);
 
-
-  const companyName = useMemo(() => {
+  const JobPositionName = useMemo(() => {
     return name || null;
-}, [name]);
-
-
-    
-
+  }, [name]);
 
   const interviewDate = useMemo(() => {
     if (!interview) {
@@ -77,14 +71,12 @@ const CompanyCard: React.FC<CompanyCardProps> = ({
 
     const interviewDate = new Date(interview.interviewDate);
 
-
     return `${format(interviewDate, "PP")}`;
   }, [interview]);
 
-
   return (
     <div
-      onClick={() => router.push(`/company/${data.id}`)}
+      onClick={() => router.push(`/JobPosition/${data.id}`)}
       className="col-span-1 cursor-pointer group"
     >
       <div className="flex flex-col gap-2 w-full">
@@ -106,13 +98,15 @@ const CompanyCard: React.FC<CompanyCardProps> = ({
     transition
   "
             src={data.imageSrc}
-            alt="Company"
+            alt="JobPosition"
             layout="fill"
             objectFit="contain" // นี้เป็นส่วนที่เพิ่มเข้ามา
           />
         </div>
 
-        <div className="font-semibold text-lg">{companyName || data.name}</div>
+        <div className="font-semibold text-lg">
+          {JobPositionName || data.name}
+        </div>
         <div className="flex items-center">
           <div className="font-light text-neutral-500 text-xs">
             {interviewDate || data.category}
@@ -136,7 +130,7 @@ const CompanyCard: React.FC<CompanyCardProps> = ({
       </div>
     </div>
   );
-}
+};
 //   return (
 //     <div
 //       onClick={() => router.push(`/listings/${data.id}`)}
@@ -145,20 +139,20 @@ const CompanyCard: React.FC<CompanyCardProps> = ({
 //       <div className="flex flex-col gap-2 w-full">
 //         <div
 //           className="
-//             aspect-square 
-//             w-full 
-//             relative 
-//             overflow-hidden 
+//             aspect-square
+//             w-full
+//             relative
+//             overflow-hidden
 //             rounded-xl
 //           "
 //         >
 //           <Image
 //             fill
 //             className="
-//               object-cover 
-//               h-full 
-//               w-full 
-//               group-hover:scale-110 
+//               object-cover
+//               h-full
+//               w-full
+//               group-hover:scale-110
 //               transition
 //             "
 //             src={data.imageSrc}
@@ -174,9 +168,9 @@ const CompanyCard: React.FC<CompanyCardProps> = ({
 //             <HeartButton listingId={data.id} currentUser={currentUser} />
 //           </div>
 //         </div>
-        // <div className="font-semibold text-lg">
-        //   {location?.region}, {location?.label}
-        // </div>
+// <div className="font-semibold text-lg">
+//   {location?.region}, {location?.label}
+// </div>
 //         <div className="font-light text-neutral-500">
 //           {interviewDate || data.category}
 //         </div>
@@ -197,4 +191,4 @@ const CompanyCard: React.FC<CompanyCardProps> = ({
 //   );
 // };
 
-export default CompanyCard;
+export default JobPositionCard;

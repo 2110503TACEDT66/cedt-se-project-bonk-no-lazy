@@ -45,82 +45,111 @@ import { TiShoppingCart } from "react-icons/ti";
 
 export const categories = [
   {
-    label: "Technology",
+    label: "Administrative",
     icon: RiAdminFill,
     description: "This property is close to the beach!",
   },
   {
-    label: "Bank",
+    label: "Design",
     icon: MdDesignServices,
     description: "This property is has windmills!",
   },
   {
-    label: "Retail",
+    label: "Business",
+    icon: MdBusinessCenter,
+    description: "This property is modern!",
+  },
+  {
+    label: "Consulting",
     icon: MdEmojiPeople,
     description: "This property is in the countryside!",
   },
   {
-    label: "Hospitality",
+    label: "Support",
     icon: MdOutlineSupportAgent,
     description: "This is property has a beautiful pool!",
   },
   {
-    label: "Entertainment",
+    label: "Education",
     icon: FaChalkboardTeacher,
     description: "This property is on an island!",
   },
   {
-    label: "Construction",
+    label: "Engineering",
     icon: MdEngineering,
     description: "This property is near a lake!",
   },
   {
-    label: "Insurance",
+    label: "Fin&Acc",
     icon: FaMoneyBill1Wave,
     description: "This property has skiing activies!",
   },
   {
-    label: "Real Estate",
+    label: "Healthcare",
     icon: MdHealthAndSafety,
     description: "This property is an ancient castle!",
   },
   {
-    label: "Creative",
+    label: "HR",
+    icon: FaPeopleGroup,
+    description: "This property is in a spooky cave!",
+  },
+  {
+    label: "IT",
     icon: GrTechnology,
     description: "This property offers camping activities!",
   },
   {
-    label: "Healthcare", // This category already existed, so it's not added again.
-    icon: MdHealthAndSafety,
-    description: "This property is an ancient castle!",
+    label: "Legal",
+    icon: GiGreekTemple,
+    description: "This property is in arctic environment!",
   },
   {
-    label: "Education", // This category already existed, so it's not added again.
-    icon: FaChalkboardTeacher,
-    description: "This property is on an island!",
+    label: "Marketing",
+    icon: IoStorefrontSharp,
+    description: "This property is in the desert!",
   },
   {
-    label: "Energy",
-    icon: MdOutlinePrecisionManufacturing,
-    description: "This property is brand new and luxurious!",
-  },
-  {
-    label:  "Telecom",
-    icon: MdEmojiTransportation,
-    description: "This property is brand new and luxurious!",
-  },
-  {
-    label: "Media",
+    label: "Media&Com",
     icon: GiBarn,
     description: "This property is in a barn!",
   },
   {
-    label: "Startup",
+    label: "Other",
     icon: IoDiamond,
     description: "This property is brand new and luxurious!",
   },
+  {
+    label: "Product",
+    icon: TiShoppingCart,
+    description: "This property is brand new and luxurious!",
+  },
+  {
+    label: "Research",
+    icon: GiArchiveResearch,
+    description: "This property is brand new and luxurious!",
+  },
+  {
+    label: "Food",
+    icon: MdFastfood,
+    description: "This property is brand new and luxurious!",
+  },
+  {
+    label: "Sales",
+    icon: MdOutlineCurrencyExchange,
+    description: "This property is brand new and luxurious!",
+  },
+  {
+    label: "Manufacturing",
+    icon: MdOutlinePrecisionManufacturing,
+    description: "This property is brand new and luxurious!",
+  },
+  {
+    label: "Transportation",
+    icon: MdEmojiTransportation,
+    description: "This property is brand new and luxurious!",
+  },
 ];
-
 
 const Categories = () => {
   const params = useSearchParams();
