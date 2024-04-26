@@ -5,6 +5,7 @@ import EmptyState from "@/components/EmptyState";
 import getCompanies, { ICompaniesParams } from "@/app/actions/getCompanies";
 import getCurrentUser from "@/app/actions/getCurrentUser";
 import ClientOnly from "@/components/ClientOnly";
+import getJobPositions from "./actions/getJobPositions";
 
 interface HomeProps {
   searchParams: ICompaniesParams;
@@ -12,6 +13,7 @@ interface HomeProps {
 
 const Home = async ({ searchParams }: HomeProps) => {
   const companies = await getCompanies(searchParams);
+  const jobPositions = await getJobPositions()
   const currentUser = await getCurrentUser();
 
   if (companies.length === 0) {
@@ -40,11 +42,13 @@ const Home = async ({ searchParams }: HomeProps) => {
         >
           {companies.map((company: any) => {
             return ( 
-            <CompanyCard 
-            currentUser={currentUser}
+              <CompanyCard 
+              currentUser={currentUser}
               key = {company.id}
-              data = {company}/>
-          )
+              data = {company}
+              jobPositions={jobPositions}
+              />
+            )
           })}
         </div>
       </Container>

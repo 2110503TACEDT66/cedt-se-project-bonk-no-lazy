@@ -7,7 +7,7 @@ import { format } from "date-fns";
 import { TbBeach, TbMountain, TbPool } from "react-icons/tb";
 
 // import useCountries from "@/app/hooks/useCountries";
-import { SafeCompany, SafeInterview, SafeUser ,  } from "@/types";
+import { SafeCompany, SafeInterview, SafeJobPosition, SafeUser } from "@/types";
 
 // import HeartButton from "../HeartButton";
 import Button from "../Button";
@@ -22,7 +22,7 @@ interface CompanyCardProps {
   actionLabel?: string;
   actionId?: string;
   currentUser?: SafeUser | null;
-  jobPositions?: JobPosition[];
+  jobPositions?: SafeJobPosition[] | null;
 }
 
 const CompanyCard: React.FC<CompanyCardProps> = ({
@@ -34,7 +34,9 @@ const CompanyCard: React.FC<CompanyCardProps> = ({
   actionLabel,
   actionId = "",
   currentUser,
+  jobPositions,
 }) => {
+  console.log(jobPositions)
   const router = useRouter();
   // const { getByValue } = useCountries();
 
@@ -64,7 +66,7 @@ const CompanyCard: React.FC<CompanyCardProps> = ({
 
   const companyName = useMemo(() => {
     return name || null;
-}, [name]);
+  }, [name]);
 
 
     
@@ -80,6 +82,11 @@ const CompanyCard: React.FC<CompanyCardProps> = ({
 
     return `${format(interviewDate, "PP")}`;
   }, [interview]);
+
+  const jobPositionCount = useMemo(() => {
+    if (!jobPositions) return 0;
+    return jobPositions.filter((jobPosition) => jobPosition.companyId === data.id).length;
+  }, [jobPositions, data.id]);
 
 
   return (
@@ -99,12 +106,12 @@ const CompanyCard: React.FC<CompanyCardProps> = ({
         >
           <Image
             className="
-    object-cover 
-    h-full 
-    w-full 
-    group-hover:scale-110 
-    transition
-  "
+              object-cover 
+              h-full 
+              w-full 
+              group-hover:scale-110 
+              transition
+            "
             src={data.imageSrc}
             alt="Company"
             layout="fill"
@@ -121,8 +128,20 @@ const CompanyCard: React.FC<CompanyCardProps> = ({
             <i className="fa fa-TbBeach"></i>
           </div>
           <div className="font-light text-neutral-500 text-xs ml-4">
-            {" "}
             {data.address}
+          </div>
+        </div>
+        <div className="flex items-center">
+          <div className="font-semibold text-blue-400 text-sm">
+            {jobPositionCount} Job {jobPositionCount === 1 ? 'Position':'Positions'} Available
+          </div>
+        </div>
+        <div className="flex items-center">
+          <div className="font-light text-neutral-500 text-sm">
+            {
+              jobPositions?.filter((jobPosition: SafeJobPosition) => jobPosition.companyId === data.id)
+              .map((jobPosition: SafeJobPosition) => jobPosition.title).join(', ')
+            }
           </div>
         </div>
         {onAction && actionLabel && (
