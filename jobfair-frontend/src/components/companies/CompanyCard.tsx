@@ -12,6 +12,7 @@ import { SafeCompany, SafeInterview, SafeUser ,  } from "@/types";
 // import HeartButton from "../HeartButton";
 import Button from "../Button";
 import ClientOnly from "../ClientOnly";
+import { JobPosition } from "@prisma/client";
 
 interface CompanyCardProps {
   data: SafeCompany;

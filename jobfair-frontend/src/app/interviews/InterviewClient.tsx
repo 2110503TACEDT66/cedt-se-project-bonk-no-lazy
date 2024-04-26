@@ -59,10 +59,8 @@ const InterviewClient:React.FC<InterviewClientProps>=({
                 "
             >
                 {
-                    interviews.map((interview:any)=>{
-                        <CompanyCard 
-                        data={intervie}
-                        />     
+                    interviews.map((interview)=>{
+                        <CompanyCard data={interview} />
                     })
                 }
             </div>
