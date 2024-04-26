@@ -10,7 +10,8 @@ export async function POST(
   const { 
     email,
     name,
-    password
+    password,
+    tel
    } = body;
 
    const salt = await bcrypt.genSalt(10);
@@ -20,6 +21,7 @@ export async function POST(
     data: {
       email,
       name,
+      tel,
       hashedPassword,
     }
   });

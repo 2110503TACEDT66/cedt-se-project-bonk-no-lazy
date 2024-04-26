@@ -4,27 +4,30 @@ import { use } from "react";
 
 interface IParams{
     userId?:string;
-    InterViewId?:string;
+    InterviewId?:string;
     companyId?:string,
 }
 
 export default async function getInterviewById(params:IParams) {
     try {
-        const {userId,InterViewId} = params;
+        const {userId,InterviewId,companyId} = params;
         const query :any ={};
 
-        if(InterViewId){
-            query.InterViewId = InterViewId ;
+        if(InterviewId){
+            query.InterviewId = InterviewId ;
         }
         if(userId){
             query.userId = userId ;
+        }
+        if(companyId){
+            query.companyId = companyId ;
         }
 
         const myInterviews = await prisma.interview.findMany({
             where:query,
             include:{
                 user:true,
-                companies:true,
+                companies:false,
             },
             orderBy:{
                 createdAt:"desc"

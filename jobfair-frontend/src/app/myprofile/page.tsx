@@ -8,6 +8,7 @@ import EmptyState from "@/components/EmptyState";
 import InterviewClient from "../interviews/InterviewClient"
 import ProfileCard from "@/components/ProfileCard";
 import { FcGoogle } from "react-icons/fc";
+import toast from "react-hot-toast";
 
 export default async function MyProfilePage() {
 
@@ -24,7 +25,7 @@ export default async function MyProfilePage() {
     }
     
     const interviews = await getInterview({userId:currentUser.id});
-
+    
     if(interviews.length === 0 && !currentUser){
         return(
             <ClientOnly>

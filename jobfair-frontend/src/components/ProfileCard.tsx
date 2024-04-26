@@ -1,9 +1,7 @@
-import getCurrentUser from "@/app/actions/getCurrentUser";
 import { SafeUser } from "@/types"
 import { Avatar, Icon } from "@mui/material";
-import { current } from "@reduxjs/toolkit";
 import { IconType } from "react-icons";
-import Button from "./Button";
+
 
 interface ProfileCardProps{
     currentUser:SafeUser;
@@ -18,7 +16,7 @@ const ProfileCard:React.FC<ProfileCardProps> = ({
     return (
         <div className="max-w-lg mx-auto rounded-lg overflow-hidden shadow-lg">
       <div className="bg-blue-400 h-40 flex  items-center justify-center">
-      <div className="absolute top-79 justify-centers ">
+      <div className=" justify-centers ">
                 <Avatar src={currentUser.image} sx={{ width: 90, height: 90}} />
             </div>
       </div>
@@ -32,7 +30,7 @@ const ProfileCard:React.FC<ProfileCardProps> = ({
             <Icon
                 size={24}
                 className="
-                absolute
+                
                 "
                 />
                 )}
