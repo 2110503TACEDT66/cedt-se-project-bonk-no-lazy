@@ -1,42 +1,45 @@
 
 import prisma from "@/libs/prismadb"
-import { use } from "react";
 
-interface IParams{
+interface InterviewParams{
     userId?:string;
-    InterViewId?:string;
-    companyId?:string,
+    interviewId?:string;
+    companyId?:string;
 }
 
-export default async function getInterviewById(params:IParams) {
+export default async function getInterviews(params?: InterviewParams) {
     try {
-        const {userId,InterViewId} = params;
+        const {
+            userId,
+            interviewId,
+            companyId,
+        } = params || {};
+
         const query :any ={};
 
-        if(InterViewId){
-            query.InterViewId = InterViewId ;
+        if(interviewId){
+            query.interviewId = interviewId;
         }
         if(userId){
-            query.userId = userId ;
+            query.userId = userId;
         }
 
-        const myInterviews = await prisma.interview.findMany({
-            where:query,
+        const interviews = await prisma.interview.findMany({
+            where: query,
             include:{
-                user:true,
-                companies:true,
+                user: true,
+                companies: true,
             },
             orderBy:{
                 createdAt:"desc"
             }
         })
 
-        const safeInterviews = myInterviews.map(
-            (interview) => ({
+        const safeInterviews = interviews.map((interview) => ({
                 ...interview,
-                createdAt:interview.createdAt.toISOString(),
-                interviewDate:interview.interviewDate.toISOString(),
-                updatedAt:interview.updatedAt.toISOString(),
+                createdAt: interview.createdAt.toISOString(),
+                updatedAt: interview.updatedAt.toISOString(),
+                interviewDate: interview.interviewDate.toISOString(),
                 user:{
                     ...interview.user,
                     createdAt: interview.user.createdAt.toISOString(),
