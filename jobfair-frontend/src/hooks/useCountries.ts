@@ -3,7 +3,7 @@ import countries from 'world-countries';
 const formattedCountries = countries.map((country) => ({
   value: country.cca2,
   label: country.name.common,
-  flag: country.flag,
+  flag: country.name.common === 'Caribbean Netherlands' ? '🇧🇶' : country.flag,
   latlng: country.latlng,
   region: country.region,
 }));

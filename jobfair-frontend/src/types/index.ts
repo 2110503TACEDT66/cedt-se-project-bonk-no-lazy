@@ -1,4 +1,4 @@
-import { User,Interview,Company } from "@prisma/client";
+import { User, Interview, Company } from "@prisma/client";
 
 export type SafeUser = Omit<
   User,
