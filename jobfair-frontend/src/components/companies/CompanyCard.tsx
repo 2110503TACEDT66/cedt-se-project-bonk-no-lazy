@@ -4,6 +4,7 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useCallback, useMemo } from "react";
 import { format } from "date-fns";
+import { TbBeach, TbMountain, TbPool } from "react-icons/tb";
 
 // import useCountries from "@/app/hooks/useCountries";
 import { SafeCompany, SafeInterview, SafeUser } from "@/types";
@@ -14,6 +15,7 @@ import ClientOnly from "../ClientOnly";
 
 interface CompanyCardProps {
   data: SafeCompany;
+  name?: String;
   interview?: SafeInterview;
   onAction?: (id: string) => void;
   disabled?: boolean;
@@ -24,6 +26,7 @@ interface CompanyCardProps {
 
 const CompanyCard: React.FC<CompanyCardProps> = ({
   data,
+  name,
   interview,
   onAction,
   disabled,
@@ -57,6 +60,15 @@ const CompanyCard: React.FC<CompanyCardProps> = ({
   //   return data.price;
   // }, [interview, data.price]);
 
+
+  const companyName = useMemo(() => {
+    return name || null;
+}, [name]);
+
+
+    
+
+
   const interviewDate = useMemo(() => {
     if (!interview) {
       return null;
@@ -70,10 +82,11 @@ const CompanyCard: React.FC<CompanyCardProps> = ({
 
 
   return (
-    <div onClick={() => router.push(`/listings/${data.id}`)}
+    <div
+      onClick={() => router.push(`/company/${data.id}`)}
       className="col-span-1 cursor-pointer group"
-      >
-        <div className="flex flex-col gap-2 w-full">
+    >
+      <div className="flex flex-col gap-2 w-full">
         <div
           className="
             aspect-square 
@@ -84,20 +97,32 @@ const CompanyCard: React.FC<CompanyCardProps> = ({
           "
         >
           <Image
-            fill
             className="
-              object-cover 
-              h-full 
-              w-full 
-              group-hover:scale-110 
-              transition
-            "
+    object-cover 
+    h-full 
+    w-full 
+    group-hover:scale-110 
+    transition
+  "
             src={data.imageSrc}
-            alt="Listing"
+            alt="Company"
+            layout="fill"
+            objectFit="contain" // นี้เป็นส่วนที่เพิ่มเข้ามา
           />
+        </div>
+
+        <div className="font-semibold text-lg">{companyName || data.name}</div>
+        <div className="flex items-center">
+          <div className="font-light text-neutral-500 text-xs">
+            {interviewDate || data.category}
           </div>
-          <div className="font-light text-neutral-500">
-          {interviewDate || data.category}
+          <div className="icon">
+            <i className="fa fa-TbBeach"></i>
+          </div>
+          <div className="font-light text-neutral-500 text-xs ml-4">
+            {" "}
+            {data.address}
+          </div>
         </div>
         {onAction && actionLabel && (
           <Button
@@ -107,10 +132,8 @@ const CompanyCard: React.FC<CompanyCardProps> = ({
             onClick={handleCancel}
           />
         )}
-        </div>
+      </div>
     </div>
-    
-
   );
 }
 //   return (
@@ -150,9 +173,9 @@ const CompanyCard: React.FC<CompanyCardProps> = ({
 //             <HeartButton listingId={data.id} currentUser={currentUser} />
 //           </div>
 //         </div>
-//         <div className="font-semibold text-lg">
-//           {location?.region}, {location?.label}
-//         </div>
+        // <div className="font-semibold text-lg">
+        //   {location?.region}, {location?.label}
+        // </div>
 //         <div className="font-light text-neutral-500">
 //           {interviewDate || data.category}
 //         </div>

@@ -6,7 +6,8 @@ const nextConfig = {
       "avatar.iran.liara.run", 
       "avatars.githubusercontent.com", 
       "lh3.googleusercontent.com",
-      "res.cloudinary.com"
+      "res.cloudinary.com",
+      "www.google.com",
   ],
   },
   async headers() {
