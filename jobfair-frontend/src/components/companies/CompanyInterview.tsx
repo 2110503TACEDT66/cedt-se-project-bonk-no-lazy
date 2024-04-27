@@ -1,11 +1,10 @@
 'use client';
 
+import { format } from "date-fns";
 import Button from "../Button";
 import Calendar from "../inputs/Calendar";
 
 import { Range } from "react-date-range";
-
-import moment from 'moment'
 
 interface CompanyInterviewProps {
   interviewDate: Date,
@@ -70,7 +69,7 @@ const CompanyInterview: React.FC<
           Booked interview date:
         </div>
         <div>
-          {moment(interviewDate).format("MMM Do YYYY")}
+          {format(interviewDate, 'MMM do yyyy')}
         </div>
       </div>
     </div>
