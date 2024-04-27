@@ -5,6 +5,8 @@ import Calendar from "../inputs/Calendar";
 
 import { Range } from "react-date-range";
 
+import moment from 'moment'
+
 interface CompanyInterviewProps {
   interviewDate: Date,
   onChangeDate: (value: Date) => void;
@@ -34,11 +36,8 @@ const CompanyInterview: React.FC<
     >
       <div className="
       flex flex-row items-center gap-1 p-4">
-        <div className="text-2xl font-semibold">
-          $ 1000
-        </div>
-        <div className="font-light text-neutral-600">
-          night
+        <div className="text-xl font-semibold">
+          Book an interview with us!
         </div>
       </div>
       <hr />
@@ -51,7 +50,7 @@ const CompanyInterview: React.FC<
       <div className="p-4">
         <Button 
           disabled={disabled} 
-          label="Reserve" 
+          label="Book Interview" 
           onClick={onSubmit}
         />
       </div>
@@ -68,10 +67,10 @@ const CompanyInterview: React.FC<
         "
       >
         <div>
-          Total
+          Booked interview date:
         </div>
         <div>
-          $ 1000
+          {moment(interviewDate).format("MMM Do YYYY")}
         </div>
       </div>
     </div>
