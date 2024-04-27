@@ -1,4 +1,3 @@
-
 import prisma from "@/libs/prismadb"
 
 interface InterviewParams{
@@ -7,16 +6,19 @@ interface InterviewParams{
     companyId?:string;
 }
 
-export default async function getInterviews(params?: InterviewParams) {
+export default async function getInterviews(params: InterviewParams) {
     try {
         const {
             userId,
             interviewId,
             companyId,
-        } = params || {};
+        } = params;
 
         const query :any ={};
 
+        if(companyId){
+            query.companyId = companyId;
+        }
         if(interviewId){
             query.id = interviewId;
         }
@@ -31,7 +33,7 @@ export default async function getInterviews(params?: InterviewParams) {
                 company: true,
             },
             orderBy:{
-                createdAt:"desc"
+                createdAt: "desc"
             }
         })
 
@@ -52,6 +54,7 @@ export default async function getInterviews(params?: InterviewParams) {
                 },
             })
         );
+
         return safeInterviews;
     } catch (error : any){
         throw new Error(error);

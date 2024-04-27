@@ -1,6 +1,6 @@
 'use client'
 
-import { SafeCompany, SafeInterview } from "@/types"
+import { SafeCompany, SafeInterview, SafeUser } from "@/types"
 import CompanyCard from "../companies/CompanyCard";
 
 interface InterviewProps{

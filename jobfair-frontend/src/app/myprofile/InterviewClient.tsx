@@ -41,8 +41,9 @@ const InterviewClient:React.FC<InterviewClientProps>=({
     },[router]);
 
     return(
-        <Container>
+        <div  >
             <Heading 
+            
             title="Interviews"
             subtitle="Which company that you have booked with"
             />
@@ -68,7 +69,7 @@ const InterviewClient:React.FC<InterviewClientProps>=({
                     ))
                 }
             </div>
-        </Container>
+        </div>
     )
 }
 

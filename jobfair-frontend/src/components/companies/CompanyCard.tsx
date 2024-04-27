@@ -4,7 +4,7 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useCallback, useMemo } from "react";
 import { format } from "date-fns";
-import { TbBeach, TbMountain, TbPool } from "react-icons/tb";
+import { MdLocationPin } from "react-icons/md";
 
 // import useCountries from "@/app/hooks/useCountries";
 import { SafeCompany, SafeInterview, SafeJobPosition, SafeUser } from "@/types";
@@ -12,10 +12,11 @@ import { SafeCompany, SafeInterview, SafeJobPosition, SafeUser } from "@/types";
 // import HeartButton from "../HeartButton";
 import Button from "../Button";
 import ClientOnly from "../ClientOnly";
+import useCountries from "@/hooks/useCountries";
+import HeartButton from "../HeartButton";
 
 interface CompanyCardProps {
   data: SafeCompany;
-  name?: String;
   interview?: SafeInterview;
   onAction?: (id: string) => void;
   disabled?: boolean;
@@ -27,7 +28,6 @@ interface CompanyCardProps {
 
 const CompanyCard: React.FC<CompanyCardProps> = ({
   data,
-  name,
   interview,
   onAction,
   disabled,
@@ -38,9 +38,9 @@ const CompanyCard: React.FC<CompanyCardProps> = ({
 }) => {
   console.log(jobPositions)
   const router = useRouter();
-  // const { getByValue } = useCountries();
+  const { getByValue } = useCountries();
 
-  // const location = getByValue(data.locationValue);
+  const location = getByValue(data.locationValue)
 
   const handleCancel = useCallback(
     (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -55,23 +55,6 @@ const CompanyCard: React.FC<CompanyCardProps> = ({
     [disabled, onAction, actionId]
   );
 
-  // const price = useMemo(() => {
-  //   if (interview) {
-  //     return interview.totalPrice;
-  //   }
-
-  //   return data.price;
-  // }, [interview, data.price]);
-
-
-  const companyName = useMemo(() => {
-    return name || null;
-  }, [name]);
-
-
-    
-
-
   const interviewDate = useMemo(() => {
     if (!interview) {
       return null;
@@ -79,19 +62,21 @@ const CompanyCard: React.FC<CompanyCardProps> = ({
 
     const interviewDate = new Date(interview.interviewDate);
 
-
     return `${format(interviewDate, "PP")}`;
   }, [interview]);
 
   const jobPositionCount = useMemo(() => {
-    if (!jobPositions) return 0;
+    if (!jobPositions) {
+      return 0;
+    }
+    
     return jobPositions.filter((jobPosition) => jobPosition.companyId === data.id).length;
   }, [jobPositions, data.id]);
 
 
   return (
     <div
-      onClick={() => router.push(`/company/${data.id}`)}
+      onClick={() => router.push(`/companies/${data.id}`)}
       className="col-span-1 cursor-pointer group"
     >
       <div className="flex flex-col gap-2 w-full">
@@ -114,106 +99,60 @@ const CompanyCard: React.FC<CompanyCardProps> = ({
             "
             src={data.imageSrc}
             alt="Company"
-            layout="fill"
+            fill
             objectFit="contain" // นี้เป็นส่วนที่เพิ่มเข้ามา
           />
-        </div>
-
-        <div className="font-semibold text-lg">{companyName || data.name}</div>
-        <div className="flex items-center">
-          <div className="font-light text-neutral-500 text-xs">
-            {interviewDate || data.category}
-          </div>
-          <div className="icon">
-            <i className="fa fa-TbBeach"></i>
-          </div>
-          <div className="font-light text-neutral-500 text-xs ml-4">
-            {data.address}
+          <div className="absolute top-3 right-3">
+            <HeartButton 
+              companyId={data.id} 
+              currentUser={currentUser} 
+            />
           </div>
         </div>
-        <div className="flex items-center">
-          <div className="font-semibold text-blue-400 text-sm">
-            {jobPositionCount} Job {jobPositionCount === 1 ? 'Position':'Positions'} Available
+        <div className="">
+          <div className="font-bold text-lg py-1">
+            {data.name}
           </div>
-        </div>
-        <div className="flex items-center">
-          <div className="font-light text-neutral-500 text-sm">
-            {
-              jobPositions?.filter((jobPosition: SafeJobPosition) => jobPosition.companyId === data.id)
-              .map((jobPosition: SafeJobPosition) => jobPosition.title).join(', ')
-            }
+          <div className="flex items-center ">
+            <div className="font-light text-neutral-500 text-xs">
+              {interviewDate || data.category}
+            </div>
+            <div className="font-light text-neutral-500 text-m ml-4">
+              <MdLocationPin />
+            </div>
+            <div className="font-light text-neutral-500 text-xs ">
+              {data.address}, {location?.region}, {location?.label}
+            </div>
           </div>
+          <div className="flex items-center">
+            <div className="font-bold text-blue-400 text-m">
+              {jobPositionCount} Job{" "}
+              {jobPositionCount === 1 ? "Position" : "Positions"} Available :
+            </div>
+          </div>
+          <div className="flex items-center">
+            <div className="font-light text-neutral-500 text-xs">
+              {jobPositions
+                ?.filter(
+                  (jobPosition: SafeJobPosition) =>
+                    jobPosition.companyId === data.id
+                )
+                .map((jobPosition: SafeJobPosition) => jobPosition.title)
+                .join(", ")}
+            </div>
+          </div>
+          {onAction && actionLabel && (
+            <Button
+              disabled={disabled}
+              small
+              label={actionLabel}
+              onClick={handleCancel}
+            />
+          )}
         </div>
-        {onAction && actionLabel && (
-          <Button
-            disabled={disabled}
-            small
-            label={actionLabel}
-            onClick={handleCancel}
-          />
-        )}
       </div>
     </div>
   );
 }
-//   return (
-//     <div
-//       onClick={() => router.push(`/listings/${data.id}`)}
-//       className="col-span-1 cursor-pointer group"
-//     >
-//       <div className="flex flex-col gap-2 w-full">
-//         <div
-//           className="
-//             aspect-square 
-//             w-full 
-//             relative 
-//             overflow-hidden 
-//             rounded-xl
-//           "
-//         >
-//           <Image
-//             fill
-//             className="
-//               object-cover 
-//               h-full 
-//               w-full 
-//               group-hover:scale-110 
-//               transition
-//             "
-//             src={data.imageSrc}
-//             alt="Listing"
-//           />
-//           <div
-//             className="
-//             absolute
-//             top-3
-//             right-3
-//           "
-//           >
-//             <HeartButton listingId={data.id} currentUser={currentUser} />
-//           </div>
-//         </div>
-        // <div className="font-semibold text-lg">
-        //   {location?.region}, {location?.label}
-        // </div>
-//         <div className="font-light text-neutral-500">
-//           {interviewDate || data.category}
-//         </div>
-//         <div className="flex flex-row items-center gap-1">
-//           <div className="font-semibold">$ {price}</div>
-//           {!interview && <div className="font-light">night</div>}
-//         </div>
-//         {onAction && actionLabel && (
-//           <Button
-//             disabled={disabled}
-//             small
-//             label={actionLabel}
-//             onClick={handleCancel}
-//           />
-//         )}
-//       </div>
-//     </div>
-//   );
-// };
 
 export default CompanyCard;

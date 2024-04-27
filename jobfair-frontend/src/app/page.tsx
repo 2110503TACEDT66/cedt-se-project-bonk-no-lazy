@@ -2,13 +2,13 @@ import Container from "@/components/Container";
 import CompanyCard from "@/components/companies/CompanyCard";
 import EmptyState from "@/components/EmptyState";
 
-import getCompanies, { ICompaniesParams } from "@/app/actions/getCompanies";
+import getCompanies, { CompaniesParams } from "@/app/actions/getCompanies";
 import getCurrentUser from "@/app/actions/getCurrentUser";
 import ClientOnly from "@/components/ClientOnly";
 import getJobPositions from "./actions/getJobPositions";
 
 interface HomeProps {
-  searchParams: ICompaniesParams;
+  searchParams: CompaniesParams;
 }
 
 const Home = async ({ searchParams }: HomeProps) => {
@@ -40,13 +40,13 @@ const Home = async ({ searchParams }: HomeProps) => {
             gap-10
           "
         >
-          {companies.map((company: any) => {
+          {companies.map((company) => {
             return ( 
               <CompanyCard 
-              currentUser={currentUser}
-              key = {company.id}
-              data = {company}
-              jobPositions={jobPositions}
+                currentUser={currentUser}
+                key = {company.id}
+                data = {company}
+                jobPositions={jobPositions}
               />
             )
           })}

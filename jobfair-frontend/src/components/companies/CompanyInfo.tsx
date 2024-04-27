@@ -3,37 +3,37 @@
 import dynamic from "next/dynamic";
 import { IconType } from "react-icons";
 
-import useCountries from "@/app/hooks/useCountries";
-import { SafeUser } from "@/app/types";
+import useCountries from "@/hooks/useCountries";
+import { SafeUser } from "@/types";
 
 import Avatar from "../Avatar";
-import ListingCategory from "./ListingCategory";
+import CompanyCategory from "./CompanyCategory";
+
+import Link from "next/link";
 
 const Map = dynamic(() => import('../Map'), { 
   ssr: false 
 });
 
-interface ListingInfoProps {
+interface CompanyInfoProps {
   user: SafeUser,
   description: string;
-  guestCount: number;
-  roomCount: number;
-  bathroomCount: number;
   category: {
     icon: IconType,
     label: string;
     description: string;
-  } | undefined
+  } | undefined;
+  website: string;
+  tel: string;
   locationValue: string;
 }
 
-const ListingInfo: React.FC<ListingInfoProps> = ({
+const CompanyInfo: React.FC<CompanyInfoProps> = ({
   user,
   description,
-  guestCount,
-  roomCount,
-  bathroomCount,
   category,
+  website,
+  tel,
   locationValue,
 }) => {
   const { getByValue } = useCountries();
@@ -53,40 +53,40 @@ const ListingInfo: React.FC<ListingInfoProps> = ({
             gap-2
           "
         >
-          <div>Hosted by {user?.name}</div>
+          <div>Owned by {user?.name}</div>
           <Avatar src={user?.image} />
         </div>
         <div className="
             flex 
-            flex-row 
-            items-center 
+            flex-row
+            items-center
             gap-4 
             font-light
             text-neutral-500
           "
         >
           <div>
-            {guestCount} guests
+            <Link href={`https://${website}`} className="text-blue-400 hover:underline">
+              {website}
+            </Link>
           </div>
           <div>
-            {roomCount} rooms
-          </div>
-          <div>
-            {bathroomCount} bathrooms
+            <Link href={`tel:${tel}`} className="text-blue-400 hover:underline">
+              {tel}
+            </Link>
           </div>
         </div>
       </div>
       <hr />
       {category && (
-        <ListingCategory
+        <CompanyCategory
           icon={category.icon} 
-          label={category?.label}
-          description={category?.description} 
+          label={category.label}
+          description={category.description} 
         />
       )}
       <hr />
-      <div className="
-      text-lg font-light text-neutral-500">
+      <div className="text-lg font-light text-neutral-500">
         {description}
       </div>
       <hr />
@@ -95,4 +95,4 @@ const ListingInfo: React.FC<ListingInfoProps> = ({
    );
 }
  
-export default ListingInfo;
+export default CompanyInfo;

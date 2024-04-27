@@ -1,12 +1,12 @@
 import prisma from "@/libs/prismadb";
 
-export interface ICompaniesParams {
+export interface CompaniesParams {
   userId?: string;
   interviewDate?: string;
   category?: string;
 }
 
-export default async function getCompanies(params: ICompaniesParams) {
+export default async function getCompanies(params: CompaniesParams) {
   try {
     const {
       userId,

@@ -2,13 +2,13 @@
 
 import { IconType } from "react-icons";
 
-interface CategoryViewProps {
+interface CompanyCategoryProps {
   icon: IconType,
   label: string,
   description: string
 }
 
-const CategoryView: React.FC<CategoryViewProps> = ({ 
+const CompanyCategory: React.FC<CompanyCategoryProps> = ({ 
   icon: Icon,
   label,
   description
@@ -18,14 +18,10 @@ const CategoryView: React.FC<CategoryViewProps> = ({
       <div className="flex flex-row items-center gap-4">
         <Icon size={40} className="text-neutral-600" />
         <div className="flex flex-col">
-            <div 
-              className="text-lg font-semibold"
-            >
+            <div className="text-lg font-semibold">
               {label}
             </div>
-            <div 
-              className="text-neutral-500 font-light"
-            >
+            <div className="text-neutral-500 font-light">
               {description}
             </div>
         </div>
@@ -34,4 +30,4 @@ const CategoryView: React.FC<CategoryViewProps> = ({
    );
 }
  
-export default CategoryView;
+export default CompanyCategory;

@@ -2,36 +2,38 @@
 
 import Image from "next/image";
 
-// import useCountries from "@/app/hooks/useCountries";
+import useCountries from "@/hooks/useCountries";
 import { SafeUser } from "@/types";
 
 import Heading from "../Heading";
-// import HeartButton from "../HeartButton";
+import HeartButton from "../HeartButton";
 
-interface ListingHeadProps {
-  title: string;
+interface CompanyHeadProps {
+  name: string;
   locationValue: string;
+  address: string;
   imageSrc: string;
   id: string;
   currentUser?: SafeUser | null
 }
 
-const ListingHead: React.FC<ListingHeadProps> = ({
-  title,
+const CompanyHead: React.FC<CompanyHeadProps> = ({
+  name,
   locationValue,
+  address,
   imageSrc,
   id,
   currentUser
 }) => {
-  // const { getByValue } = useCountries();
+  const { getByValue } = useCountries();
 
-
+  const location = getByValue(locationValue)
 
   return ( 
     <>
       <Heading
-        title={title}
-
+        title={name}
+        subtitle={`${location?.region}, ${location?.label}, ${address}`}
       />
       <div className="
           w-full
@@ -54,14 +56,14 @@ const ListingHead: React.FC<ListingHeadProps> = ({
             right-5
           "
         >
-          {/* <HeartButton 
-            listingId={id}
+          <HeartButton 
+            companyId={id}
             currentUser={currentUser}
-          /> */}
+          />
         </div>
       </div>
     </>
    );
 }
  
-export default ListingHead;
+export default CompanyHead;
