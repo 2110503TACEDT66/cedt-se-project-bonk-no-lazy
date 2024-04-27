@@ -11,7 +11,7 @@ export type SafeUser = Omit<
 
 export type SafeInterview = Omit<
   Interview,
-  "createdAt"|"interviewDate"|"updatedAt"
+  "createdAt" | "interviewDate" | "updatedAt"
 > & {
   createdAt:string;
   interviewDate:string;
@@ -20,7 +20,7 @@ export type SafeInterview = Omit<
 
 export type SafeCompany = Omit<
   Company,
-  "createdAt"|"updatedAt"
+  "createdAt" | "updatedAt"
 > & {
   createdAt:string,
   updatedAt:string
@@ -28,7 +28,7 @@ export type SafeCompany = Omit<
 
 export type SafeJobPosition = Omit<
   JobPosition,
-  "createdAt"|"updatedAt"
+  "createdAt" | "updatedAt"
 > & {
   createdAt:string,
   updatedAt:string

@@ -40,7 +40,7 @@ const CompanyCard: React.FC<CompanyCardProps> = ({
   const router = useRouter();
   const { getByValue } = useCountries();
 
-  const location = data.locationValue ? getByValue(data.locationValue) : null;
+  const location = getByValue(data.locationValue)
 
   const handleCancel = useCallback(
     (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -84,7 +84,7 @@ const CompanyCard: React.FC<CompanyCardProps> = ({
 
   return (
     <div
-      onClick={() => router.push(`/company/${data.id}`)}
+      onClick={() => router.push(`/companies/${data.id}`)}
       className="col-span-1 cursor-pointer group"
     >
       <div className="flex flex-col gap-2 w-full">

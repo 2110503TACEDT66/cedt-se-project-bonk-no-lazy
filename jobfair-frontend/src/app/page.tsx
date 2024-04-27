@@ -40,13 +40,13 @@ const Home = async ({ searchParams }: HomeProps) => {
             gap-10
           "
         >
-          {companies.map((company: any) => {
+          {companies.map((company) => {
             return ( 
               <CompanyCard 
-              currentUser={currentUser}
-              key = {company.id}
-              data = {company}
-              jobPositions={jobPositions}
+                currentUser={currentUser}
+                key = {company.id}
+                data = {company}
+                jobPositions={jobPositions}
               />
             )
           })}

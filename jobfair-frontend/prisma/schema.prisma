@@ -67,7 +67,7 @@ model Company {
   updatedAt     DateTime @updatedAt
   category      String
   address       String
-  locationValue String?
+  locationValue String
   website       String
   tel           String
   userId        String   @db.ObjectId
