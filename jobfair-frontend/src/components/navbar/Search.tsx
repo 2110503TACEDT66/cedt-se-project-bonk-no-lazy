@@ -31,11 +31,14 @@ const Search = () => {
                         font-semibold
                         px-6
                     "
-                >
-                    Companies
-                </div>
-                <div
-                    className="
+          >
+            <MenuItem
+              label="Companies"
+              onClick={() => router.push("/")}
+            />
+          </div>
+          <div
+            className="
                         hidden
                         sm:block
                         text-sm
