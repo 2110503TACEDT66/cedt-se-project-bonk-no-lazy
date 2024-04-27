@@ -12,10 +12,11 @@ import { SafeCompany, SafeInterview, SafeJobPosition, SafeUser } from "@/types";
 // import HeartButton from "../HeartButton";
 import Button from "../Button";
 import ClientOnly from "../ClientOnly";
+import useCountries from "@/hooks/useCountries";
+import HeartButton from "../HeartButton";
 
 interface CompanyCardProps {
   data: SafeCompany;
-  name?: String;
   interview?: SafeInterview;
   onAction?: (id: string) => void;
   disabled?: boolean;
@@ -27,7 +28,6 @@ interface CompanyCardProps {
 
 const CompanyCard: React.FC<CompanyCardProps> = ({
   data,
-  name,
   interview,
   onAction,
   disabled,
@@ -38,9 +38,9 @@ const CompanyCard: React.FC<CompanyCardProps> = ({
 }) => {
   console.log(jobPositions)
   const router = useRouter();
-  // const { getByValue } = useCountries();
+  const { getByValue } = useCountries();
 
-  // const location = getByValue(data.locationValue);
+  const location = data.locationValue ? getByValue(data.locationValue) : null;
 
   const handleCancel = useCallback(
     (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -63,15 +63,6 @@ const CompanyCard: React.FC<CompanyCardProps> = ({
   //   return data.price;
   // }, [interview, data.price]);
 
-
-  const companyName = useMemo(() => {
-    return name || null;
-  }, [name]);
-
-
-    
-
-
   const interviewDate = useMemo(() => {
     if (!interview) {
       return null;
@@ -79,12 +70,14 @@ const CompanyCard: React.FC<CompanyCardProps> = ({
 
     const interviewDate = new Date(interview.interviewDate);
 
-
     return `${format(interviewDate, "PP")}`;
   }, [interview]);
 
   const jobPositionCount = useMemo(() => {
-    if (!jobPositions) return 0;
+    if (!jobPositions) {
+      return 0;
+    }
+    
     return jobPositions.filter((jobPosition) => jobPosition.companyId === data.id).length;
   }, [jobPositions, data.id]);
 
@@ -114,22 +107,29 @@ const CompanyCard: React.FC<CompanyCardProps> = ({
             "
             src={data.imageSrc}
             alt="Company"
-            layout="fill"
+            fill
             objectFit="contain" // นี้เป็นส่วนที่เพิ่มเข้ามา
           />
+          <div className="absolute top-3 right-3">
+            <HeartButton 
+              companyId={data.id} 
+              currentUser={currentUser} 
+            />
+          </div>
         </div>
-
-        <div className="font-semibold text-lg">{companyName || data.name}</div>
+        <div className="font-semibold text-lg">
+          {data.name}
+        </div>
         <div className="flex items-center">
           <div className="font-light text-neutral-500 text-xs">
             {interviewDate || data.category}
           </div>
-          <div className="icon">
-            <i className="fa fa-TbBeach"></i>
-          </div>
           <div className="font-light text-neutral-500 text-xs ml-4">
             {data.address}
           </div>
+        </div>
+        <div className="font-light text-neutral-500 text-xs">
+          {location?.region}, {location?.label}
         </div>
         <div className="flex items-center">
           <div className="font-semibold text-blue-400 text-sm">

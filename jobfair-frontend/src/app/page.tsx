@@ -2,13 +2,13 @@ import Container from "@/components/Container";
 import CompanyCard from "@/components/companies/CompanyCard";
 import EmptyState from "@/components/EmptyState";
 
-import getCompanies, { ICompaniesParams } from "@/app/actions/getCompanies";
+import getCompanies, { CompaniesParams } from "@/app/actions/getCompanies";
 import getCurrentUser from "@/app/actions/getCurrentUser";
 import ClientOnly from "@/components/ClientOnly";
 import getJobPositions from "./actions/getJobPositions";
 
 interface HomeProps {
-  searchParams: ICompaniesParams;
+  searchParams: CompaniesParams;
 }
 
 const Home = async ({ searchParams }: HomeProps) => {

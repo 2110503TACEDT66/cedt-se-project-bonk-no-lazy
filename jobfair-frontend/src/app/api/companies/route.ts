@@ -31,7 +31,7 @@ export async function POST(
             imageSrc,
             category,
             address,
-            locationValue:  location.value,
+            locationValue: location.value,
             website,
             tel,
             userId: currentUser.id,
