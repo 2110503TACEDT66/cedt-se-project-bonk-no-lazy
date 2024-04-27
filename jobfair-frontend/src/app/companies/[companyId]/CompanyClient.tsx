@@ -1,12 +1,22 @@
 "use client";
 
-import { useMemo } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { categories } from "@/components/navbar/Categories";
 import { Container } from "@mui/system";
 import CompanyHead from "@/components/companies/CompanyHead";
 import { SafeCompany, SafeUser } from "@/types";
 import { Interview } from "@prisma/client";
 import CompanyInfo from "@/components/companies/CompanyInfo";
+import useLoginModal from "@/hooks/useLoginModal";
+import { useRouter } from "next/navigation";
+import axios from "axios";
+import toast from "react-hot-toast";
+import CompanyInterview from "@/components/companies/CompanyInterview";
+
+const initialDate = {
+  interviewDate: new Date(),
+  key: 'selection'
+}
 
 interface CompanyClientProps {
   interviews?: Interview[];
@@ -16,9 +26,46 @@ interface CompanyClientProps {
   currentUser?: SafeUser | null;
 }
 const CompanyClient: React.FC<CompanyClientProps> = ({ 
-    company, 
+    company,
+    interviews = [],
     currentUser, 
 }) => {
+  const loginModal = useLoginModal()
+  const router = useRouter()
+
+  const disabledDates = useMemo(() => {
+    return interviews.map((interview) => interview.interviewDate);
+  }, [interviews])
+
+  const [isLoading, setIsLoading] = useState(false)
+  const [interviewDate, setInterviewDate] = useState<Date>(initialDate.interviewDate)
+
+  const onCreateInterview = useCallback(() => {
+    if (!currentUser) {
+      return loginModal.onOpen()
+    }
+
+    setIsLoading(true)
+
+    axios.post('api/interviews', {
+      interviewDate: initialDate.interviewDate,
+      companyId: company?.id,
+      userId: currentUser.id,
+    })
+    .then(() => {
+      toast.success('Interview booked!')
+      setInterviewDate(initialDate.interviewDate)
+
+      router.refresh()
+    })
+    .catch(() => {
+      toast.error('Something went wrong.')
+    })
+    .finally(() => {
+      setIsLoading(false)
+    })
+  }, [interviewDate, company?.id, router, currentUser, loginModal])
+
   const category = useMemo(() => {
       return categories.find((item) =>
       item.label === company.category)
@@ -51,6 +98,22 @@ const CompanyClient: React.FC<CompanyClientProps> = ({
                 tel={company.tel}
                 locationValue={company.locationValue}
             />
+            <div
+              className="
+                order-first
+                mb-10
+                md:order-last
+                md:col-span-3
+              "
+            >
+              <CompanyInterview 
+                onChangeDate={(value) => setInterviewDate(value)}
+                interviewDate={interviewDate}
+                onSubmit={onCreateInterview}
+                disabled={isLoading}
+                disabledDates={disabledDates}
+              />
+            </div>
           </div>
         </div>
       </div>

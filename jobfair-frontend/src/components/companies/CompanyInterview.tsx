@@ -1,26 +1,22 @@
 'use client';
 
-import { Range } from "react-date-range";
-
 import Button from "../Button";
 import Calendar from "../inputs/Calendar";
 
-interface ListingReservationProps {
-  price: number;
-  dateRange: Range,
-  totalPrice: number;
-  onChangeDate: (value: Range) => void;
+import { Range } from "react-date-range";
+
+interface CompanyInterviewProps {
+  interviewDate: Date,
+  onChangeDate: (value: Date) => void;
   onSubmit: () => void;
   disabled?: boolean;
   disabledDates: Date[];
 }
 
-const ListingReservation: React.FC<
-  ListingReservationProps
+const CompanyInterview: React.FC<
+  CompanyInterviewProps
 > = ({
-  price,
-  dateRange,
-  totalPrice,
+  interviewDate,
   onChangeDate,
   onSubmit,
   disabled,
@@ -39,7 +35,7 @@ const ListingReservation: React.FC<
       <div className="
       flex flex-row items-center gap-1 p-4">
         <div className="text-2xl font-semibold">
-          $ {price}
+          $ 1000
         </div>
         <div className="font-light text-neutral-600">
           night
@@ -47,10 +43,9 @@ const ListingReservation: React.FC<
       </div>
       <hr />
       <Calendar
-        value={dateRange}
+        value={interviewDate}
         disabledDates={disabledDates}
-        onChange={(value) => 
-          onChangeDate(value.selection)}
+        onChange={(value) => onChangeDate(value)}
       />
       <hr />
       <div className="p-4">
@@ -76,11 +71,11 @@ const ListingReservation: React.FC<
           Total
         </div>
         <div>
-          $ {totalPrice}
+          $ 1000
         </div>
       </div>
     </div>
    );
 }
  
-export default ListingReservation;
+export default CompanyInterview;
