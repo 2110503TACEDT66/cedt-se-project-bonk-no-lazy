@@ -17,18 +17,18 @@ interface JobsProp {
   searchParams: JobPositionParams;
 }
 
-const JobsPage = async() => {
-    const currentUser = await getCurrentUser();
+// const JobsPage = async() => {
+//     const currentUser = await getCurrentUser();
 
-    if(!currentUser) {
-        <ClientOnly>
-            <EmptyState
-                title="Unautorized"
-                subtitle= "Please login"/>
-        </ClientOnly>
-    }
-}
-const Jobs = async ({ searchParams }: JobsProp) => {
+//     if(!currentUser) {
+//         <ClientOnly>
+//             <EmptyState
+//                 title="Unautorized"
+//                 subtitle= "Please login"/>
+//         </ClientOnly>
+//     }
+// }
+const JobsPage = async ({ searchParams }: JobsProp) => {
   const companies = await getCompanies;
   const jobPositions = await getJobPositions(searchParams);
   const currentUser = await getCurrentUser();
