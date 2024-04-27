@@ -19,7 +19,6 @@ const InterviewClient:React.FC<InterviewClientProps>=({
     interviews,
     currentUser
 }) => {
-
     const router = useRouter();
     const [deleteId,setDeleteId] = useState('');
 
@@ -59,11 +58,9 @@ const InterviewClient:React.FC<InterviewClientProps>=({
                 "
             >
                 {
-                    interviews.map((interview:any)=>{
-                        <CompanyCard 
-                        data={intervie}
-                        />     
-                    })
+                    interviews.map((interview)=>(
+                        <CompanyCard key={interview.id} data={interview}  />
+                    ))
                 }
             </div>
         </Container>

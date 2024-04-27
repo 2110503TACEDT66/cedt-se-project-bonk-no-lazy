@@ -7,6 +7,7 @@ import UserMenu from "./UserMenu";
 import Categories from "./Categories";
 import { SafeUser } from "@/types";
 
+
 interface NavbarProps {
   currentUser?: SafeUser | null;
 }
@@ -41,5 +42,7 @@ const Navbar: React.FC<NavbarProps> = ({ currentUser }) => {
     </div>
   );
 };
+
+
 
 export default Navbar;

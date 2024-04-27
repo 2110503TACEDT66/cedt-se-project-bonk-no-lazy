@@ -1,24 +1,28 @@
 'use client'
 
 import { BiSearch } from "react-icons/bi"
+import MenuItem from "./MenuItem";
+import { useRouter } from "next/navigation";
+import "./search.css";
 
 const Search = () => {
-    return(
-        <div
-            className="
+    const router = useRouter();
+    return (
+      <div
+        className="
                 border-[1px]
                 w-full
                 md:w-auto
                 py-2
                 rounded-full
-                shadow-lg
+                shadow-sm
                 hover:shadow-md
                 transition
                 cursor-pointer
             "
-        >
-            <div
-                className="
+      >
+        <div
+          className="
                     flex
                     flex-row
                     items-center
@@ -29,43 +33,50 @@ const Search = () => {
             className="
                         text-m
                         font-bold
-                        px-4
-                        
+                        px-6
+                        hover:text-blue-500 cursor-pointer
                     "
           >
-            <MenuItem label="Companies" onClick={() => router.push("/")} />
+            <MenuItem
+              label="Companies"
+              onClick={() => router.push("/")}
+            />
           </div>
           <div
             className="
+                        hidden
                         sm:block
-                        text-sm
-                        font-semibold
+                        text-m
+                        font-bold
                         px-6
-                        border-x-[1.5px]
+                        border-x-[1px]
                         flex-1
                         text-center
+                        hover:text-blue-500 cursor-pointer
                     "
-                >
-                    Jobs
-                </div>
-                <div
-                    className="
-                        text-sm
-                        pl-6
-                        pr-2
-                        text-gray-600
+          >
+            <MenuItem label="Jobs" onClick={() => router.push("/jobs")} />
+          </div>
+          <div
+            className="
+                        text-m
+                        pl-2
+                        pr-5
+                        text-gray-400
                         flex
                         flex-row
                         items-center
                         gap-3
+                        
                     "
-                >
-                    <div
-                        className="
+          >
+            <div
+              className="
                             hidden
                             sm:block
                         "
-            ></div>
+            >
+            </div>
             <div className="container">
               <input
                 type="text"
@@ -101,7 +112,8 @@ const Search = () => {
             </div>
           </div>
         </div>
-    )
+      </div>
+    );
 }
 
 export default Search

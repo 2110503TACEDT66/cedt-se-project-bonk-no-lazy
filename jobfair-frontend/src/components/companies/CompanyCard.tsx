@@ -4,7 +4,7 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useCallback, useMemo } from "react";
 import { format } from "date-fns";
-import { TbBeach, TbMountain, TbPool } from "react-icons/tb";
+import { MdLocationPin } from "react-icons/md";
 
 // import useCountries from "@/app/hooks/useCountries";
 import { SafeCompany, SafeInterview, SafeJobPosition, SafeUser } from "@/types";
@@ -12,6 +12,7 @@ import { SafeCompany, SafeInterview, SafeJobPosition, SafeUser } from "@/types";
 // import HeartButton from "../HeartButton";
 import Button from "../Button";
 import ClientOnly from "../ClientOnly";
+import { JobPosition } from "@prisma/client";
 
 interface CompanyCardProps {
   data: SafeCompany;
@@ -118,40 +119,47 @@ const CompanyCard: React.FC<CompanyCardProps> = ({
             objectFit="contain" // นี้เป็นส่วนที่เพิ่มเข้ามา
           />
         </div>
-
-        <div className="font-semibold text-lg">{companyName || data.name}</div>
-        <div className="flex items-center">
-          <div className="font-light text-neutral-500 text-xs">
-            {interviewDate || data.category}
+        <div className="">
+          <div className="font-bold text-lg py-1">
+            {companyName || data.name}
           </div>
-          <div className="icon">
-            <i className="fa fa-TbBeach"></i>
+          <div className="flex items-center ">
+            <div className="font-light text-neutral-500 text-xs">
+              {interviewDate || data.category}
+            </div>
+            <div className="font-light text-neutral-500 text-m ml-4">
+              <MdLocationPin />
+            </div>
+            <div className="font-light text-neutral-500 text-xs ">
+              {data.address}
+            </div>
           </div>
-          <div className="font-light text-neutral-500 text-xs ml-4">
-            {data.address}
+          <div className="flex items-center">
+            <div className="font-bold text-blue-500 text-m">
+              {jobPositionCount} Job{" "}
+              {jobPositionCount === 1 ? "Position" : "Positions"} Available :
+            </div>
           </div>
+          <div className="flex items-center">
+            <div className="font-light text-neutral-500 text-xs">
+              {jobPositions
+                ?.filter(
+                  (jobPosition: SafeJobPosition) =>
+                    jobPosition.companyId === data.id
+                )
+                .map((jobPosition: SafeJobPosition) => jobPosition.title)
+                .join(", ")}
+            </div>
+          </div>
+          {onAction && actionLabel && (
+            <Button
+              disabled={disabled}
+              small
+              label={actionLabel}
+              onClick={handleCancel}
+            />
+          )}
         </div>
-        <div className="flex items-center">
-          <div className="font-semibold text-blue-400 text-sm">
-            {jobPositionCount} Job {jobPositionCount === 1 ? 'Position':'Positions'} Available
-          </div>
-        </div>
-        <div className="flex items-center">
-          <div className="font-light text-neutral-500 text-sm">
-            {
-              jobPositions?.filter((jobPosition: SafeJobPosition) => jobPosition.companyId === data.id)
-              .map((jobPosition: SafeJobPosition) => jobPosition.title).join(', ')
-            }
-          </div>
-        </div>
-        {onAction && actionLabel && (
-          <Button
-            disabled={disabled}
-            small
-            label={actionLabel}
-            onClick={handleCancel}
-          />
-        )}
       </div>
     </div>
   );

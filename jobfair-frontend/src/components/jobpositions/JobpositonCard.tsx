@@ -7,7 +7,7 @@ import { format } from "date-fns";
 import { TbBeach, TbMountain, TbPool } from "react-icons/tb";
 
 // import useCountries from "@/app/hooks/useCountries";
-import { SafeJobPosition, SafeInterview, SafeUser } from "@/types";
+import { SafeJobPosition, SafeInterview, SafeUser, SafeCompany } from "@/types";
 
 // import HeartButton from "../HeartButton";
 import Button from "../Button";
@@ -22,6 +22,7 @@ interface JobPositionCardProps {
   actionLabel?: string;
   actionId?: string;
   currentUser?: SafeUser | null;
+  companies?: SafeCompany;
 }
 
 const JobPositionCard: React.FC<JobPositionCardProps> = ({
@@ -33,6 +34,7 @@ const JobPositionCard: React.FC<JobPositionCardProps> = ({
   actionLabel,
   actionId = "",
   currentUser,
+  companies
 }) => {
   const router = useRouter();
   // const { getByValue } = useCountries();

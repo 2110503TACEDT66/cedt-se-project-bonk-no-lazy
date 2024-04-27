@@ -64,7 +64,7 @@ const UserMenu: React.FC<UserMenuProps> = ({
           className="
             hidden
             md:block
-            text-m 
+            text-sm 
             font-semibold 
             py-3 
             px-4 
@@ -121,8 +121,8 @@ const UserMenu: React.FC<UserMenuProps> = ({
             {currentUser ? (
               <>
                 <MenuItem 
-                  label="My interviews" 
-                  onClick={() => router.push('/interviews')}
+                  label="My Profile" 
+                  onClick={() => router.push('/myprofile')}
                 />
                 <MenuItem 
                   label="My favorites" 

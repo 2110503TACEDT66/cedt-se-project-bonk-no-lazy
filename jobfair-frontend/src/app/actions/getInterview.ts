@@ -1,45 +1,45 @@
 
 import prisma from "@/libs/prismadb"
+import { use } from "react";
 
-interface InterviewParams{
+interface IParams{
     userId?:string;
-    interviewId?:string;
-    companyId?:string;
+    InterviewId?:string;
+    companyId?:string,
 }
 
-export default async function getInterviews(params?: InterviewParams) {
+export default async function getInterviewById(params:IParams) {
     try {
-        const {
-            userId,
-            interviewId,
-            companyId,
-        } = params || {};
-
+        const {userId,InterviewId,companyId} = params;
         const query :any ={};
 
-        if(interviewId){
-            query.interviewId = interviewId;
+        if(InterviewId){
+            query.InterviewId = InterviewId ;
         }
         if(userId){
-            query.userId = userId;
+            query.userId = userId ;
+        }
+        if(companyId){
+            query.companyId = companyId ;
         }
 
-        const interviews = await prisma.interview.findMany({
-            where: query,
+        const myInterviews = await prisma.interview.findMany({
+            where:query,
             include:{
-                user: true,
-                companies: true,
+                user:true,
+                companies:false,
             },
             orderBy:{
                 createdAt:"desc"
             }
         })
 
-        const safeInterviews = interviews.map((interview) => ({
+        const safeInterviews = myInterviews.map(
+            (interview) => ({
                 ...interview,
-                createdAt: interview.createdAt.toISOString(),
-                updatedAt: interview.updatedAt.toISOString(),
-                interviewDate: interview.interviewDate.toISOString(),
+                createdAt:interview.createdAt.toISOString(),
+                interviewDate:interview.interviewDate.toISOString(),
+                updatedAt:interview.updatedAt.toISOString(),
                 user:{
                     ...interview.user,
                     createdAt: interview.user.createdAt.toISOString(),
