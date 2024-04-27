@@ -4,8 +4,7 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 import { categories } from "@/components/navbar/Categories";
 import { Container } from "@mui/system";
 import CompanyHead from "@/components/companies/CompanyHead";
-import { SafeCompany, SafeUser } from "@/types";
-import { Interview } from "@prisma/client";
+import { SafeCompany, SafeInterview, SafeUser } from "@/types";
 import CompanyInfo from "@/components/companies/CompanyInfo";
 import useLoginModal from "@/hooks/useLoginModal";
 import { useRouter } from "next/navigation";
@@ -19,7 +18,7 @@ const initialDate = {
 }
 
 interface CompanyClientProps {
-  interviews?: Interview[];
+  interviews?: SafeInterview[];
   company: SafeCompany & {
     user: SafeUser;
   };
@@ -34,7 +33,7 @@ const CompanyClient: React.FC<CompanyClientProps> = ({
   const router = useRouter()
 
   const disabledDates = useMemo(() => {
-    return interviews.map((interview) => interview.interviewDate);
+    return interviews.map((interview) => new Date(Date.parse(interview.interviewDate)));
   }, [interviews])
 
   const [isLoading, setIsLoading] = useState(false)
@@ -47,10 +46,9 @@ const CompanyClient: React.FC<CompanyClientProps> = ({
 
     setIsLoading(true)
 
-    axios.post('api/interviews', {
-      interviewDate: initialDate.interviewDate,
+    axios.post('/api/interviews', {
+      interviewDate: interviewDate,
       companyId: company?.id,
-      userId: currentUser.id,
     })
     .then(() => {
       toast.success('Interview booked!')

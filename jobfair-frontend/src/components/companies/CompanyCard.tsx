@@ -55,14 +55,6 @@ const CompanyCard: React.FC<CompanyCardProps> = ({
     [disabled, onAction, actionId]
   );
 
-  // const price = useMemo(() => {
-  //   if (interview) {
-  //     return interview.totalPrice;
-  //   }
-
-  //   return data.price;
-  // }, [interview, data.price]);
-
   const interviewDate = useMemo(() => {
     if (!interview) {
       return null;

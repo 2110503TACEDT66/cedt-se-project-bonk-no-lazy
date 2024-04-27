@@ -3,6 +3,7 @@ import getCurrentUser from "@/app/actions/getCurrentUser"
 import ClientOnly from "@/components/ClientOnly"
 import EmptyState from "@/components/EmptyState"
 import CompanyClient from "./CompanyClient"
+import getInterviews from "@/app/actions/getInterviews"
 
 interface IParams {
     companyId?: string
@@ -12,6 +13,7 @@ const CompanyPage = async ({
     params
 }: { params: IParams }) => {
     const company = await getCompanyById(params)
+    const interviews = await getInterviews(params)
     const currentUser = await getCurrentUser()
 
     if (!company) {
@@ -25,6 +27,7 @@ const CompanyPage = async ({
         <ClientOnly>
             <CompanyClient 
                 company={company}
+                interviews={interviews}
                 currentUser={currentUser}
             />
         </ClientOnly>

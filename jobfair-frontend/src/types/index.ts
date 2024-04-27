@@ -11,11 +11,12 @@ export type SafeUser = Omit<
 
 export type SafeInterview = Omit<
   Interview,
-  "createdAt" | "interviewDate" | "updatedAt"
+  "createdAt" | "interviewDate" | "updatedAt" | "company"
 > & {
   createdAt:string;
   interviewDate:string;
   updatedAt:string;
+  company: SafeCompany;
 }
 
 export type SafeCompany = Omit<
