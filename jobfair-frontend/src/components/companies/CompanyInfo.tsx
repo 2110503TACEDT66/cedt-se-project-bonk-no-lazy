@@ -9,6 +9,8 @@ import { SafeUser } from "@/types";
 import Avatar from "../Avatar";
 import CompanyCategory from "./CompanyCategory";
 
+import Link from "next/link";
+
 const Map = dynamic(() => import('../Map'), { 
   ssr: false 
 });
@@ -64,10 +66,14 @@ const CompanyInfo: React.FC<CompanyInfoProps> = ({
           "
         >
           <div>
-            {website}
+            <Link href={`https://${website}`} className="text-blue-400 hover:underline">
+              {website}
+            </Link>
           </div>
           <div>
-            {tel} 
+            <Link href={`tel:${tel}`} className="text-blue-400 hover:underline">
+              {tel}
+            </Link>
           </div>
         </div>
       </div>
