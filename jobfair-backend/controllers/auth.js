@@ -5,27 +5,27 @@ const User = require('../models/User');
 //@access       Public
 exports.register = async (req, res, next) => {
     try {
-        var {name, tel, email, password, role, profile_picture} = req.body;
+        var {name, email, hashedPassword} = req.body;
 
-        if (!profile_picture) {
-            profile_picture = `https://avatar.iran.liara.run/username?username=${name}`;
-        }
+        var image = `https://avatar.iran.liara.run/username?username=${name}`;
         
+        var role = 'USER'
         //Create user
         const user = await User.create({
             name,
-            tel,
             email,
-            password,
+            hashedPassword,
             role,
-            profile_picture
+            image
         });
         //Create token
             //const token = user.getSignedJwtToken();
             //res.status(201).json({success:true, token});
         sendTokenResponse(user, 201, res);
     } catch(err) {
-        res.status(400).json({success:false});
+        res.status(400).json({
+            success:false
+        });
         console.log(err.stack);
     }
 };
@@ -35,37 +35,45 @@ exports.register = async (req, res, next) => {
 //@access       Public
 exports.login = async (req, res, next) => {
     try {
+        const {email, password} = req.body;
 
-    const {email, password} = req.body;
+        //Validate email and password
+        if(!email || !password) {
+            return res.status(400).json({
+                success: false,
+                message: 'Both email and password are required'
+            });
+        }
 
-    //Validate email and password
-    if(!email || !password) {
-        return res.status(400).json({success:false,
-        msg:'Please provide an email and password'});
-    }
+        //Check for user
+        const user = await User.findOne({email}).select('+hashedPassword');
+        
+        if(!user) {
+            return res.status(401).json({
+                success: false,
+                message: `Couldn\'t find your hireFest Account}`
+            });
+        }
 
-    //Check for user
-    const user = await User.findOne({email}).select('+password');
-    if(!user) {
-        return res.status(400).json({success:false,
-        msg:'Invalid credentials'});
-    }
+        //Check if password matches
+        const isMatch = await user.matchPassword(password);
 
-    //Check if password matches
-    const isMatch = await user.matchPassword(password);
+        if(!isMatch) {
+            return res.status(401).json({
+                success: false,
+                message: 'The password that you\'ve entered is incorrect'
+            });
+        }
 
-    if(!isMatch) {
-        return res.status(401).json({success:false,
-        msg:'Invalid credentials'});
-    }
-
-    //Create token
-    //const token = user.getSignedJwtToken();
-    //res.status(200).json({success:true, token});
-    sendTokenResponse(user, 200, res);
-
-    } catch(err) {
-        return res.status(401).json({success: false, msg: 'Cannot convert email or password to string'});
+        //Create token
+        //const token = user.getSignedJwtToken();
+        //res.status(200).json({success:true, token});
+        sendTokenResponse(user, 200, res);
+    } catch (err) {
+        return res.status(400).json({
+            success: false, 
+            message: 'Cannot convert email or password to string'
+        });
     }
 };
 

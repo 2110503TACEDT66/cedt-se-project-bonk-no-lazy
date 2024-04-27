@@ -1,7 +1,6 @@
 const mongoose = require('mongoose');
 
 const ReviewSchema = new mongoose.Schema({
-
     rating: {
         type: Number,
         min: 0,
@@ -15,20 +14,18 @@ const ReviewSchema = new mongoose.Schema({
         required: false,
         default: null
     },
-    user:{
-        type:mongoose.Schema.ObjectId,
+    userId:{
+        type:mongoose.Schema.Types.ObjectId,
         ref:'User',
         required:true
     },
-    company:{
-        type:mongoose.Schema.ObjectId,
+    companyId:{
+        type:mongoose.Schema.Types.ObjectId,
         ref:'Company',
         required:true
     },
-    createdAt: {
-        type: Date,
-        default: Date.now
-    }
+}, {
+    timestamps: true,
 });
 
-    module.exports = mongoose.model('Review',ReviewSchema);
+    module.exports = mongoose.model('Review', ReviewSchema, 'Review');

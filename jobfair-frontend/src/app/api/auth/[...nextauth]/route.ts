@@ -1,49 +1,66 @@
-import userLogIn from '@/libs/userLogIn';
-import NextAuth from 'next-auth';
-import { AuthOptions } from 'next-auth';
-import  CredentialsProvider  from 'next-auth/providers/credentials';
- 
-export const authOptions:AuthOptions = {
-    providers: [
-        //Authentication Provider , use Credentials Provider
-        CredentialsProvider({
-          // The name to display on the sign in form (e.g. "Sign in with...")
-          name: "Credentials",
-          // `credentials` is used to generate a form on the sign in page.
-          // You can specify which fields should be submitted, by adding keys to the `credentials` object.
-          // e.g. domain, username, password, 2FA token, etc.
-          // You can pass any HTML attribute to the <input> tag through the object.
-          credentials: {
-            email: { label: "Email", type: "email", placeholder: "email" },
-            password: { label: "Password", type: "password", placeholder: "password" }
-          },
-          async authorize(credentials, req) {
-            if(!credentials) return null
-            const user = await userLogIn(credentials.email, credentials.password)
+import bcrypt from "bcrypt"
+import NextAuth, { AuthOptions } from "next-auth"
+import CredentialsProvider from "next-auth/providers/credentials"
+import GithubProvider from "next-auth/providers/github"
+import GoogleProvider from "next-auth/providers/google"
+import { PrismaAdapter } from "@next-auth/prisma-adapter"
 
-            if (user) {
-              // Any object returned will be saved in `user` property of the JWT
-              return user
-            } else {
-              // If you return null then an error will be displayed advising the user to check their details.
-              return null
-      
-              // You can also Reject this callback with an Error thus the user will be sent to the error page with the error message as a query parameter
-            }
-          }
-        })
-      ],
-    session: { strategy:'jwt'},
-    // callback for more data 
-    callbacks:{
-      async jwt({token, user}) {
-        return {...token, ...user}
+import prisma from "@/libs/prismadb"
+
+export const authOptions: AuthOptions = {
+  adapter: PrismaAdapter(prisma),
+  providers: [
+    GithubProvider({
+      clientId: process.env.GITHUB_ID as string,
+      clientSecret: process.env.GITHUB_SECRET as string
+    }),
+    GoogleProvider({
+      clientId: process.env.GOOGLE_CLIENT_ID as string,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET as string
+    }),
+    CredentialsProvider({
+      name: 'credentials',
+      credentials: {
+        email: { label: 'email', type: 'text' },
+        password: { label: 'password', type: 'password' }
       },
-      async session({session, token, user}) {
-        session.user = token as any
-        return session
+      async authorize(credentials) {
+        if (!credentials?.email || !credentials?.password) {
+          throw new Error('Invalid credentials');
+        }
+
+        const user = await prisma.user.findUnique({
+          where: {
+            email: credentials.email
+          }
+        });
+
+        if (!user || !user?.hashedPassword) {
+          throw new Error('Invalid credentials');
+        }
+
+        const isCorrectPassword = await bcrypt.compare(
+          credentials.password,
+          user.hashedPassword
+        );
+
+        if (!isCorrectPassword) {
+          throw new Error('Invalid credentials');
+        }
+
+        return user;
       }
-    }
+    })
+  ],
+  pages: {
+    signIn: '/',
+  },
+  debug: process.env.NODE_ENV === 'development',
+  session: {
+    strategy: "jwt",
+  },
+  secret: process.env.NEXTAUTH_SECRET,
 }
+
 const handler = NextAuth(authOptions)
 export {handler as GET ,handler as POST};

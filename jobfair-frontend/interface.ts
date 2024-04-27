@@ -1,4 +1,4 @@
-  interface CompanyItem {
+  export interface CompanyItem {
     _id: string,
     name: string,
     address: string,
@@ -11,14 +11,14 @@
     id: string,
   }
   
-  interface CompanyJson {
+  export interface CompanyJson {
     success: boolean,
     count: number,
     pagination: Object,
     data: CompanyItem[]
   }
 
-  interface ReviewItem {
+  export interface ReviewItem {
     _id: string,
     rating: number,
     comment: string,
@@ -28,13 +28,13 @@
     __v: number
   }
 
-  interface ReviewJson {
+  export interface ReviewJson {
     success: boolean,
     count: number,
     data: ReviewItem[]
   }
 
-  interface BookingItem{
+  export interface BookingItem{
     _id: string,
     interviewDate: string,
     user: string,
@@ -44,27 +44,29 @@
     __v: number
   }
 
-  interface BookingJson{
+  export interface BookingJson{
     success: boolean,
     count: number,
     data: BookingItem[];
   }
 
-  interface user{
+  export interface user{
     _id: string,
     name: string,
     tel: string,
-    email: string,
     role: string,
-    profile_picture: string,
+    email: string,
+    emailVerified: string,
+    image: string,
     createdAt: string,
-    token: string,
-    companyID:string
+    updatedAt: string,
+    favouriteIds: CompanyItem[],
+    companyID:string,
   }
 
-  interface userJSON{
+  export interface userJSON{
     success: boolean,
-    data: user
+    data: User
   }
 
   

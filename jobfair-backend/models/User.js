@@ -4,52 +4,77 @@ const jwt = require('jsonwebtoken');
 
 const UserSchema = new mongoose.Schema({
     name:{
-        type:String,
-        required:[true, 'Please add a name']
-    },
-    tel:{
         type: String,
-        required: [true, 'Please add a telephone number']
     },
     email:{
-        type:String,
-        required:[true, 'Please add an email'],
-        unique:true,
-        match:[
-            /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
-            'Please add a valid email'
-            ]
+        type: String,
+        unique: true,
+    },
+    emailVerified:{
+        type: Date
+    },
+    image:{
+        type: String,
+    },
+    hashedPassword:{
+        type: String,
+        select: false,
+    },
+    favouriteIds: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Company',
+    }],
+    tel:{
+        type: String,
     },
     role:{
-        type:String,
-        enum:['user', 'admin', 'company'],
-        default:'user'
+        type: String,
+        enum: ['USER', 'ADMIN', 'COMPANY'],
+        default: 'USER'
     },
-    password:{
-        type:String,
-        required:[true, 'Please add a password'],
-        minlength:6,
-        select:false
-    },
-    resetPasswordToken:String,
-    resetPasswordExpire:Date,
-    createdAt:{
-        type:Date,
-        default:Date.now
-    },
-    profile_picture:{
-        type:String,
-        default:'https://avatar.iran.liara.run/public?username=[default]'
-    },
-    companyID:{
-        type:String,
+    resetPasswordToken: String,
+    resetPasswordExpire: Date,
+    companyId:{
+        type: String,
     }
+}, {
+    toJSON: {virtuals: true},
+    toObject: {virtuals: true},
+    timestamps: true,
+});
+
+UserSchema.virtual('accounts', {
+    ref: 'Account',
+    localField: '_id',
+    foreignField: 'userId',
+    justOne: false
+});
+
+UserSchema.virtual('companies', {
+    ref: 'Company',
+    localField: '_id',
+    foreignField: 'userId',
+    justOne: false
+});
+
+UserSchema.virtual('interviews', {
+    ref: 'Interview',
+    localField: '_id',
+    foreignField: 'userId',
+    justOne: false
+});
+
+UserSchema.virtual('reviews', {
+    ref: 'Review',
+    localField: '_id',
+    foreignField: 'userId',
+    justOne: false
 });
 
 //Encrypt password using bcrypt
 UserSchema.pre('save', async function(next) {
     const salt = await bcrypt.genSalt(10);
-    this.password = await bcrypt.hash(this.password, salt);
+    this.hashedPassword = await bcrypt.hash(this.hashedPassword, salt);
 });
 
 //Sign JWT and return
@@ -61,7 +86,31 @@ UserSchema.methods.getSignedJwtToken = function() {
 
 //Match user entered password to hashed password in db
 UserSchema.methods.matchPassword = async function(enteredPassword) {
-    return await bcrypt.compare(enteredPassword, this.password);
+    return await bcrypt.compare(enteredPassword, this.hashedPassword);
 }
 
-module.exports = mongoose.model('User', UserSchema);
+UserSchema.pre('deleteOne', { document: true, query: false }, async function(next) {
+    console.log(`All accounts associated with user ${this.name} (id: ${this._id}) are being removed`);
+    await this.model('Account').deleteMany({userId: this._id});
+    next();
+})
+
+UserSchema.pre('deleteOne', { document: true, query: false }, async function(next) {
+    console.log(`All companies associated with user ${this.name} (id: ${this._id}) are being removed`);
+    await this.model('Company').deleteMany({userId: this._id});
+    next();
+})
+
+UserSchema.pre('deleteOne', { document: true, query: false }, async function(next) {
+    console.log(`All interviews associated with user ${this.name} (id: ${this._id}) are being removed`);
+    await this.model('Interview').deleteMany({userId: this._id});
+    next();
+})
+
+UserSchema.pre('deleteOne', { document: true, query: false }, async function(next) {
+    console.log(`All reviews associated with user ${this.name} (id: ${this._id}) are being removed`);
+    await this.model('Review').deleteMany({userId: this._id});
+    next();
+})
+
+module.exports = mongoose.model('User', UserSchema, 'User');
