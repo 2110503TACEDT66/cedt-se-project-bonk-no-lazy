@@ -18,7 +18,7 @@ export default async function getInterviews(params?: InterviewParams) {
         const query :any ={};
 
         if(interviewId){
-            query.interviewId = interviewId;
+            query.id = interviewId;
         }
         if(userId){
             query.userId = userId;
@@ -28,7 +28,7 @@ export default async function getInterviews(params?: InterviewParams) {
             where: query,
             include:{
                 user: true,
-                companies: true,
+                company: true,
             },
             orderBy:{
                 createdAt:"desc"
@@ -45,10 +45,10 @@ export default async function getInterviews(params?: InterviewParams) {
                     createdAt: interview.user.createdAt.toISOString(),
                     updatedAt: interview.user.updatedAt.toISOString(),
                 },
-                companies:{
-                    ...interview.companies,
-                    createdAt: interview.companies.createdAt.toISOString(),
-                    updatedAt: interview.companies.updatedAt.toISOString(),
+                company:{
+                    ...interview.company,
+                    createdAt: interview.company.createdAt.toISOString(),
+                    updatedAt: interview.company.updatedAt.toISOString(),
                 },
             })
         );

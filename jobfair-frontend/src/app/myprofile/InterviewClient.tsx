@@ -9,6 +9,7 @@ import { useRouter } from "next/navigation"
 import { useCallback, useState } from "react";
 import toast from "react-hot-toast";
 import CompanyCard from "@/components/companies/CompanyCard";
+import InterviewCard from "@/components/interviews/InterviewCard";
 
 interface InterviewClientProps{
     interviews:SafeInterview[],
@@ -19,7 +20,7 @@ const InterviewClient:React.FC<InterviewClientProps>=({
     interviews,
     currentUser
 }) => {
-
+    
     const router = useRouter();
     const [deleteId,setDeleteId] = useState('');
 
@@ -59,11 +60,12 @@ const InterviewClient:React.FC<InterviewClientProps>=({
                 "
             >
                 {
-                    interviews.map((interview:any)=>{
-                        <CompanyCard 
-                        data={intervie}
-                        />     
-                    })
+                    interviews.map((interview:SafeInterview)=>(
+                        <InterviewCard 
+                            companyData={interview.company}
+                            interviewData={interview}
+                         />
+                    ))
                 }
             </div>
         </Container>
