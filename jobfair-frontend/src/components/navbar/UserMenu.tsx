@@ -78,6 +78,7 @@ const UserMenu: React.FC<UserMenuProps> = ({
         </div>
         <div 
         onClick={toggleOpen}
+        id="dashboard-dropdown"
         className="
           p-4
           md:py-1
@@ -125,7 +126,7 @@ const UserMenu: React.FC<UserMenuProps> = ({
                   onClick={() => router.push('/myprofile')}
                 />
                 <MenuItem 
-                  label="My favoruites" 
+                  label="My favorites" 
                   onClick={() => router.push('/favourites')}
                 />
                 <MenuItem 

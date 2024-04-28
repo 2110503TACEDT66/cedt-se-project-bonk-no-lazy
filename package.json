@@ -1,5 +1,12 @@
 {
+  "scripts": {
+    "start-backend": "cd jobfair-backend && npm i && npm run dev",
+    "start-frontend": "cd jobfair-frontend && npm i && npm run dev"
+  },
   "dependencies": {
     "query-string": "^9.0.0"
+  },
+  "devDependencies": {
+    "cypress": "^13.8.1"
   }
 }
