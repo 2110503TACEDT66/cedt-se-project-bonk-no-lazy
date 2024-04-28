@@ -3,29 +3,35 @@
 import { useCallback } from "react";
 
 interface DeleteButtonProps {
-    onAction: (id:string) => void;
+    onClick?:()=>void;
+    onAction?: (id:string ) => void;
     actionId:string,
-    label:string,
-    action:string,
+    label?:string,
+    action?:string,
   }
 
-const DeleteButton:React.FC<DeleteButtonProps>=({
+const OptionButton:React.FC<DeleteButtonProps>=({
     onAction,
     actionId,
     label,
-    action
+    action,
+    onClick
 }) =>{
     const handleCancel = useCallback(
         (e: React.MouseEvent<HTMLButtonElement>) => {
         e.stopPropagation();
-    
-        onAction?.(actionId)
+          
+            onAction?.(actionId)
+
       }, [ onAction, actionId]);
     return (
-        <button onClick={handleCancel}
-  className={"inline-flex  items-center px-4 py-2 bg-white transition ease-in-out delay-20   text-sm font-medium  " 
-    + action === "update" ? "hover:bg-green-100 text-green-600 ring-green-600 ring-inset-1  ring-2 rounded-md" : "hover:bg-rose-100  text-red-600 ring-red-600 ring-inset-1 rounded-md  ring-2"
-  }
+        <button onClick={onAction ? handleCancel : onClick}
+        className={"inline-flex items-center m-1 px-2 py-1 bg-white transition ease-in-out delay-20 text-sm font-medium " +
+        (action === "update"
+          ? "hover:bg-green-100 text-green-600 ring-green-600 ring-inset-1 ring-2 rounded-md"
+          : "hover:bg-rose-100 text-red-600 ring-red-600 ring-inset-1 rounded-md ring-2")
+      }
+      
 >
   <svg
     stroke="currentColor"
@@ -47,4 +53,4 @@ const DeleteButton:React.FC<DeleteButtonProps>=({
     )
 };
 
-export default DeleteButton;
+export default OptionButton;

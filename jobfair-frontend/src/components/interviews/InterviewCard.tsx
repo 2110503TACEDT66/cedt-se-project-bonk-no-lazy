@@ -1,5 +1,6 @@
 'use client'
 
+import { Calendar } from "react-date-range";
 import { SafeCompany, SafeInterview, SafeUser } from "@/types"
 import Image from "next/image";
 
@@ -25,9 +26,9 @@ const InterviewCard:React.FC<InterviewProps> = ({
     
     return (
         <div className="
-        flex w-full
+        flex w-full 
         ">
-            <div className="w-[5em] h-[5em] relative ">
+            <div className="w-[5em] h-[5em] relative mx-2 ">
                 <Image  src={companyData.imageSrc} className="
                 object-cover w-full h-full rounded-lg
                 " 
@@ -37,8 +38,10 @@ const InterviewCard:React.FC<InterviewProps> = ({
             </div>
             <div>
             <p> {companyData.name} </p>
-            <p> {interviewData.interviewDate} </p>
-            <p> {companyData.description} </p>
+            
+            <p> { "Booked Interview Date : " +   new Date(interviewData.interviewDate).toDateString()} </p>
+            
+            <p> { "About us : " + companyData.description} </p>
             </div>
         </div>
     )

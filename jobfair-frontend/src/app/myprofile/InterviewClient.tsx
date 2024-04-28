@@ -9,8 +9,9 @@ import { useRouter } from "next/navigation"
 import { useCallback, useState } from "react";
 import toast from "react-hot-toast";
 import InterviewCard from "@/components/interviews/InterviewCard";
-import DeleteButton from "./OptionButton";
+import OptionButton from "./OptionButton";
 import { Router } from "next/router";
+import useUpdateModal from "@/hooks/useUpdateModal";
 
 interface InterviewClientProps {
     interviews: SafeInterview[],
@@ -23,13 +24,11 @@ const InterviewClient: React.FC<InterviewClientProps> = ({
 }) => {
 
     const router = useRouter();
-    const [deleteId, setDeleteId] = useState('');
+
+    const updateModal = useUpdateModal();
 
     const onCancel = useCallback((id: string) => {
-
-        setDeleteId(id);
-        console.log(`${process.env.DATABASE_URL}/api/interviews/${id}`)
-        axios.delete(`${process.env.DATABASE_URL}/api/v1/interviews/${id}`)
+        axios.delete(`/api/interviews/${id}`)
             .then(() => {
                 toast.success("Interview cancelled");
                 router.refresh();
@@ -38,43 +37,47 @@ const InterviewClient: React.FC<InterviewClientProps> = ({
                 if (!error?.response) {
                     console.log("no error")
                 }
-                toast.error(error?.response?.data?.error)
-            })
-            .finally(() => {
-                setDeleteId('');
-
+                toast.error(error?.message)
             })
     }, [router]);
 
     return (
-        <div className=" w-full  flex-column h-[100vh] ">
+        <div className=" w-full ">
             <Heading
                 title="Interviews"
                 subtitle="Which company that you have booked with"
             />
 
-            {
-                interviews.map((interview: SafeInterview) => (
-                    <div
-                    className="flex-row  flex bg-slate-100 rounded-md
-                    shadow-md hover:shadow-lg p-10 m-5 mx-0
-                     "
-                    >
-                        <InterviewCard
-                            companyData={interview.company}
-                            interviewData={interview}
-                        />
-                        <div>
-                        <DeleteButton
-                            label={"Cancel Booking"}
-                            onAction={onCancel}
-                            actionId={interview.id}
-                            action="delete"
-                        />
+            <Container maxWidth="md">
+                {
+                    interviews.map((interview: SafeInterview) => (
+                        <div
+                        className="flex-row  flex bg-slate-100 rounded-md
+                        shadow-md hover:shadow-lg py-5 px-0 my-5 mx-0
+                         "
+                        >
+                            <InterviewCard
+                                companyData={interview.company}
+                                interviewData={interview}
+                            />
+                            <div className="flex flex-col justify-between">
+                            <OptionButton
+                                label={"Update Booking"}
+                                onAction={()=>{}}  // updateModal.onOpen
+                                actionId={"0"}
+                                action="update"
+                            />
+                            <OptionButton
+                                label={"Cancel Booking"}
+                                onAction={onCancel}
+                                actionId={interview.id}
+                                action="delete"
+                            />
+                            </div>
                         </div>
-                    </div>
-                ))
-            }
+                    ))
+                }
+            </Container>
 
         </div>
 
