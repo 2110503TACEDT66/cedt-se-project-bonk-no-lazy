@@ -1,7 +1,7 @@
 'use client'
 
 import { SafeCompany, SafeInterview, SafeUser } from "@/types"
-import CompanyCard from "../companies/CompanyCard";
+import Image from "next/image";
 
 interface InterviewProps{
     companyData:SafeCompany;
@@ -22,15 +22,24 @@ const InterviewCard:React.FC<InterviewProps> = ({
     actionId = '',
     currentUser,
 }) => {
+    
     return (
-        <div className=" flex flex-row">
-            {
-                <CompanyCard 
-                key={companyData.id} data={companyData} 
-                disabled={true} onAction={()=>{}}
+        <div className="
+        flex w-full
+        ">
+            <div className="w-[5em] h-[5em] relative ">
+                <Image  src={companyData.imageSrc} className="
+                object-cover w-full h-full rounded-lg
+                " 
+                layout="fill"
+                alt="company photo"
                 />
-
-            }
+            </div>
+            <div>
+            <p> {companyData.name} </p>
+            <p> {interviewData.interviewDate} </p>
+            <p> {companyData.description} </p>
+            </div>
         </div>
     )
 }

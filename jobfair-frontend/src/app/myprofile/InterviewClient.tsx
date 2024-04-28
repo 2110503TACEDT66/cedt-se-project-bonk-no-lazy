@@ -8,68 +8,76 @@ import { error } from "console";
 import { useRouter } from "next/navigation"
 import { useCallback, useState } from "react";
 import toast from "react-hot-toast";
-import CompanyCard from "@/components/companies/CompanyCard";
 import InterviewCard from "@/components/interviews/InterviewCard";
+import DeleteButton from "./OptionButton";
+import { Router } from "next/router";
 
-interface InterviewClientProps{
-    interviews:SafeInterview[],
-    currentUser?:SafeUser|null,
+interface InterviewClientProps {
+    interviews: SafeInterview[],
+    currentUser?: SafeUser | null,
 }
 
-const InterviewClient:React.FC<InterviewClientProps>=({
+const InterviewClient: React.FC<InterviewClientProps> = ({
     interviews,
     currentUser
 }) => {
-    
+
     const router = useRouter();
-    const [deleteId,setDeleteId] = useState('');
+    const [deleteId, setDeleteId] = useState('');
 
-    const onCancel = useCallback((id:string) =>{
+    const onCancel = useCallback((id: string) => {
+
         setDeleteId(id);
+        console.log(`${process.env.DATABASE_URL}/api/interviews/${id}`)
+        axios.delete(`${process.env.DATABASE_URL}/api/v1/interviews/${id}`)
+            .then(() => {
+                toast.success("Interview cancelled");
+                router.refresh();
+            })
+            .catch((error) => {
+                if (!error?.response) {
+                    console.log("no error")
+                }
+                toast.error(error?.response?.data?.error)
+            })
+            .finally(() => {
+                setDeleteId('');
 
-        axios.delete(`api/interviews/${id}`)
-        .then(()=>{
-            toast.success("Interview cancelled");
-            router.refresh();
-        })
-        .catch((error)=>{
-            toast.error(error?.response?.data?.error)
-        })
-        .finally(()=>{
-            setDeleteId('');
-        })
-    },[router]);
+            })
+    }, [router]);
 
-    return(
-        <div  >
-            <Heading 
-            
-            title="Interviews"
-            subtitle="Which company that you have booked with"
+    return (
+        <div className=" w-full  flex-column h-[100vh] ">
+            <Heading
+                title="Interviews"
+                subtitle="Which company that you have booked with"
             />
-            <div
-                className="
-                mt-10
-                grid
-                grid-cols-1
-                sm:grid-cols-2 
-                md:grid-cols-3 
-                lg:grid-cols-4
-                xl:grid-cols-5
-                2xl:grid-cols-6
-                gap-8
-                "
-            >
-                {
-                    interviews.map((interview:SafeInterview)=>(
-                        <InterviewCard 
+
+            {
+                interviews.map((interview: SafeInterview) => (
+                    <div
+                    className="flex-row  flex bg-slate-100 rounded-md
+                    shadow-md hover:shadow-lg p-10 m-5 mx-0
+                     "
+                    >
+                        <InterviewCard
                             companyData={interview.company}
                             interviewData={interview}
-                         />
-                    ))
-                }
-            </div>
+                        />
+                        <div>
+                        <DeleteButton
+                            label={"Cancel Booking"}
+                            onAction={onCancel}
+                            actionId={interview.id}
+                            action="delete"
+                        />
+                        </div>
+                    </div>
+                ))
+            }
+
         </div>
+
     )
 }
 

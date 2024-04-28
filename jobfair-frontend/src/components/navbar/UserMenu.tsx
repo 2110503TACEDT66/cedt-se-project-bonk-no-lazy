@@ -125,7 +125,7 @@ const UserMenu: React.FC<UserMenuProps> = ({
                   onClick={() => router.push('/myprofile')}
                 />
                 <MenuItem 
-                  label="My favoruites" 
+                  label="My favourites" 
                   onClick={() => router.push('/favourites')}
                 />
                 <MenuItem 
