@@ -82,9 +82,11 @@ model JobPosition {
   id               String   @id @default(auto()) @map("_id") @db.ObjectId
   title            String
   description      String
-  requirements     String
-  responsibilities String
-  salary           Float
+  responsibilities String[]
+  salary           String
+  type             String
+  experience       String
+  skills           String[]
   companyId        String   @db.ObjectId
   createdAt        DateTime @default(now())
   updatedAt        DateTime @updatedAt

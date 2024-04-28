@@ -20,13 +20,6 @@ interface JobsProp {
 const JobsPage = async() => {
     const currentUser = await getCurrentUser();
 
-    if(!currentUser) {
-        <ClientOnly>
-            <EmptyState
-                title="Unautorized"
-                subtitle= "Please login"/>
-        </ClientOnly>
-    }
 }
 const Jobs = async ({ searchParams }: JobsProp) => {
   const companies = await getCompanies;

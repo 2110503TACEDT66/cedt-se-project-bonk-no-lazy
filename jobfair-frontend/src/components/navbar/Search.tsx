@@ -44,7 +44,7 @@ const Search = () => {
           </div>
           <div
             className="
-                        hidden
+                        
                         sm:block
                         text-m
                         font-bold

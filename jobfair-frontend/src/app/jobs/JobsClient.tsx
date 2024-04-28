@@ -1,6 +1,6 @@
 const JobsClient = () => {
     return (
-        <div>
+        <div className="w-full">
             test!
         </div>
     );
