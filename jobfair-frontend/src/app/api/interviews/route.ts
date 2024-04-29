@@ -17,11 +17,10 @@ export async function POST(
     const {
         companyId,
         interviewDate,
+        jobPositionId,
     } = body
 
-
     if(currentUser.role !== "ADMIN"){
-
         const allInterviewOfThisUser = await prisma.interview.findMany({
             where: {
                 userId: currentUser.id
@@ -47,6 +46,7 @@ export async function POST(
                 create: {
                     userId: currentUser.id,
                     interviewDate,
+                    jobPositionId,
                 }
             }
         }
