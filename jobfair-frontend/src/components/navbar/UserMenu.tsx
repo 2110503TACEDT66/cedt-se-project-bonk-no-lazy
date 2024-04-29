@@ -52,16 +52,17 @@ const UserMenu: React.FC<UserMenuProps> = ({
   useOnClickOutside(ref, (event) => {
     // Check if the click occurred outside of the modal and not on the toggle button
     if (!toggleButtonRef.current || !toggleButtonRef.current.contains(event.target as Node)) {
-        closeMenu();
+      closeMenu();
     }
   });
 
-  return ( 
+  return (
     <div className="relative">
-      <div className="flex flex-row items-center gap-2">
-        {currentUser?.role !== "USER" && ( <div 
-          onClick={onRent}
-          className="
+      <div className="flex flex-row items-center gap-2" >
+        <div className={currentUser && currentUser.role === "USER" ? "opacity-0" : ""}>
+          <div
+            onClick={currentUser?.role === "USER" ? () => { } : onRent}
+            className="
             hidden
             md:block
             text-sm 
@@ -73,12 +74,13 @@ const UserMenu: React.FC<UserMenuProps> = ({
             transition 
             cursor-pointer
           "
-        >
-          Add a company
-        </div>)}
-        <div 
-        onClick={toggleOpen}
-        className="
+          >
+            Add a company
+          </div>
+        </div>
+        <div
+          onClick={toggleOpen}
+          className="
           p-4
           md:py-1
           md:px-2
@@ -102,7 +104,7 @@ const UserMenu: React.FC<UserMenuProps> = ({
         </div>
       </div>
       {isOpen && (
-        <div 
+        <div
           className="
             absolute 
             rounded-xl 
@@ -120,38 +122,38 @@ const UserMenu: React.FC<UserMenuProps> = ({
           <div className="flex flex-col cursor-pointer">
             {currentUser ? (
               <>
-                <MenuItem 
-                  label="My profile" 
+                <MenuItem
+                  label="My profile"
                   onClick={() => router.push('/myprofile')}
                 />
-                <MenuItem 
-                  label="My favourites" 
+                <MenuItem
+                  label="My favourites"
                   onClick={() => router.push('/favourites')}
                 />
-                <MenuItem 
-                  label="Book an interview" 
+                <MenuItem
+                  label="Book an interview"
                   onClick={() => {
                     rentModal.onOpen()
                     toggleOpen()
                   }}
                 />
                 <hr />
-                <MenuItem 
-                  label="Sign out" 
+                <MenuItem
+                  label="Sign out"
                   onClick={() => signOut()}
                 />
               </>
             ) : (
               <>
-                <MenuItem 
-                  label="Login" 
+                <MenuItem
+                  label="Login"
                   onClick={() => {
                     loginModal.onOpen()
                     toggleOpen()
                   }}
                 />
-                <MenuItem 
-                  label="Sign up" 
+                <MenuItem
+                  label="Sign up"
                   onClick={() => {
                     registerModal.onOpen()
                     toggleOpen()
@@ -163,7 +165,7 @@ const UserMenu: React.FC<UserMenuProps> = ({
         </div>
       )}
     </div>
-   );
+  );
 }
- 
+
 export default UserMenu;
