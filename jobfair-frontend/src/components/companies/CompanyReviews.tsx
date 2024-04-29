@@ -411,6 +411,7 @@ const CompanyReviews: React.FC<CompanyReviewProps> = ({
                         gap: "8px",
                         WebkitBoxAlign: "1",
                         flexGrow: "1",
+                        maxWidth: "564px"
                     }}
                 >
                     <StyledRating

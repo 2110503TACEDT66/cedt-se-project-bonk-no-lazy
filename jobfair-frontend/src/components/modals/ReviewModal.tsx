@@ -66,7 +66,7 @@ const ReviewModal: React.FC<ReviewProps> = ({
         .then(() => {
             toast.success('Review Posted!')
             router.refresh()
-            setFormValue("rating", 0)
+            handleRatingChange(0)
             setFormValue("comment", "")
             reviewModal.onClose()
         })
