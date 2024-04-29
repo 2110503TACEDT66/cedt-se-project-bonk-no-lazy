@@ -82,14 +82,15 @@ const JobPositionCard: React.FC<JobPositionCardProps> = ({
                 rounded-full 
                 drop-shadow-md
                 hover:drop-shadow-xl
-                transition
+                transition 
+                duration-500 
                 cursor-pointer"
     >
-      <div className="flex flex-col gap-4 w-full bg-white shadow-md rounded-xl p-6">
+      <div className="flex flex-col gap-4 w-full bg-neutral shadow-md rounded-xl p-6">
         {/* Logo section */}
         <div className="aspect-square relative overflow-hidden rounded-xl w-16 ml-4">
           <Image
-            className="object-cover h-full w-full rounded-xl group-hover:scale-110 transition "
+            className="object-cover h-full w-full rounded-xl group-hover:scale-110 transition bg-white drop-shadow-md  "
             src={data.company.imageSrc}
             alt="Company Logo"
             layout="fill"
@@ -111,13 +112,13 @@ const JobPositionCard: React.FC<JobPositionCardProps> = ({
           <div className="h-px bg-gray-300 my-2 w-full"></div>
 
           <div className="grid grid-cols-2 gap-4 mt-4">
-            <div className="flex font-bold text-neutral-500 text-xs ml-5 gap-2">
+            <div className="flex font-semibold text-neutral-500 text-xs ml-5 gap-2">
               <IoBusiness /> {data.company.name}
             </div>
-            <div className="flex font-bold text-neutral-500 text-xs ml-2 gap-2">
+            <div className="flex font-semibold text-neutral-500 text-xs ml-2 gap-2">
               <MdBusinessCenter /> {data.type}
             </div>
-            <div className="flex font-bold text-neutral-500 text-xs ml-5 gap-2">
+            <div className="flex font-semibold text-neutral-500 text-xs ml-5 gap-2">
               <GiStairsGoal /> {data.experience}
             </div>
           </div>

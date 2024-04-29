@@ -59,8 +59,7 @@ const UserMenu: React.FC<UserMenuProps> = ({
   return (
     <div className="relative">
       <div className="flex flex-row items-center gap-2">
-        {currentUser?.role === "USER" ? (
-          <div 
+        {currentUser?.role !== "USER" && ( <div 
           onClick={onRent}
           className="
             hidden
@@ -75,27 +74,8 @@ const UserMenu: React.FC<UserMenuProps> = ({
             cursor-pointer
           "
         >
-          Are you a business owner?
-        </div>
-        ) : ( 
-          <div 
-            onClick={() => router.push(`/companies/${currentUser?.companyId}`)}
-            className="
-              hidden
-              md:block
-              text-sm 
-              font-semibold 
-              py-3 
-              px-4 
-              rounded-full 
-              hover:bg-neutral-100 
-              transition 
-              cursor-pointer
-            "
-          >
-            My company
-          </div>
-      )}
+          Add a company
+        </div>)}
         <div 
         onClick={toggleOpen}
         className="
@@ -140,24 +120,24 @@ const UserMenu: React.FC<UserMenuProps> = ({
           <div className="flex flex-col cursor-pointer">
             {currentUser ? (
               <>
-                <MenuItem
-                  label="My profile"
+                <MenuItem 
+                  label="My profile" 
                   onClick={() => router.push('/myprofile')}
                 />
-                <MenuItem
-                  label="My favourites"
+                <MenuItem 
+                  label="My favourites" 
                   onClick={() => router.push('/favourites')}
                 />
                 <MenuItem
                   label="Book an interview"
                   onClick={() => {
-                    rentModal.onOpen()
-                    toggleOpen()
+                    rentModal.onOpen();
+                    toggleOpen();
                   }}
                 />
                 <hr />
-                <MenuItem
-                  label="Sign out"
+                <MenuItem 
+                  label="Sign out" 
                   onClick={() => signOut()}
                 />
               </>
@@ -166,15 +146,15 @@ const UserMenu: React.FC<UserMenuProps> = ({
                 <MenuItem
                   label="Login"
                   onClick={() => {
-                    loginModal.onOpen()
-                    toggleOpen()
+                    loginModal.onOpen();
+                    toggleOpen();
                   }}
                 />
                 <MenuItem
                   label="Sign up"
                   onClick={() => {
-                    registerModal.onOpen()
-                    toggleOpen()
+                    registerModal.onOpen();
+                    toggleOpen();
                   }}
                 />
               </>

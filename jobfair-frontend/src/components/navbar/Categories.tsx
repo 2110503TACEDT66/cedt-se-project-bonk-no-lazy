@@ -124,7 +124,7 @@ export const companyCategories = [
 export const jobCategories = [
   
   {
-    label: "On-site",
+    label: "On-Site",
     icon: MdEmojiTransportation,
     description: "This property is brand new and luxurious!",
   },
