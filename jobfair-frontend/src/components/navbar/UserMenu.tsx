@@ -59,7 +59,7 @@ const UserMenu: React.FC<UserMenuProps> = ({
   return ( 
     <div className="relative">
       <div className="flex flex-row items-center gap-2">
-        <div 
+        {currentUser?.role !== "USER" && ( <div 
           onClick={onRent}
           className="
             hidden
@@ -75,7 +75,7 @@ const UserMenu: React.FC<UserMenuProps> = ({
           "
         >
           Add a company
-        </div>
+        </div>)}
         <div 
         onClick={toggleOpen}
         className="

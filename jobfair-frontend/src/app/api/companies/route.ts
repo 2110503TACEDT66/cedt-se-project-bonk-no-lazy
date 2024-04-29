@@ -9,7 +9,11 @@ export async function POST(
     const currentUser = await getCurrentUser()
 
     if (!currentUser) {
-        return NextResponse.error()
+        return NextResponse.error();
+    }
+
+    if(currentUser.role === "USER"){
+        return NextResponse.json({error:401,message:"Unauthorized to this route"});
     }
 
     const body = await request.json()
