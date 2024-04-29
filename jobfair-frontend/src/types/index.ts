@@ -1,4 +1,4 @@
-import { User, Interview, Company, JobPosition } from "@prisma/client";
+import { User, Interview, Company, JobPosition, Review } from "@prisma/client";
 
 export type SafeUser = Omit<
   User,
@@ -33,4 +33,14 @@ export type SafeJobPosition = Omit<
 > & {
   createdAt:string,
   updatedAt:string
+}
+
+export type SafeReview = Omit<
+  Review,
+  "createdAt" | "updatedAt" | "company" | "user"
+> & {
+  createdAt:string,
+  updatedAt:string,
+  company:SafeCompany,
+  user:SafeUser,
 }

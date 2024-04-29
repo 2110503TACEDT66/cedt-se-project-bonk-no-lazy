@@ -4,13 +4,15 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 import { categories } from "@/components/navbar/Categories";
 import { Container } from "@mui/system";
 import CompanyHead from "@/components/companies/CompanyHead";
-import { SafeCompany, SafeInterview, SafeUser } from "@/types";
+import { SafeCompany, SafeInterview, SafeReview, SafeUser } from "@/types";
 import CompanyInfo from "@/components/companies/CompanyInfo";
 import useLoginModal from "@/hooks/useLoginModal";
 import { useRouter } from "next/navigation";
 import axios from "axios";
 import toast from "react-hot-toast";
 import CompanyInterview from "@/components/companies/CompanyInterview";
+import CompanyReviews from "@/components/companies/CompanyReviews";
+import ReviewModal from "@/components/modals/ReviewModal";
 
 const initialDate = {
   interviewDate: new Date(),
@@ -22,13 +24,16 @@ interface CompanyClientProps {
   company: SafeCompany & {
     user: SafeUser;
   };
+  reviews: SafeReview[]
   currentUser?: SafeUser | null;
 }
 const CompanyClient: React.FC<CompanyClientProps> = ({ 
     company,
     interviews = [],
+    reviews = [],
     currentUser, 
 }) => {
+  console.log(currentUser)
   const loginModal = useLoginModal()
   const router = useRouter()
 
@@ -96,12 +101,17 @@ const CompanyClient: React.FC<CompanyClientProps> = ({
                 tel={company.tel}
                 locationValue={company.locationValue}
             />
+            <CompanyReviews
+              company={company} 
+              reviews={reviews}
+              currentUser={currentUser}
+            />
             <div
               className="
                 order-first
                 mb-10
                 md:order-last
-                md:col-span-3
+                md:col-span-7
               "
             >
               <CompanyInterview 
@@ -115,6 +125,9 @@ const CompanyClient: React.FC<CompanyClientProps> = ({
           </div>
         </div>
       </div>
+      <ReviewModal 
+        currentCompany={company}
+      />
     </Container>
   );
 };

@@ -108,8 +108,8 @@ model Interview {
 
 model Review {
   id        String   @id @default(auto()) @map("_id") @db.ObjectId
-  rating    Float?
-  comment   String?
+  rating    Float
+  comment   String
   userId    String   @db.ObjectId
   companyId String   @db.ObjectId
   createdAt DateTime @default(now())
