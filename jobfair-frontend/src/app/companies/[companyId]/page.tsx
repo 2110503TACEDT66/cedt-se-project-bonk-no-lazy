@@ -6,7 +6,7 @@ import CompanyClient from "./CompanyClient"
 import getInterviews from "@/app/actions/getInterviews"
 import getReviews from "@/app/actions/getReviews"
 
-interface IParams {
+export interface IParams {
     companyId?: string
 }
 
@@ -32,6 +32,7 @@ const CompanyPage = async ({
                 interviews={interviews}
                 reviews={reviews}
                 currentUser={currentUser}
+                params={params}
             />
         </ClientOnly>
     )

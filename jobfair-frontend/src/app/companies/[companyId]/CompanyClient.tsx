@@ -13,6 +13,11 @@ import toast from "react-hot-toast";
 import CompanyInterview from "@/components/companies/CompanyInterview";
 import CompanyReviews from "@/components/companies/CompanyReviews";
 import ReviewModal from "@/components/modals/ReviewModal";
+import getCompanyById from "@/app/actions/getCompanyById";
+import getInterviews from "@/app/actions/getInterviews";
+import getReviews from "@/app/actions/getReviews";
+import getCurrentUser from "@/app/actions/getCurrentUser";
+import { IParams } from "./page";
 
 const initialDate = {
   interviewDate: new Date(),
@@ -26,13 +31,21 @@ interface CompanyClientProps {
   };
   reviews: SafeReview[]
   currentUser?: SafeUser | null;
+  params: IParams
 }
-const CompanyClient: React.FC<CompanyClientProps> = ({ 
+const CompanyClient: React.FC<CompanyClientProps> = async ({ 
     company,
     interviews = [],
     reviews = [],
-    currentUser, 
+    currentUser,
+    params, 
 }) => {
+  if(!company || !interviews || !reviews || !currentUser) {
+    company = await getCompanyById(params) || company
+    interviews = await getInterviews(params)
+    reviews = await getReviews(params)
+    currentUser = await getCurrentUser()
+  }
   console.log(currentUser)
   const loginModal = useLoginModal()
   const router = useRouter()
