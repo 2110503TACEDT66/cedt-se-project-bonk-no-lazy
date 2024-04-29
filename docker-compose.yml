@@ -1,0 +1,11 @@
+version: '2'
+services:
+  jobfair:
+    restart: always
+    build: ./jobfair-frontend
+    image: jobfair
+    container_name: jobfair
+    expose:
+    - "3000"
+    ports:
+     - "3000:3000"
