@@ -5,6 +5,10 @@ import { useRouter } from "next/navigation";
 import { useCallback, useMemo } from "react";
 import { format } from "date-fns";
 import { MdLocationPin } from "react-icons/md";
+import { GiStairsGoal } from "react-icons/gi";
+import { MdBusinessCenter } from "react-icons/md";
+import { IoBusiness } from "react-icons/io5";
+import { FaStairs } from "react-icons/fa6";
 
 import { SafeCompany, SafeInterview, SafeJobPosition, SafeUser } from "@/types";
 
@@ -13,7 +17,7 @@ import useCountries from "@/hooks/useCountries";
 import HeartButton from "../HeartButton";
 
 interface JobPositionCardProps {
-  data: SafeCompany;
+  data: SafeJobPosition;
   interview?: SafeInterview;
   onAction?: (id: string) => void;
   disabled?: boolean;
@@ -33,11 +37,9 @@ const JobPositionCard: React.FC<JobPositionCardProps> = ({
   currentUser,
   jobPositions,
 }) => {
-  console.log(jobPositions)
+  console.log(jobPositions);
   const router = useRouter();
   const { getByValue } = useCountries();
-
-  const location = getByValue(data.locationValue)
 
   const handleCancel = useCallback(
     (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -66,90 +68,64 @@ const JobPositionCard: React.FC<JobPositionCardProps> = ({
     if (!jobPositions) {
       return 0;
     }
-    
-    return jobPositions.filter((jobPosition) => jobPosition.companyId === data.id).length;
-  }, [jobPositions, data.id]);
 
+    return jobPositions.filter(
+      (jobPosition) => jobPosition.companyId === data.id
+    ).length;
+  }, [jobPositions, data.id]);
 
   return (
     <div
-      onClick={() => router.push(`/companies/${data.id}`)}
-      className="col-span-1 cursor-pointer group"
+      onClick={() => router.push(`/jobs/${data.id}`)}
+      className="col-span-2 
+                cursor-pointer   
+                rounded-full 
+                drop-shadow-md
+                hover:drop-shadow-xl
+                transition
+                cursor-pointer"
     >
-      <div className="flex flex-col gap-2 w-full">
-        <div
-          className="
-            aspect-square 
-            w-full 
-            relative 
-            overflow-hidden 
-            rounded-xl
-          "
-        >
+      <div className="flex flex-col gap-4 w-full bg-white shadow-md rounded-xl p-6">
+        {/* Logo section */}
+        <div className="aspect-square relative overflow-hidden rounded-xl w-16 ml-4">
           <Image
-            className="
-              object-cover 
-              h-full 
-              w-full 
-              group-hover:scale-110 
-              transition
-            "
-            src={data.imageSrc}
-            alt="Company"
-            fill
-            objectFit="contain" // นี้เป็นส่วนที่เพิ่มเข้ามา
+            className="object-cover h-full w-full rounded-xl group-hover:scale-110 transition "
+            src={data.company.imageSrc}
+            alt="Company Logo"
+            layout="fill"
+            objectFit="contain"
           />
-          <div className="absolute top-3 right-3">
-            <HeartButton 
-              companyId={data.id} 
-              currentUser={currentUser} 
-            />
-          </div>
         </div>
+
+        {/* Job details section */}
         <div className="">
-          <div className="font-bold text-lg py-1">
-            {data.name}
+          {/* Job title */}
+          <div className="font-bold text-2xl text-gray-800  ml-4 cursor-pointer hover:underline">
+            {data.title}
           </div>
-          <div className="flex items-center ">
-            <div className="font-light text-neutral-500 text-xs">
-              {interviewDate || data.category}
-            </div>
-            <div className="font-light text-neutral-500 text-m ml-4">
-              <MdLocationPin />
-            </div>
-            <div className="font-light text-neutral-500 text-xs ">
-              {data.address}, {location?.region}, {location?.label}
-            </div>
+          <div className="font-light text-sm text-gray-500 ml-5">
+            Posted date: {format(Date.parse(data.createdAt), "MMM do yyyy")}
           </div>
-          <div className="flex items-center">
-            <div className="font-bold text-blue-400 text-m">
-              {jobPositionCount} Job{" "}
-              {jobPositionCount === 1 ? "Position" : "Positions"} Available :
+          {/* Company name and job type */}
+          <div className=""></div>
+          <div className="h-px bg-gray-300 my-2 w-full"></div>
+
+          <div className="grid grid-cols-2 gap-4 mt-4">
+            <div className="flex font-bold text-neutral-500 text-xs ml-5 gap-2">
+              <IoBusiness /> {data.company.name}
             </div>
-          </div>
-          <div className="flex items-center">
-            <div className="font-light text-neutral-500 text-xs">
-              {jobPositions
-                ?.filter(
-                  (jobPosition: SafeJobPosition) =>
-                    jobPosition.companyId === data.id
-                )
-                .map((jobPosition: SafeJobPosition) => jobPosition.title)
-                .join(", ")}
+            <div className="flex font-bold text-neutral-500 text-xs ml-2 gap-2">
+              <MdBusinessCenter /> {data.type}
+            </div>
+            <div className="flex font-bold text-neutral-500 text-xs ml-5 gap-2">
+              <GiStairsGoal /> {data.experience}
             </div>
           </div>
-          {onAction && actionLabel && (
-            <Button
-              disabled={disabled}
-              small
-              label={actionLabel}
-              onClick={handleCancel}
-            />
-          )}
+
+          {/* Experience */}
         </div>
       </div>
     </div>
   );
-}
-
+};
 export default JobPositionCard;

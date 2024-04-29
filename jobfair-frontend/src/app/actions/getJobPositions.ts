@@ -18,6 +18,9 @@ export default async function getJobPositions(params?: JobPositionParams) {
 
     const JobPositions = await prisma.jobPosition.findMany({
       where: query,
+      include: {
+        company: true
+      },
       orderBy: {
         createdAt: 'desc'
       }
@@ -27,7 +30,12 @@ export default async function getJobPositions(params?: JobPositionParams) {
       ...jobPosition,
       createdAt: jobPosition.createdAt.toISOString(),
       updatedAt: jobPosition.createdAt.toISOString(),
-    }))
+      company: {
+        ...jobPosition.company,
+        createdAt: jobPosition.company.createdAt.toISOString(),
+        updatedAt: jobPosition.company.createdAt.toISOString(),
+      },
+    }));
 
     return safeJobPositions
   } catch (error: any) {
