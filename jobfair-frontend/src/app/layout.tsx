@@ -8,7 +8,6 @@ import LoginModal from '@/components/modals/LoginModal'
 import RentModal from '@/components/modals/RentModal'
 import ToasterProvider from '../providers/ToasterProvider'
 import getCurrentUser from './actions/getCurrentUser'
-import UpdateModal from '@/components/modals/UpdateModal'
 import getInterviews from './actions/getInterviews'
 
 export const metadata: Metadata = { 
@@ -32,7 +31,7 @@ export default async function RootLayout({
       <body className={font.className}>
         <ClientOnly>
           <ToasterProvider/>
-          <RentModal/>
+          <RentModal currentUser={currentUser}/>
           <LoginModal/>
           <RegisterModal/>
           <Navbar currentUser={currentUser}/> 

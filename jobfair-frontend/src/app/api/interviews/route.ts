@@ -17,18 +17,17 @@ export async function POST(
     const {
         companyId,
         interviewDate,
+        jobPositionId,
     } = body
 
-
     if(currentUser.role !== "ADMIN"){
-
         const allInterviewOfThisUser = await prisma.interview.findMany({
             where: {
                 userId: currentUser.id
             }
         });
         if (allInterviewOfThisUser.length >= 3) {
-            return NextResponse.json({error:"You cant book more than 3 interviews."},{status:403});
+            return NextResponse.json({error:"You are only allowed to schedule a maximum of three interviews."},{status:403});
         }
     }
     
@@ -47,6 +46,7 @@ export async function POST(
                 create: {
                     userId: currentUser.id,
                     interviewDate,
+                    jobPositionId,
                 }
             }
         }

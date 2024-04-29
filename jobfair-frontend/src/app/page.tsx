@@ -5,7 +5,7 @@ import EmptyState from "@/components/EmptyState";
 import getCompanies, { CompaniesParams } from "@/app/actions/getCompanies";
 import getCurrentUser from "@/app/actions/getCurrentUser";
 import ClientOnly from "@/components/ClientOnly";
-import getJobPositions from "./actions/getJobPositions";
+import getJobPositions, { JobPositionParams } from "./actions/getJobPositions";
 
 interface HomeProps {
   searchParams: CompaniesParams;
@@ -43,14 +43,14 @@ const Home = async ({ searchParams }: HomeProps) => {
           "
         >
           {companies.map((company) => {
-            return ( 
-              <CompanyCard 
+            return (
+              <CompanyCard
                 currentUser={currentUser}
-                key = {company.id}
-                data = {company}
+                key={company.id}
+                data={company}
                 jobPositions={jobPositions}
               />
-            )
+            );
           })}
         </div>
       </Container>

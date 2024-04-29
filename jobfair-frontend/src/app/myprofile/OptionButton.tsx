@@ -24,10 +24,10 @@ const OptionButton: React.FC<DeleteButtonProps> = ({
   const handleCancel = useCallback(
     (e: React.MouseEvent<HTMLButtonElement>) => {
       e.stopPropagation();
-      if (action == "delete") {
+      if (action === "delete") {
         onAction?.(actionId)
       }
-      if (action == "update") {
+      if (action === "update") {
         onOpen?.();
         onUpdate?.(interview);
       }

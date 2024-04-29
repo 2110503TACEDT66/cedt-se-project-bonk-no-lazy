@@ -11,7 +11,7 @@ const ProfileCard: React.FC<ProfileCardProps> = ({
   return (
     <div
       className="profile-card my-10 group  hover:ring-blue-400 hover:ring-2 
-      hover:ring-inset  hover:shadow-lg   mx-10 w-[275px] 
+      hover:ring-inset shadow-sky-100  hover:shadow-lg hover:shadow-sky-200   mx-10 w-[275px] 
       rounded-md shadow-xl overflow-hidden  relative cursor-pointer 
       snap-start shrink-0 bg-white flex flex-col items-center 
       justify-center gap-3 transition-transform ease-in duration-400 "
@@ -20,10 +20,10 @@ const ProfileCard: React.FC<ProfileCardProps> = ({
       <div
         className="avatar w-full pt-5 flex items-center justify-center flex-col gap-1"
       >
-        <div className="w-full group-hover:-translate-y-20 -translate-y-17 transition ease-in duration-300  h-[65px] bg-blue-500 group-hover:bg-blue-400 absolute top-0">
+        <div className="w-full group-hover:-translate-y-20 -translate-y-17 transition ease-in duration-300  h-[65px] bg-blue-500 group-hover:bg-blue-400 absolute top-0"/>
+        <Avatar src={currentUser.image || '/img/placeholder.jpg'} sx={{ width: 140, height: 150 }} />
+        
 
-        </div>
-        <Avatar src={currentUser.image || '/img/placeholder.jpg'} sx={{ width: 100, height: 100 }} />
       </div>
       <div className=" headings *:text-center *:leading-4">
         <p className="text-xl font-serif font-semibold text-[#434955]">{currentUser.name || "N/A"}</p>

@@ -48,7 +48,6 @@ const InterviewClient: React.FC<InterviewClientProps> = ({
 
     return (
         <div className=" w-full ">
-            <UpdateModal currentUser={currentUser}  interview={currentInterview}/>
             <Heading
                 title="Interviews"
                 subtitle="Which company that you have booked with"
@@ -89,7 +88,7 @@ const InterviewClient: React.FC<InterviewClientProps> = ({
                     ))
                 }
             </div>
-
+            <UpdateModal currentUser={currentUser}  interview={currentInterview}/>
         </div>
 
     )

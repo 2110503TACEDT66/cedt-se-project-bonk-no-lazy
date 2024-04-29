@@ -1,7 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useMemo, useState } from "react";
-import { categories } from "@/components/navbar/Categories";
+import { companyCategories } from "@/components/navbar/Categories";
 import { Container } from "@mui/system";
 import CompanyHead from "@/components/companies/CompanyHead";
 import { SafeCompany, SafeInterview, SafeReview, SafeUser } from "@/types";
@@ -16,48 +16,53 @@ import ReviewModal from "@/components/modals/ReviewModal";
 
 const initialDate = {
   interviewDate: new Date(),
-  key: 'selection'
-}
+  key: "selection",
+};
 
 interface CompanyClientProps {
   interviews?: SafeInterview[];
   company: SafeCompany & {
     user: SafeUser;
   };
-  reviews: SafeReview[]
+  reviews: SafeReview[];
   currentUser?: SafeUser | null;
 }
-const CompanyClient: React.FC<CompanyClientProps> = ({ 
-    company,
-    interviews = [],
-    reviews = [],
-    currentUser, 
+const CompanyClient: React.FC<CompanyClientProps> = ({
+  company,
+  interviews = [],
+  reviews = [],
+  currentUser,
 }) => {
-  console.log(currentUser)
-  const loginModal = useLoginModal()
-  const router = useRouter()
+  console.log(currentUser);
+  const loginModal = useLoginModal();
+  const router = useRouter();
 
   const disabledDates = useMemo(() => {
-    return interviews.map((interview) => new Date(Date.parse(interview.interviewDate)));
-  }, [interviews])
+    return interviews.map(
+      (interview) => new Date(Date.parse(interview.interviewDate))
+    );
+  }, [interviews]);
 
-  const [isLoading, setIsLoading] = useState(false)
-  const [interviewDate, setInterviewDate] = useState<Date>(initialDate.interviewDate)
+  const [isLoading, setIsLoading] = useState(false);
+  const [interviewDate, setInterviewDate] = useState<Date>(
+    initialDate.interviewDate
+  );
 
   const onCreateInterview = useCallback(() => {
     if (!currentUser) {
-      return loginModal.onOpen()
+      return loginModal.onOpen();
     }
 
-    setIsLoading(true)
+    setIsLoading(true);
 
-    axios.post('/api/interviews', {
-      interviewDate: interviewDate,
-      companyId: company?.id,
-    })
-    .then(() => {
-      toast.success('Interview booked!')
-      setInterviewDate(initialDate.interviewDate)
+    axios
+      .post("/api/interviews", {
+        interviewDate: interviewDate,
+        companyId: company?.id,
+      })
+      .then(() => {
+        toast.success("Interview booked!");
+        setInterviewDate(initialDate.interviewDate);
 
       router.refresh()
     })
@@ -71,9 +76,8 @@ const CompanyClient: React.FC<CompanyClientProps> = ({
   }, [interviewDate, company?.id, router, currentUser, loginModal])
 
   const category = useMemo(() => {
-      return categories.find((item) =>
-      item.label === company.category)
-  }, [company.category])
+    return companyCategories.find((item) => item.label === company.category);
+  }, [company.category]);
 
   return (
     <Container>
@@ -87,23 +91,25 @@ const CompanyClient: React.FC<CompanyClientProps> = ({
             id={company.id}
             currentUser={currentUser}
           />
-          <div className="
+          <div
+            className="
             grid
             grid-cols-1
             md:grid-cols-7
             md:gap-10
             mt-6
-          ">
-            <CompanyInfo 
-                user={company.user}
-                category={category}
-                description={company.description}
-                website={company.website}
-                tel={company.tel}
-                locationValue={company.locationValue}
+          "
+          >
+            <CompanyInfo
+              user={company.user}
+              category={category}
+              description={company.description}
+              website={company.website}
+              tel={company.tel}
+              locationValue={company.locationValue}
             />
             <CompanyReviews
-              company={company} 
+              company={company}
               reviews={reviews}
               currentUser={currentUser}
             />
@@ -115,7 +121,7 @@ const CompanyClient: React.FC<CompanyClientProps> = ({
                 md:col-span-7
               "
             >
-              <CompanyInterview 
+              <CompanyInterview
                 onChangeDate={(value) => setInterviewDate(value)}
                 interviewDate={interviewDate}
                 onSubmit={onCreateInterview}
@@ -126,9 +132,7 @@ const CompanyClient: React.FC<CompanyClientProps> = ({
           </div>
         </div>
       </div>
-      <ReviewModal 
-        currentCompany={company}
-      />
+      <ReviewModal currentCompany={company} />
     </Container>
   );
 };
