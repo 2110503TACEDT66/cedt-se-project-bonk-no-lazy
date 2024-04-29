@@ -115,13 +115,13 @@ const CompanyClient: React.FC<CompanyClientProps> = ({
                 md:col-span-7
               "
             >
-              <CompanyInterview 
+              {/* <CompanyInterview 
                 onChangeDate={(value) => setInterviewDate(value)}
                 interviewDate={interviewDate}
                 onSubmit={onCreateInterview}
                 disabled={isLoading}
                 disabledDates={disabledDates}
-              />
+              /> */}
             </div>
           </div>
         </div>
