@@ -64,11 +64,11 @@ const CompanyReviews: React.FC<CompanyReviewProps> = ({
   }, [currentUser, reviewModal])
 
   const ratings = [
-    { label: '5 Star' },
-    { label: '4 Star' },
-    { label: '3 Star' },
-    { label: '2 Star' },
-    { label: '1 Star' },
+    { label: '5★' },
+    { label: '4★' },
+    { label: '3★' },
+    { label: '2★' },
+    { label: '1★' },
   ];
 
   useEffect(() => {
@@ -79,7 +79,7 @@ const CompanyReviews: React.FC<CompanyReviewProps> = ({
             total += review.rating;
             newStarRatings[Math.abs(review.rating - 5)]++
         });
-        setTotalRating(Math.round(((total/reviews.length) + Number.EPSILON) * 10) / 10);
+        setTotalRating((total/reviews.length) + Number.EPSILON);
         setStarRatings(newStarRatings)
     }
   }, [reviews]);
@@ -139,7 +139,12 @@ const CompanyReviews: React.FC<CompanyReviewProps> = ({
                         boxSizing: "border-box"
                     }}
                 >
-                    {reviews.length === 0 ? "No Reviews" : `${totalRating}/5`}
+                    {reviews.length === 0 ? "No Reviews" : <div>{totalRating.toFixed(1)}<span style={{margin: "0px",
+                        lineHeight: "1.5",
+                        fontSize: "0.75rem",
+                        fontFamily: "sans-serif",
+                        fontWeight: "400",
+                        color: "rgb(99, 115, 129)"}}>/5.0</span></div>}
                 </div>
                 <StyledRating
                     value={totalRating}
@@ -160,7 +165,7 @@ const CompanyReviews: React.FC<CompanyReviewProps> = ({
                         color: "rgb(99, 115, 129)"
                     }}
                 >
-                    ({reviews.length} {reviews.length === 1 ? "review" : "reviews"})
+                    {reviews.length} {reviews.length === 1 ? "review" : "reviews"}
                 </div>
             </Stack>
             <Stack
