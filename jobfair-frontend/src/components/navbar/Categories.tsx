@@ -43,7 +43,7 @@ import CategoryBox from "../CategoryBox";
 import Container from "../Container";
 import { TiShoppingCart } from "react-icons/ti";
 
-export const categories = [
+export const companyCategories = [
   {
     label: "Technology",
     icon: RiAdminFill,
@@ -121,12 +121,32 @@ export const categories = [
   },
 ];
 
+export const jobCategories = [
+  
+  {
+    label: "On-site",
+    icon: MdEmojiTransportation,
+    description: "This property is brand new and luxurious!",
+  },
+  {
+    label: "Online",
+    icon: GiBarn,
+    description: "This property is in a barn!",
+  },
+  {
+    label: "Hybrid",
+    icon: IoDiamond,
+    description: "This property is brand new and luxurious!",
+  },
+];
+
+
 
 const Categories = () => {
   const params = useSearchParams();
   const category = params?.get("category");
   const pathname = usePathname();
-  const isMainPage = pathname === "/";
+  const isMainPage = pathname === "/" || pathname ==="/jobs" ;
 
   if (!isMainPage) {
     return null;
@@ -144,14 +164,25 @@ const Categories = () => {
           overflow-x-auto
         "
       >
-        {categories.map((item) => (
-          <CategoryBox
-            key={item.label}
-            label={item.label}
-            icon={item.icon}
-            selected={category === item.label}
-          />
-        ))}
+        {pathname === "/jobs"
+          ? jobCategories.map((item) => (
+              <CategoryBox
+                pathname={pathname}
+                key={item.label}
+                label={item.label}
+                icon={item.icon}
+                selected={category === item.label}
+              />
+            ))
+          : companyCategories.map((item) => (
+              <CategoryBox
+                pathname={pathname}
+                key={item.label}
+                label={item.label}
+                icon={item.icon}
+                selected={category === item.label}
+              />
+            ))}
       </div>
     </Container>
   );

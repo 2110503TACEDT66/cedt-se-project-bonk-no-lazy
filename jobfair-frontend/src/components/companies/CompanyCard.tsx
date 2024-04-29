@@ -6,12 +6,9 @@ import { useCallback, useMemo } from "react";
 import { format } from "date-fns";
 import { MdLocationPin } from "react-icons/md";
 
-// import useCountries from "@/app/hooks/useCountries";
 import { SafeCompany, SafeInterview, SafeJobPosition, SafeUser } from "@/types";
 
-// import HeartButton from "../HeartButton";
 import Button from "../Button";
-import ClientOnly from "../ClientOnly";
 import useCountries from "@/hooks/useCountries";
 import HeartButton from "../HeartButton";
 

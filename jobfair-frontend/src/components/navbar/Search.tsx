@@ -55,7 +55,7 @@ const Search = () => {
                         hover:text-blue-500 cursor-pointer
                     "
           >
-            <MenuItem label="Jobs" onClick={() => router.push("/")} />
+            <MenuItem label="Jobs" onClick={() => router.push("/jobs")} />
           </div>
           <div
             className="
