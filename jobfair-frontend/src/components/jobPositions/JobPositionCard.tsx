@@ -12,7 +12,7 @@ import Button from "../Button";
 import useCountries from "@/hooks/useCountries";
 import HeartButton from "../HeartButton";
 
-interface CompanyCardProps {
+interface JobPositionCardProps {
   data: SafeCompany;
   interview?: SafeInterview;
   onAction?: (id: string) => void;
@@ -23,7 +23,7 @@ interface CompanyCardProps {
   jobPositions?: SafeJobPosition[] | null;
 }
 
-const CompanyCard: React.FC<CompanyCardProps> = ({
+const JobPositionCard: React.FC<JobPositionCardProps> = ({
   data,
   interview,
   onAction,
@@ -152,4 +152,4 @@ const CompanyCard: React.FC<CompanyCardProps> = ({
   );
 }
 
-export default CompanyCard;
+export default JobPositionCard;

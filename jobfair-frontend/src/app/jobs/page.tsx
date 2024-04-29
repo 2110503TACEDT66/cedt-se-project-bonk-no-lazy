@@ -8,15 +8,13 @@ import getCompanies, { CompaniesParams } from "@/app/actions/getCompanies";
 
 
 import Container from "../../components/Container";
-import JobPositionCard from "@/components/jobpositions/JobpositonCard";
+import JobPositionCard from "@/components/jobPositions/JobPositionCard";
 
 
 interface JobsProp {
   searchParams1: JobPositionParams;
   searchParams: CompaniesParams;
 }
-
-
 
 const JobsPage = async ({ searchParams, searchParams1 }: JobsProp) => {
   const companies = await getCompanies(searchParams);
