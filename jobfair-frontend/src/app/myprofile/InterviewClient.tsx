@@ -10,8 +10,9 @@ import { useCallback, useState } from "react";
 import toast from "react-hot-toast";
 import InterviewCard from "@/components/interviews/InterviewCard";
 import OptionButton from "./OptionButton";
-import { Router } from "next/router";
+import  Router  from "next/navigation";
 import useUpdateModal from "@/hooks/useUpdateModal";
+import UpdateModal from "@/components/modals/UpdateModal";
 
 interface InterviewClientProps {
     interviews: SafeInterview[],
@@ -27,6 +28,7 @@ const InterviewClient: React.FC<InterviewClientProps> = ({
 
     const updateModal = useUpdateModal();
 
+
     const onCancel = useCallback((id: string) => {
         axios.delete(`/api/interviews/${id}`)
             .then(() => {
@@ -41,43 +43,52 @@ const InterviewClient: React.FC<InterviewClientProps> = ({
             })
     }, [router]);
 
+    const [currentInterview,setCurrentInterview] = useState<SafeInterview>(interviews[0]);
+
+
     return (
         <div className=" w-full ">
+            <UpdateModal currentUser={currentUser}  interview={currentInterview}/>
             <Heading
                 title="Interviews"
                 subtitle="Which company that you have booked with"
             />
-
-            <Container maxWidth="md">
+            <div className="md px-0 ">
                 {
                     interviews.map((interview: SafeInterview) => (
                         <div
-                        className="flex-row  flex bg-slate-100 rounded-md
-                        shadow-md hover:shadow-lg py-5 px-0 my-5 mx-0
+                        className="flex-row  flex bg-white rounded-md
+                        shadow-sm shadow-sky-100 hover:shadow-lg hover:shadow-blue-100 py-5 px-5 my-5
+                        w-full lg:w-4/5 transiton-transform hover:-translate-y-1 duration-100
+                        hover:ring-1 hover:ring-blue-100
                          "
-                        >
+                         key={interview.id}
+                        >   
                             <InterviewCard
                                 companyData={interview.company}
                                 interviewData={interview}
                             />
-                            <div className="flex flex-col justify-between">
+                            <div className="flex flex-col justify-between w-1/5">
                             <OptionButton
                                 label={"Update Booking"}
-                                onAction={()=>{}}  // updateModal.onOpen
                                 actionId={"0"}
+                                interview={interview}
                                 action="update"
+                                onOpen={updateModal.onOpen}
+                                onUpdate={(interview)=>setCurrentInterview(interview)}
                             />
                             <OptionButton
                                 label={"Cancel Booking"}
                                 onAction={onCancel}
                                 actionId={interview.id}
                                 action="delete"
+                                interview={interview}
                             />
                             </div>
                         </div>
                     ))
                 }
-            </Container>
+            </div>
 
         </div>
 

@@ -32,7 +32,6 @@ export default async function RootLayout({
       <body className={font.className}>
         <ClientOnly>
           <ToasterProvider/>
-          {/* <UpdateModal currentUser={currentUser} interviewData={interview}/> */}
           <RentModal/>
           <LoginModal/>
           <RegisterModal/>

@@ -6,6 +6,7 @@ import InterviewClient from "./InterviewClient"
 import ProfileCard from "@/components/ProfileCard";
 import { Suspense } from "react";
 import { LinearProgress } from "@mui/material";
+import UpdateModal from "@/components/modals/UpdateModal";
 
 export default async function MyProfilePage() {
 
@@ -45,7 +46,7 @@ export default async function MyProfilePage() {
   return (
     <Suspense fallback={<p>Loading...<LinearProgress /></p>}>
       <ClientOnly>
-        <main className="flex flex-col lg:flex-row  justify-center items-center">
+        <main className="overflow-hidden flex flex-col lg:flex-row  justify-center items-center">
           <div className=" sm:ml-0 w-full lg:w-1/3 lg:mx-auto max-[1024px]:flex  items-center flex justify-center">
             <ProfileCard currentUser={currentUser} />
           </div>

@@ -26,22 +26,23 @@ const InterviewCard:React.FC<InterviewProps> = ({
     
     return (
         <div className="
-        flex w-full 
+        flex w-full items-center gap-20 text-center 
         ">
-            <div className="w-[5em] h-[5em] relative mx-2 ">
+            <div className="w-[9em] h-[9em] relative mx-2 
+           ">
                 <Image  src={companyData.imageSrc} className="
-                object-cover w-full h-full rounded-lg
+                object-cover w-full h-full rounded-lg 
                 " 
                 layout="fill"
                 alt="company photo"
                 />
             </div>
             <div>
-            <p> {companyData.name} </p>
+            <p className="font-bold text-2xl py-1" > {companyData.name} </p>
             
-            <p> { "Booked Interview Date : " +   new Date(interviewData.interviewDate).toDateString()} </p>
+            <p className="text-sm text-slate-600 "> { "Booked Interview Date : " +   new Date(interviewData.interviewDate).toDateString()} </p>
             
-            <p> { "About us : " + companyData.description} </p>
+            {/* <p> { "About us : " + companyData.description} </p> */}
             </div>
         </div>
     )
