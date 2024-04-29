@@ -33,7 +33,7 @@ const CompanyHead: React.FC<CompanyHeadProps> = ({
     <>
       <Heading
         title={name}
-        subtitle={`${location?.region}, ${location?.label}, ${address}`}
+        subtitle={`${address}, ${location?.region}, ${location?.label}`}
       />
       <div className="
           w-full

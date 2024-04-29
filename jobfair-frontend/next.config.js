@@ -38,7 +38,6 @@ module.exports = nextConfig;
 module.exports = {
     ...nextConfig,
   env: {
-    BACKEND_URL: process.env.BACKEND_URL,
     DATABASE_URL: process.env.DATABASE_URL,
     GITHUB_ID: process.env.GITHUB_ID,
     GITHUB_SECRET: process.env.GITHUB_SECRET,
