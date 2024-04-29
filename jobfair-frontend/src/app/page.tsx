@@ -9,7 +9,6 @@ import getJobPositions, { JobPositionParams } from "./actions/getJobPositions";
 
 interface HomeProps {
   searchParams: CompaniesParams;
-  searchParams1: JobPositionParams;
 }
 
 const Home = async ({ searchParams }: HomeProps) => {
