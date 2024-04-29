@@ -207,7 +207,7 @@ const CompanyReviews: React.FC<CompanyReviewProps> = ({
                         </div>
                         <StyledLinearProgress 
                             variant="determinate"
-                            value={(starRatings[index] / reviews.length) * 100}
+                            value={reviews.length === 0 ? 0 : (starRatings[index] / reviews.length) * 100}
                             color="primary"
                             role="progressbar"
                             aria-valuemin={0}
