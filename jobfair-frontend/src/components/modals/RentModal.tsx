@@ -15,17 +15,22 @@ import Input from "../inputs/Input";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
+import { SafeUser } from "@/types";
+
+interface RentModalProps {
+  currentUser?: SafeUser | null;
+}
 
 enum STEPS {
   CATEGORY = 0,
   LOCATION = 1,
-  INFO = 2,
-  IMAGE = 3,
-  DESCRIPTION = 4,
-  PRICE = 5,
+  IMAGE = 2,
+  DESCRIPTION = 3,
 }
 
-const RentModal = () => {
+const RentModal: React.FC<RentModalProps> = ({
+  currentUser
+}) => {
   const router = useRouter();
   const rentModal = useRentModal();
 
@@ -48,19 +53,12 @@ const RentModal = () => {
       address: "",
       website: "",
       tel: "",
-      location: null, //company location map, pretty cool but idk to keep or remove (decide later)
-      guestCount: 1, //remove later just for testing
-      roomCount: 1, //remove later just for testing
-      bathroomCount: 1, //remove later just for testing
-      price: 1, //remove later just for testing
+      location: null,
     },
   });
 
   const category = watch("category");
   const location = watch("location");
-  const guestCount = watch("guestCount");
-  const roomCount = watch("roomCount");
-  const bathroomCount = watch("bathroomCount");
   const imageSrc = watch("imageSrc");
 
   const Map = useMemo(
@@ -88,7 +86,7 @@ const RentModal = () => {
   };
 
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
-    if (step !== STEPS.PRICE) {
+    if (step !== STEPS.DESCRIPTION) {
       return onNext();
     }
 
@@ -98,21 +96,31 @@ const RentModal = () => {
       .post("api/companies", data)
       .then(() => {
         toast.success("Company Created!");
-        router.refresh();
-        reset();
-        setStep(STEPS.CATEGORY);
-        rentModal.onClose();
       })
       .catch(() => {
         toast.error("Something went wrong.");
       })
       .finally(() => {
-        setIsLoading(false);
+        axios
+          .post(`api/users/${currentUser?.id}`, { role: "COMPANY"})
+          .then(() => {
+            toast.success("Successfully updated user role!")
+          })
+          .catch((error) => {
+            toast.error("Something went wrong.")
+          })
+          .finally(() => {
+            setIsLoading(false);
+            router.refresh();
+            reset();
+            setStep(STEPS.CATEGORY);
+            rentModal.onClose();
+          })
       });
   };
 
   const actionLabel = useMemo(() => {
-    if (step === STEPS.PRICE) {
+    if (step === STEPS.DESCRIPTION) {
       return "Create";
     }
 
@@ -130,7 +138,7 @@ const RentModal = () => {
   let bodyContent = (
     <div className="flex flex-col gap-8">
       <Heading
-        title="Which of these best describes your place?"
+        title="Which of these best describes your company?"
         subtitle="Pick a category"
       />
       <div
@@ -163,45 +171,14 @@ const RentModal = () => {
     bodyContent = (
       <div className="flex flex-col gap-8">
         <Heading
-          title="Where is your place located?"
-          subtitle="Help guests find you"
+          title="Where is your company located?"
+          subtitle="Help our users find you!"
         />
         <CountrySelect
           value={location}
           onChange={(value) => setCustomValue("location", value)}
         />
         <Map center={location?.latlng} />
-      </div>
-    );
-  }
-
-  if (step === STEPS.INFO) {
-    bodyContent = (
-      <div className="flex flex-col gap-8">
-        <Heading
-          title="Share some basics about your place"
-          subtitle="What amenities do you have?"
-        />
-        <Counter
-          title="Guests"
-          subtitle="How many guests will you allow?"
-          value={guestCount}
-          onChange={(value) => setCustomValue("guestCount", value)}
-        />
-        <hr />
-        <Counter
-          title="Rooms"
-          subtitle="How many rooms do you have?"
-          value={roomCount}
-          onChange={(value) => setCustomValue("roomCount", value)}
-        />
-        <hr />
-        <Counter
-          title="Bathrooms"
-          subtitle="How many bathrooms do you have?"
-          value={bathroomCount}
-          onChange={(value) => setCustomValue("bathroomCount", value)}
-        />
       </div>
     );
   }
@@ -246,28 +223,34 @@ const RentModal = () => {
             errors={errors}
             required
           />
+          <hr />
+          <Input
+            id="website"
+            label="Website"
+            disabled={isLoading}
+            register={register}
+            errors={errors}
+            required
+          />
+          <hr />
+          <Input
+            id="tel"
+            label="Telephone"
+            disabled={isLoading}
+            register={register}
+            errors={errors}
+            required
+          />
+          <hr />
+          <Input
+            id="address"
+            label="Address"
+            disabled={isLoading}
+            register={register}
+            errors={errors}
+            required
+          />
         </>
-      </div>
-    );
-  }
-
-  if (step === STEPS.PRICE) {
-    bodyContent = (
-      <div className="flex flex-col gap-8">
-        <Heading
-          title="Now set your price"
-          subtitle="How much will you charge per night?"
-        />
-        <Input
-          id="price"
-          label="Price"
-          formatPrice
-          type="number"
-          disabled={isLoading}
-          register={register}
-          errors={errors}
-          required
-        />
       </div>
     );
   }
@@ -280,7 +263,7 @@ const RentModal = () => {
       actionLabel={actionLabel}
       secondaryActionLabel={secondaryActionLabel}
       secondaryAction={step === STEPS.CATEGORY ? undefined : onBack}
-      title="Book an interview"
+      title="Input your company details!"
       body={bodyContent}
     />
   );

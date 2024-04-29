@@ -59,7 +59,8 @@ const UserMenu: React.FC<UserMenuProps> = ({
   return ( 
     <div className="relative">
       <div className="flex flex-row items-center gap-2">
-        {currentUser?.role !== "USER" && ( <div 
+        {currentUser?.role === "USER" ? (
+          <div 
           onClick={onRent}
           className="
             hidden
@@ -74,8 +75,27 @@ const UserMenu: React.FC<UserMenuProps> = ({
             cursor-pointer
           "
         >
-          Add a company
-        </div>)}
+          Are you a business owner?
+        </div>
+        ) : ( 
+          <div 
+            onClick={() => router.push(`/companies/${currentUser?.companyId}`)}
+            className="
+              hidden
+              md:block
+              text-sm 
+              font-semibold 
+              py-3 
+              px-4 
+              rounded-full 
+              hover:bg-neutral-100 
+              transition 
+              cursor-pointer
+            "
+          >
+            My company
+          </div>
+      )}
         <div 
         onClick={toggleOpen}
         className="
