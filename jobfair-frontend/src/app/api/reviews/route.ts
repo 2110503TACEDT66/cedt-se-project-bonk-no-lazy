@@ -15,42 +15,26 @@ export async function POST(
     const body = await request.json()
 
     const {
-        companyId,
-        interviewDate,
+        rating,
+        comment,
+        companyId
     } = body
 
-
-    if(currentUser.role !== "ADMIN"){
-
-        const allInterviewOfThisUser = await prisma.interview.findMany({
-            where: {
-                userId: currentUser.id
-            }
-        });
-        if (allInterviewOfThisUser.length >= 3) {
-            return NextResponse.json({error:"You cant book more than 3 interviews."},{status:403});
-        }
-    }
-    
-
-    if (!companyId || !interviewDate) {
-        return NextResponse.error()
-    }
-
     // Time in Database is UTC time, so dont worry if the interviewDate posted seems wrong, its correct.
-    const companyAndInterview = await prisma.company.update({
+    const companyAndReview = await prisma.company.update({
         where: {
             id: companyId
         },
         data: {
-            interviews: {
+            reviews: {
                 create: {
                     userId: currentUser.id,
-                    interviewDate,
+                    rating,
+                    comment
                 }
             }
         }
     })
 
-    return NextResponse.json(companyAndInterview)
+    return NextResponse.json(companyAndReview)
 }

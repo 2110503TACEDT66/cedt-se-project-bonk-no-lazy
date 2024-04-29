@@ -8,6 +8,8 @@ import LoginModal from '@/components/modals/LoginModal'
 import RentModal from '@/components/modals/RentModal'
 import ToasterProvider from '../providers/ToasterProvider'
 import getCurrentUser from './actions/getCurrentUser'
+import UpdateModal from '@/components/modals/UpdateModal'
+import getInterviews from './actions/getInterviews'
 
 export const metadata: Metadata = { 
   title: 'hireFest',
@@ -24,6 +26,7 @@ export default async function RootLayout({
   children: React.ReactNode
 }) {
   const currentUser = await getCurrentUser();
+  const interview = await getInterviews({userId:currentUser?.id});
   return (
     <html lang="en">
       <body className={font.className}>

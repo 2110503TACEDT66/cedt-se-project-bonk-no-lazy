@@ -44,7 +44,7 @@ const Search = () => {
           </div>
           <div
             className="
-                        hidden
+                        
                         sm:block
                         text-m
                         font-bold
@@ -55,7 +55,7 @@ const Search = () => {
                         hover:text-blue-500 cursor-pointer
                     "
           >
-            <MenuItem label="Jobs" onClick={() => router.push("/jobs")} />
+            <MenuItem label="Jobs" onClick={() => router.push("/")} />
           </div>
           <div
             className="

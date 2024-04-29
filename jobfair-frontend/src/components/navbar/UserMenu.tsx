@@ -58,7 +58,7 @@ const UserMenu: React.FC<UserMenuProps> = ({
 
   return ( 
     <div className="relative">
-      <div className="flex flex-row items-center gap-3">
+      <div className="flex flex-row items-center gap-2">
         <div 
           onClick={onRent}
           className="
@@ -74,7 +74,7 @@ const UserMenu: React.FC<UserMenuProps> = ({
             cursor-pointer
           "
         >
-          Book an interview
+          Add a company
         </div>
         <div 
         onClick={toggleOpen}
@@ -122,11 +122,11 @@ const UserMenu: React.FC<UserMenuProps> = ({
             {currentUser ? (
               <>
                 <MenuItem 
-                  label="My Profile" 
+                  label="My profile" 
                   onClick={() => router.push('/myprofile')}
                 />
                 <MenuItem 
-                  label="My favorites" 
+                  label="My favourites" 
                   onClick={() => router.push('/favourites')}
                 />
                 <MenuItem 
