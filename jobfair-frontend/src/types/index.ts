@@ -16,7 +16,7 @@ export type SafeInterview = Omit<
   createdAt:string;
   interviewDate:string;
   updatedAt:string;
-  company: SafeCompany;
+  company:SafeCompany;
 }
 
 export type SafeCompany = Omit<

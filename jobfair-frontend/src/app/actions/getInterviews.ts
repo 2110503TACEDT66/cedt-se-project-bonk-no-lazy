@@ -20,7 +20,7 @@ export default async function getInterviews(params: InterviewParams) {
             query.companyId = companyId;
         }
         if(interviewId){
-            query.interviewId = interviewId;
+            query.id = interviewId;
         }
         if(userId){
             query.userId = userId;
