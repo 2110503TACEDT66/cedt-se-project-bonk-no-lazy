@@ -58,11 +58,18 @@ const ReviewModal: React.FC<ReviewProps> = ({
 
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
     if (data.rating <= 0) {
-      return toast.error('Please select a rating!')
+      return toast.error('Please select a rating.')
+    }
+    if (!data.comment.trim()) {
+      return toast.error('Please provide a valid comment.')
     }
     setIsLoading(true);
     console.log(data)
-    axios.post('/api/reviews', data)
+    axios.post('/api/reviews', {
+      rating: data.rating,
+      comment: data.comment.trim(),
+      companyId: data.companyId,
+    })
         .then(() => {
             toast.success('Review Posted!')
             router.refresh()
