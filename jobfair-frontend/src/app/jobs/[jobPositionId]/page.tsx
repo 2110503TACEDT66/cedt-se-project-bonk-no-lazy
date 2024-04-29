@@ -1,36 +1,29 @@
-import getCompanyById from "@/app/actions/getCompanyById";
-import getCurrentUser from "@/app/actions/getCurrentUser";
-import getJobById from "@/app/actions/getJobById";
+import getJobPositions from "@/app/actions/getJobPositions";
 import ClientOnly from "@/components/ClientOnly";
 import EmptyState from "@/components/EmptyState";
-import DetailJob from "./detailJobClient";
+import JobsClient from "../JobsClient";
 
-interface detailJobPositionParams {
-  companyId?: string;
-  jobId: string; // Make sure jobId is defined here
+interface IParams {
+  jobsId?: string;
 }
 
-const detailJobPage = async ({
-  params,
-}: {
-  params: detailJobPositionParams;
-}) => {
-  const company = await getCompanyById(params);
-  const job = await getJobById({ jobId: params.jobId });
-  const currentUser = await getCurrentUser();
+const JobPositionPage = async ({ params }: { params: IParams }) => {
+    const jobPosition = await getJobPositions()
 
-  if (!company) {
-    return (
-      <ClientOnly>
-        <EmptyState />
-      </ClientOnly>
-    );
-  }
-  return (
-    <ClientOnly>
-      <DetailJob params={{ jobId: params.jobId }} />
-    </ClientOnly>
-  );
+    if(!jobPosition) {
+         return (
+           <ClientOnly>
+             <EmptyState />
+           </ClientOnly>
+         );
+    }
+    // return (
+    //   <ClientOnly>
+    //     <JobsClient
+            
+    //     />
+    //   </ClientOnly>
+    // );
 };
 
-export default detailJobPage;
+export default JobPositionPage;

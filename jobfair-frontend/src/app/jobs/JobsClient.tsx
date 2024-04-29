@@ -27,6 +27,7 @@ export default async function JobsLayout({
       <body className={font.className}>
       <ClientOnly>
           <ToasterProvider/>
+          <RentModal/>
           <LoginModal/>
           <RegisterModal/>
           <Navbar currentUser={currentUser}/> 

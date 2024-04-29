@@ -27,8 +27,6 @@ interface CompanyClientProps {
   reviews: SafeReview[];
   currentUser?: SafeUser | null;
 }
-
-
 const CompanyClient: React.FC<CompanyClientProps> = ({
   company,
   interviews = [],
