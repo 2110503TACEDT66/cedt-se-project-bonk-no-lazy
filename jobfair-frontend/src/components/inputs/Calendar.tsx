@@ -1,5 +1,6 @@
 'use client'
 
+import { useState } from "react";
 import { Calendar, Range, RangeKeyDict } from "react-date-range";
 
 import 'react-date-range/dist/styles.css';
@@ -16,12 +17,19 @@ const InterviewCalendar: React.FC<CalendarProps> = ({
     onChange,
     disabledDates,
 }) => {
+    const [newDate,setNewDate] = useState<Date>(value);
+
     return (
         <Calendar 
             color="#262626"
             rangeColors={["#262626"]}
-            date={value}
-            onChange={onChange}
+            date={newDate}
+            onChange={
+                (value)=>{
+                    onChange(value);
+                    setNewDate(value);
+                }
+            }
             direction="vertical"
             minDate={new Date()}
             disabledDates={disabledDates}

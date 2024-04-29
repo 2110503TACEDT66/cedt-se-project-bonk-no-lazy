@@ -28,7 +28,7 @@ export async function POST(
             }
         });
         if (allInterviewOfThisUser.length >= 3) {
-            return NextResponse.json({error:"You cant book more than 3 interviews."},{status:403});
+            return NextResponse.json({error:"You are only allowed to schedule a maximum of three interviews."},{status:403});
         }
     }
     

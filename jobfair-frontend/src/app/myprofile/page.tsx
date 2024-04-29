@@ -47,10 +47,10 @@ export default async function MyProfilePage() {
     <Suspense fallback={<p>Loading...<LinearProgress /></p>}>
       <ClientOnly>
         <main className="overflow-hidden flex flex-col lg:flex-row  justify-center items-center">
-          <div className=" sm:ml-0 w-full lg:w-1/3 lg:mx-auto max-[1024px]:flex  items-center flex justify-center">
+          <div className=" sm:ml-0 w-full lg:w-2/5 lg:mx-auto max-[1024px]:flex  items-center flex justify-center">
             <ProfileCard currentUser={currentUser} />
           </div>
-          <div className="w-full lg:w-2/3">
+          <div className="w-full lg:w-3/5">
             <div className="flex flex-col items-center justify-center gap-5 p-5 lg:flex-row lg:items-start lg:justify-center lg:gap-10">
               <InterviewClient interviews={interviews} />
             </div>

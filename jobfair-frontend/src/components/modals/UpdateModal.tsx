@@ -28,7 +28,7 @@ const UpdateModal: React.FC<UpdateModalProps> = ({
     const UpdateModal = useUpdateModal();
     const [isLoading, setIsLoading] = useState(false);
     
-    const [date,setDate] = useState<Date>(new Date(Date.now()));
+    const [date,setDate] = useState<Date>(new Date(interview.interviewDate));
     
 
     const {
@@ -63,9 +63,9 @@ const UpdateModal: React.FC<UpdateModalProps> = ({
             })
     }
 
-
+    console.log(date)
     const bodyContent = (
-        <Calendar value={date} onChange={(value)=>{setDate(value);setValue('interviewDate',value)}} />
+        <Calendar  value={date} onChange={(value)=>{setDate(value);setValue('interviewDate',value)}} />
       )
     return (
         <Modal
