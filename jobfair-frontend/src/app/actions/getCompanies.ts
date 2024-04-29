@@ -6,7 +6,7 @@ export interface CompaniesParams {
   category?: string;
 }
 
-export default async function getCompanies(params: CompaniesParams) {
+export default async function getCompanies(params: CompaniesParams = {}) {
   try {
     const {
       userId,
