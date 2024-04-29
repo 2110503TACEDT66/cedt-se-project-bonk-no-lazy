@@ -2,18 +2,24 @@ import prisma from "@/libs/prismadb";
 
 export interface JobPositionParams {
   companyId?: string;
+  type?: string;
 }
 
 export default async function getJobPositions(params?: JobPositionParams) {
   try {
     const {
       companyId,
+      type,
     } = params || {}
 
     let query: any = {}
 
     if (companyId) {
       query.companyId = companyId
+    }
+
+    if (type) {
+      query.category = type
     }
 
     const JobPositions = await prisma.jobPosition.findMany({
