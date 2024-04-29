@@ -41,9 +41,9 @@ describe('website', () => {
     cy.get('div').contains('Write your review').click()
     cy.get('textarea[name="comment"]').type('     ')
     cy.get('#rating').get('input[value="3"]').click({force:true})
-    // cy.get('div').contains('Post').click()
-    // cy.wait(10000)
-    // cy.get('div').contains('Post').should('exist')
+    cy.get('div').contains('Post').click()
+    cy.wait(10000)
+    cy.get('div').contains('Post').should('exist')
 
     cy.get('textarea[name="comment"]').type('    ')
     cy.get('#rating').get('input[value="3"]').click({force:true})
