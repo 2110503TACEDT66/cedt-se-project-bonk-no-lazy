@@ -74,7 +74,7 @@ const UserMenu: React.FC<UserMenuProps> = ({
             cursor-pointer
           "
         >
-          Book an interview
+          Add a company
         </div>
         <div 
         onClick={toggleOpen}
@@ -121,7 +121,7 @@ const UserMenu: React.FC<UserMenuProps> = ({
             {currentUser ? (
               <>
                 <MenuItem 
-                  label="My Profile" 
+                  label="My profile" 
                   onClick={() => router.push('/myprofile')}
                 />
                 <MenuItem 

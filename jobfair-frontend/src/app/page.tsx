@@ -12,7 +12,9 @@ interface HomeProps {
 }
 
 const Home = async ({ searchParams }: HomeProps) => {
-  const companies = await getCompanies();
+  const { category } = searchParams;
+  const companiesParams = { category };
+  const companies = await getCompanies(companiesParams);
   const jobPositions = await getJobPositions()
   const currentUser = await getCurrentUser();
 
