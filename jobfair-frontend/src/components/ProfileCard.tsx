@@ -1,5 +1,5 @@
 import { SafeUser } from "@/types"
-import { Avatar, Icon } from "@mui/material";
+import { Avatar } from "@mui/material";
 interface ProfileCardProps {
   currentUser: SafeUser;
 }
@@ -23,7 +23,7 @@ const ProfileCard: React.FC<ProfileCardProps> = ({
         <div className="w-full group-hover:-translate-y-20 -translate-y-17 transition ease-in duration-300  h-[65px] bg-blue-500 group-hover:bg-blue-400 absolute top-0">
 
         </div>
-        <Avatar src={currentUser.image} sx={{ width: 100, height: 100 }} />
+        <Avatar src={currentUser.image || '/img/placeholder.jpg'} sx={{ width: 100, height: 100 }} />
       </div>
       <div className=" headings *:text-center *:leading-4">
         <p className="text-xl font-serif font-semibold text-[#434955]">{currentUser.name || "N/A"}</p>

@@ -4,12 +4,10 @@ import { SafeInterview, SafeUser } from "@/types";
 import Modal from "./Modal";
 import { useCallback, useEffect, useState } from "react";
 import useUpdateModal from "@/hooks/useUpdateModal";
-import { DefaultValues, FieldValues, SubmitHandler, useForm } from "react-hook-form";
+import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import axios from "axios";
 import toast from "react-hot-toast";
 import Calendar  from "@/components/inputs/Calendar";
-import { user } from "../../../interface";
-import { now } from "next-auth/client/_utils";
 import { useRouter } from "next/navigation";
 
 interface UpdateModalProps {
@@ -19,7 +17,7 @@ interface UpdateModalProps {
 }
 
 interface DefaultValues{
-    interviewDate:string
+    interviewDate: Date
 }
 
 const UpdateModal: React.FC<UpdateModalProps> = ({
@@ -40,9 +38,9 @@ const UpdateModal: React.FC<UpdateModalProps> = ({
         formState: {
             errors,
         },
-    } = useForm<FieldValues>({
+    } = useForm<DefaultValues>({
         defaultValues: {
-            interviewDate: '',
+            interviewDate: new Date(),
         },
     });
 
