@@ -61,8 +61,9 @@ const CompanyClient: React.FC<CompanyClientProps> = ({
 
       router.refresh()
     })
-    .catch(() => {
-      toast.error('Something went wrong.')
+    .catch((error) => {
+      console.log(error)
+      toast.error(error.response.data.error)
     })
     .finally(() => {
       setIsLoading(false)

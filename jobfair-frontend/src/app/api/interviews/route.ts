@@ -19,6 +19,20 @@ export async function POST(
         interviewDate,
     } = body
 
+
+    if(currentUser.role !== "ADMIN"){
+
+        const allInterviewOfThisUser = await prisma.interview.findMany({
+            where: {
+                userId: currentUser.id
+            }
+        });
+        if (allInterviewOfThisUser.length >= 3) {
+            return NextResponse.json({error:"You cant book more than 3 interviews."},{status:403});
+        }
+    }
+    
+
     if (!companyId || !interviewDate) {
         return NextResponse.error()
     }
