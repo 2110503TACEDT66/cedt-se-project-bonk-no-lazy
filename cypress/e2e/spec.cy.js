@@ -10,25 +10,25 @@ function visitCompany() {
   cy.get('div').contains('Write your review', {timeout:10000})
 }
 function login() {
-  cy.get('div').contains('Add a company').click()
-  cy.get('div').contains('Login').click()
   cy.get('#email').type('cypress@test')
   cy.get('#password').type('cypress_test')
   cy.get('div').contains('Continue').click()
   cy.get('div').contains('Logged in', {timeout:10000}).should('exist')
+  cy.reload()
 }
 
 
 describe('website', () => {
-  // it('post review', () => {
-  //   visitWebsite()
-  //   login()
-  //   visitCompany()
-  //   cy.get('div').contains('Write your review').click()
-  //   cy.get('textarea[name="comment"]').type('CYPRESS TEST - IGNORE')
-  //   cy.get('#rating').get('input[value="3"]').click({force: true})
-  //   cy.get('div').contains('Post').click()
-  // })
+  it('post review', () => {
+    visitWebsite()
+    visitCompany()
+    cy.get('div').contains('Write your review').click()
+    login()
+    cy.get('div').contains('Write your review').click()
+    cy.get('textarea[name="comment"]').type('CYPRESS TEST - IGNORE')
+    cy.get('#rating').get('input[value="3"]').click({force: true})
+    cy.get('div').contains('Post').click()
+  })
   it('sees review', () => {
     visitWebsite()
     visitCompany()
@@ -36,8 +36,9 @@ describe('website', () => {
   })
   it('fails to review', () => {
     visitWebsite()
-    login()
     visitCompany()
+    cy.get('div').contains('Write your review').click()
+    login()
     cy.get('div').contains('Write your review').click()
     cy.get('textarea[name="comment"]').type('     ')
     cy.get('#rating').get('input[value="3"]').click({force:true})
