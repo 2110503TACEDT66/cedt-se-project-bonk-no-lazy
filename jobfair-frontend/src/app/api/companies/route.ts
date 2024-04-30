@@ -131,7 +131,7 @@ export async function POST(
     }
 
     if(currentUser.role === "USER"){
-        return NextResponse.json({error:401,message:"Unauthorized to this route"});
+        return NextResponse.json({error:401,message:"Unauthorized to this route"},{status:401});
     }
 
     const body = await request.json()

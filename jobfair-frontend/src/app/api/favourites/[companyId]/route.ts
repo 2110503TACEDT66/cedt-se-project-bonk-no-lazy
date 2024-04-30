@@ -9,10 +9,17 @@ interface FavParams {
 
 /**
  * @swagger
+ * tags:
+ *   name: Favourites
+ *   description: The favourite company managing API
+ */
+
+/**
+ * @swagger
  * /api/favourites/{companyId}:
  *   post:
  *     summary: Add a company to user's favorites
- *     tags: [Companies]
+ *     tags: [Favourites]
  *     description: Adds the specified company to the favorites of the authenticated user.
  *     parameters:
  *       - in: path
@@ -73,7 +80,7 @@ export async function POST(
  * /api/favourites/{companyId}:
  *   delete:
  *     summary: Remove a company from user's favorites
- *     tags: [Companies]
+ *     tags: [Favourites]
  *     description: Removes the specified company from the favorites of the authenticated user.
  *     parameters:
  *       - in: path
