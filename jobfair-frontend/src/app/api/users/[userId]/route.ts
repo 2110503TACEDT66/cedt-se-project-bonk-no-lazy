@@ -9,12 +9,6 @@ interface UserParams {
 
 /**
  * @swagger
- * tags:
- *   name: Users
- */
-
-/**
- * @swagger
  * components:
  *   schemas:
  *     User:
@@ -76,13 +70,13 @@ interface UserParams {
 
 /**
  * @swagger
- * /users/[userId]:
- *   post:
+ * /api/users/[userId]:
+ *   put:
  *     summary: Update user role and company
  *     tags: [Users]
  *     description: Updates the role and company of the specified user.
  *     parameters:
- *       - in: query
+ *       - in: path
  *         name: userId
  *         schema:
  *           type: string
@@ -114,7 +108,7 @@ interface UserParams {
  *       '500':
  *         description: Internal server error.
  */
-export async function POST(
+export async function PUT(
     request: Request,
     { params }: { params: UserParams }
 ) {

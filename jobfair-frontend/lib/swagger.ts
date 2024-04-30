@@ -8,6 +8,7 @@ export const getApiDocs = async() => {
             info: {
                 title:'hireFest Swagger',
                 version: '1.0',
+                description: 'Online Job Fair API'
             },
             components: {
                 securitySchemes: {

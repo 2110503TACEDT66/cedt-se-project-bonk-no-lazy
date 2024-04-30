@@ -11,7 +11,7 @@ interface FavParams {
  * @swagger
  * tags:
  *   name: Favourites
- *   description: The favourite company managing API
+ *   description: Favourite company managing API
  */
 
 /**
