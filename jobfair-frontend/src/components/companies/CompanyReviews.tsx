@@ -320,130 +320,162 @@ const CompanyReviews: React.FC<CompanyReviewProps> = ({
                 borderStyle: "dashed"
             }}
         />
-        {reviews.map((review) => (
-            <Stack
-                key={review.id}
+        {reviews.length === 0 ? (
+            <Stack 
+                className=""
                 sx={{
-                    paddingLeft: "0px",
-                    paddingRight: "0px",
                     display: "flex",
-                    flexDirection: "row",
-                    gap: "16px",
-                    marginTop: "40px",
-                    marginBottom: "40px"
+                    flexDirection: "column",
+                    gap: "8px",
+                    WebkitBoxAlign: "center",
+                    alignItems: "center",
+                    WebkitBoxPack: "center",
+                    justifyContent: "center",
+                    boxSizing: "border-box",
+                    unicodeBidi: "isolate",
+                    paddingTop: "60px",
+                    paddingBottom: "60px",
                 }}
             >
-                <Stack
-                    sx={{
-                        width: "240px",
-                        textAlign: "center",
-                        display: "flex",
-                        flexDirection: "column",
-                        gap: "16px",
-                        WebkitBoxAlign: "center",
-                        alignItems: "center",
+                <div
+                    style={{
+                        fontSize: "2rem",
+                        margin: "0px",
+                        fontWeight: "800",
+                        lineHeight: "1.33333",
+                        fontFamily: "sans-serif",
+                        boxSizing: "border-box"
                     }}
                 >
-                    <Avatar 
-                        alt="profile picture"
-                        src={review.user.image || '/img/placeholder.jpg'}
+                    No Comments Yet
+                </div>
+            </Stack>
+        ) : (
+            reviews.map((review) => (
+                <Stack
+                    key={review.id}
+                    sx={{
+                        paddingLeft: "0px",
+                        paddingRight: "0px",
+                        display: "flex",
+                        flexDirection: "row",
+                        gap: "16px",
+                        marginTop: "40px",
+                        marginBottom: "40px"
+                    }}
+                >
+                    <Stack
                         sx={{
-                            width: "64px",
-                            height: "64px",
-                            position: "relative",
+                            width: "240px",
+                            textAlign: "center",
                             display: "flex",
+                            flexDirection: "column",
+                            gap: "16px",
                             WebkitBoxAlign: "center",
                             alignItems: "center",
-                            WebkitBoxPack: "center",
-                            justifyContent: "center",
-                            flexShrink: "0",
-                            fontSize: "1.25rem",
-                            lineHeight: "1",
-                            borderRadius: "50%",
-                            overflow: "hidden",
-                            userSelect: "none",
-                            boxSizing: "border-box",
-
-                        }}
-                        style={{
-                            fontFamily: "sans-serif",
-                        }}
-                    />
-                    <div
-                        style={{
-                            flex: "1 1 auto",
-                            minWidth: "0px",
-                            margin: "0px"
                         }}
                     >
-                        <div
-                            style={{
-                                margin: "0px 0px 4px",
+                        <Avatar 
+                            alt="profile picture"
+                            src={review.user.image || '/img/placeholder.jpg'}
+                            sx={{
+                                width: "64px",
+                                height: "64px",
+                                position: "relative",
+                                display: "flex",
+                                WebkitBoxAlign: "center",
+                                alignItems: "center",
+                                WebkitBoxPack: "center",
+                                justifyContent: "center",
+                                flexShrink: "0",
+                                fontSize: "1.25rem",
+                                lineHeight: "1",
+                                borderRadius: "50%",
                                 overflow: "hidden",
-                                textOverflow: "hidden",
-                                whiteSpace: "nowrap",
-                                display: "block",
-                                fontWeight: "600",
-                                lineHeight: "1.57143",
-                                fontSize: "0.875rem",
+                                userSelect: "none",
+                                boxSizing: "border-box",
+            
+                            }}
+                            style={{
                                 fontFamily: "sans-serif",
                             }}
+                        />
+                        <div
+                            style={{
+                                flex: "1 1 auto",
+                                minWidth: "0px",
+                                margin: "0px"
+                            }}
                         >
-                            {review.user.name}
+                            <div
+                                style={{
+                                    margin: "0px 0px 4px",
+                                    overflow: "hidden",
+                                    textOverflow: "hidden",
+                                    whiteSpace: "nowrap",
+                                    display: "block",
+                                    fontWeight: "600",
+                                    lineHeight: "1.57143",
+                                    fontSize: "0.875rem",
+                                    fontFamily: "sans-serif",
+                                }}
+                            >
+                                {review.user.name}
+                            </div>
+                            <div
+                                style={{
+                                    margin: "0px",
+                                    overflow: "hidden",
+                                    textOverflow: "ellipsis",
+                                    whiteSpace: "nowrap",
+                                    color: "rgb(99, 115, 129)",
+                                    display: "block",
+                                    lineHeight: "1.5",
+                                    fontSize: "0.75rem",
+                                    fontFamily: "sans-serif",
+                                    fontWeight: "400",
+                                }}
+                            >
+                                {format(Date.parse(review.createdAt), 'MMM do yyyy')}   
+                            </div>
                         </div>
+                    </Stack>
+                    <Stack
+                        sx={{
+                            display: "flex",
+                            flexDirection: "column",
+                            gap: "8px",
+                            WebkitBoxAlign: "1",
+                            flexGrow: "1",
+                            maxWidth: "564px"
+                        }}
+                    >
+                        <StyledRating
+                            value={review.rating}
+                            readOnly
+                            icon={<AiFillStar 
+                                style={{ flexShrink: 0 }}
+                            />}
+                            emptyIcon={<AiFillStar />}
+                            precision={0.1}
+                            size="small"
+                        />
                         <div
                             style={{
                                 margin: "0px",
-                                overflow: "hidden",
-                                textOverflow: "ellipsis",
-                                whiteSpace: "nowrap",
-                                color: "rgb(99, 115, 129)",
-                                display: "block",
-                                lineHeight: "1.5",
-                                fontSize: "0.75rem",
-                                fontFamily: "sans-serif",
+                                lineHeight: "1.57143",
+                                fontSize: "0.875rem",
                                 fontWeight: "400",
+                                fontFamily: "sans-serif",
+                                color: "inherit",
                             }}
                         >
-                            {format(Date.parse(review.createdAt), 'MMM do yyyy')}   
+                             {review.comment}
                         </div>
-                    </div>
+                    </Stack>
                 </Stack>
-                <Stack
-                    sx={{
-                        display: "flex",
-                        flexDirection: "column",
-                        gap: "8px",
-                        WebkitBoxAlign: "1",
-                        flexGrow: "1",
-                        maxWidth: "564px"
-                    }}
-                >
-                    <StyledRating
-                        value={review.rating}
-                        readOnly
-                        icon={<AiFillStar 
-                            style={{ flexShrink: 0 }}
-                        />}
-                        emptyIcon={<AiFillStar />}
-                        precision={0.1}
-                        size="small"
-                    />
-                    <div
-                        style={{
-                            margin: "0px",
-                            lineHeight: "1.57143",
-                            fontSize: "0.875rem",
-                            fontWeight: "400",
-                            fontFamily: "sans-serif",
-                            color: "inherit",
-                        }}
-                    >
-                         {review.comment}
-                    </div>
-                </Stack>
-            </Stack>
-        ))}
+            ))
+        )}
     </div>
    );
 }
