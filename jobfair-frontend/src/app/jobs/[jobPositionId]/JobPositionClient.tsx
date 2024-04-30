@@ -4,7 +4,7 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 import { companyCategories } from "@/components/navbar/Categories";
 import { Container } from "@mui/system";
 import CompanyHead from "@/components/companies/CompanyHead";
-import { SafeCompany, SafeInterview, SafeReview, SafeUser } from "@/types";
+import { SafeCompany, SafeInterview, SafeJobPosition, SafeReview, SafeUser } from "@/types";
 import CompanyInfo from "@/components/companies/CompanyInfo";
 import useLoginModal from "@/hooks/useLoginModal";
 import { useRouter } from "next/navigation";
@@ -14,41 +14,21 @@ import CompanyInterview from "@/components/companies/CompanyInterview";
 import CompanyReviews from "@/components/companies/CompanyReviews";
 import ReviewModal from "@/components/modals/ReviewModal";
 
-const initialDate = {
-  interviewDate: new Date(),
-  key: "selection",
-};
-
 interface CompanyClientProps {
-  interviews?: SafeInterview[];
-  company: SafeCompany & {
-    user: SafeUser;
-  };
-  reviews: SafeReview[];
   currentUser?: SafeUser | null;
+  jobPosition: SafeJobPosition;
 }
 
-
-const CompanyClient: React.FC<CompanyClientProps> = ({
-  company,
-  interviews = [],
-  reviews = [],
+const JobPositionClient: React.FC<CompanyClientProps> = ({
   currentUser,
+  jobPosition,
 }) => {
   console.log(currentUser);
   const loginModal = useLoginModal();
   const router = useRouter();
 
-  const disabledDates = useMemo(() => {
-    return interviews.map(
-      (interview) => new Date(Date.parse(interview.interviewDate))
-    );
-  }, [interviews]);
-
   const [isLoading, setIsLoading] = useState(false);
-  const [interviewDate, setInterviewDate] = useState<Date>(
-    initialDate.interviewDate
-  );
+  const [interviewDate, setInterviewDate] = useState<Date>(new Date('2022-05-10'));
 
   const onCreateInterview = useCallback(() => {
     if (!currentUser) {
@@ -60,11 +40,11 @@ const CompanyClient: React.FC<CompanyClientProps> = ({
     axios
       .post("/api/interviews", {
         interviewDate: interviewDate,
-        companyId: company?.id,
+        companyId: jobPosition.company?.id,
       })
       .then(() => {
         toast.success("Interview booked!");
-        setInterviewDate(initialDate.interviewDate);
+        setInterviewDate(interviewDate);
 
       router.refresh()
     })
@@ -75,22 +55,22 @@ const CompanyClient: React.FC<CompanyClientProps> = ({
     .finally(() => {
       setIsLoading(false)
     })
-  }, [interviewDate, company?.id, router, currentUser, loginModal])
+  }, [interviewDate, jobPosition.company.id, router, currentUser, loginModal])
 
-  const category = useMemo(() => {
-    return companyCategories.find((item) => item.label === company.category);
-  }, [company.category]);
+  const type = useMemo(() => {
+    return companyCategories.find((item) => item.label === jobPosition.type);
+  }, [jobPosition.type]);
 
   return (
     <Container>
       <div className="max-w-screen-lg mx-auto">
         <div className="flex flex-col gap-6">
           <CompanyHead
-            name={company.name}
-            imageSrc={company.imageSrc}
-            locationValue={company.locationValue}
-            address={company.address}
-            id={company.id}
+            name={jobPosition.title}
+            imageSrc={jobPosition.company.imageSrc}
+            locationValue={jobPosition.company.locationValue}
+            address={jobPosition.company.address}
+            id={jobPosition.company.id}
             currentUser={currentUser}
           />
           <div
@@ -102,20 +82,20 @@ const CompanyClient: React.FC<CompanyClientProps> = ({
             mt-6
           "
           >
-            <CompanyInfo
+            {/* <CompanyInfo
               user={company.user}
               category={category}
               description={company.description}
               website={company.website}
               tel={company.tel}
               locationValue={company.locationValue}
-            />
-            <CompanyReviews
+            /> */}
+            {/* <CompanyReviews
               company={company}
               reviews={reviews}
               currentUser={currentUser}
-            />
-            <div
+            /> */}
+            {/* <div
               className="
                 order-first
                 mb-10
@@ -123,20 +103,20 @@ const CompanyClient: React.FC<CompanyClientProps> = ({
                 md:col-span-7
               "
             >
-              {/* <CompanyInterview 
+              <CompanyInterview
                 onChangeDate={(value) => setInterviewDate(value)}
                 interviewDate={interviewDate}
                 onSubmit={onCreateInterview}
                 disabled={isLoading}
                 disabledDates={disabledDates}
-              /> */}
-            </div>
+              />
+            </div> */}
           </div>
         </div>
       </div>
-      <ReviewModal currentCompany={company} />
+      {/* <ReviewModal currentCompany={company} /> */}
     </Container>
   );
 };
 
-export default CompanyClient;
+export default JobPositionClient;

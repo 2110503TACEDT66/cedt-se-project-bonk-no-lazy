@@ -151,8 +151,8 @@ const UserMenu: React.FC<UserMenuProps> = ({
                 <MenuItem
                   label="Book an interview"
                   onClick={() => {
-                    rentModal.onOpen()
-                    toggleOpen()
+                    rentModal.onOpen();
+                    toggleOpen();
                   }}
                 />
                 <hr />
@@ -166,15 +166,15 @@ const UserMenu: React.FC<UserMenuProps> = ({
                 <MenuItem
                   label="Login"
                   onClick={() => {
-                    loginModal.onOpen()
-                    toggleOpen()
+                    loginModal.onOpen();
+                    toggleOpen();
                   }}
                 />
                 <MenuItem
                   label="Sign up"
                   onClick={() => {
-                    registerModal.onOpen()
-                    toggleOpen()
+                    registerModal.onOpen();
+                    toggleOpen();
                   }}
                 />
               </>
