@@ -33,7 +33,6 @@ const CompanyCard: React.FC<CompanyCardProps> = ({
   currentUser,
   jobPositions,
 }) => {
-  console.log(jobPositions)
   const router = useRouter();
   const { getByValue } = useCountries();
 

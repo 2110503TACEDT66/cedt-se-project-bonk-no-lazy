@@ -210,7 +210,6 @@ export async function POST(
       throw new Error("Invalid ID");
     }
     if (!interviewDate) {
-      console.log("interviewDate:", interviewDate);
       throw new Error("No interview date");
     }
   

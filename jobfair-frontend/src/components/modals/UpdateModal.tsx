@@ -47,7 +47,6 @@ const UpdateModal: React.FC<UpdateModalProps> = ({
     const router = useRouter();
     const onSubmit:SubmitHandler<DefaultValues> = (data:DefaultValues) => {
         setIsLoading(true);
-        console.log("this is data",data);
         const interviewDateStr = data.interviewDate;
         axios.post(`/api/interviews/${interview.id}`,{interviewId:interview.id,interviewDate:interviewDateStr})
             .then(() => {
@@ -55,6 +54,7 @@ const UpdateModal: React.FC<UpdateModalProps> = ({
                 UpdateModal.onClose();
             })
             .catch((error) => {
+                console.log(error)
                 toast.error(error.message);
             })
             .finally(() => {
@@ -63,7 +63,6 @@ const UpdateModal: React.FC<UpdateModalProps> = ({
             })
     }
 
-    console.log(date)
     const bodyContent = (
         <Calendar  value={date} onChange={(value)=>{setDate(value);setValue('interviewDate',value)}} />
       )

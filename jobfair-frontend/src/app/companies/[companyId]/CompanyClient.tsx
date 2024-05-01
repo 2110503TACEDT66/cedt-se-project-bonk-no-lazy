@@ -38,7 +38,6 @@ const CompanyClient: React.FC<CompanyClientProps> = ({
   currentUser,
   jobPositions = [],
 }) => {
-  console.log(currentUser);
   const loginModal = useLoginModal();
   const router = useRouter();
 

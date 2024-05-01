@@ -12,7 +12,7 @@ import dynamic from "next/dynamic";
 import Counter from "../inputs/Counter";
 import ImageUpload from "../inputs/ImageUpload";
 import Input from "../inputs/Input";
-import axios from "axios";
+import axios, { AxiosResponse } from "axios";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import { SafeUser } from "@/types";
@@ -92,22 +92,30 @@ const RentModal: React.FC<RentModalProps> = ({
 
     setIsLoading(true);
 
+    let companyResponse : AxiosResponse
+
     axios
       .post("api/companies", data)
-      .then(() => {
+      .then((response) => {
+        companyResponse = response
         toast.success("Company Created!");
       })
-      .catch(() => {
-        toast.error("Something went wrong.");
+      .catch((error) => {
+        console.log(error)
+        toast.error("Failed to create company.");
       })
       .finally(() => {
         axios
-          .post(`api/users/${currentUser?.id}`, { role: "COMPANY"})
+          .post(`api/users/${currentUser?.id}`, { 
+            role: "COMPANY",
+            companyId: companyResponse.data.id
+           })
           .then(() => {
             toast.success("Successfully updated user role!")
           })
           .catch((error) => {
-            toast.error("Something went wrong.")
+            console.log(error)
+            toast.error("Failed to update user role.")
           })
           .finally(() => {
             setIsLoading(false);

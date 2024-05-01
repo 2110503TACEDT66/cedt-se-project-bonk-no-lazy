@@ -108,7 +108,7 @@ interface UserParams {
  *       '500':
  *         description: Internal server error.
  */
-export async function PUT(
+export async function POST(
     request: Request,
     { params }: { params: UserParams }
 ) {

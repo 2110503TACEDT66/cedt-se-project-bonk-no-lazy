@@ -64,7 +64,6 @@ const ReviewModal: React.FC<ReviewProps> = ({
       return toast.error('Please provide a valid comment.')
     }
     setIsLoading(true);
-    console.log(data)
     axios.post('/api/reviews', {
       rating: data.rating,
       comment: data.comment.trim(),
@@ -77,7 +76,8 @@ const ReviewModal: React.FC<ReviewProps> = ({
             setFormValue("comment", "")
             reviewModal.onClose()
         })
-        .catch(() => {
+        .catch((error) => {
+            console.log(error)
             toast.error('Something went wrong.')
         })
         .finally(() => {
