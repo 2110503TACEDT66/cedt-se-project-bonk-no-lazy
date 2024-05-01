@@ -32,7 +32,7 @@ const InterviewCalendar: React.FC<CalendarProps> = ({
             }
             direction="vertical"
             minDate={new Date('2022-05-10')}
-            maxDate={new Date('2022-05-13')}
+            maxDate={new Date('2022-05-14')}
             displayMode="date"
             showDateDisplay={false}
         />
