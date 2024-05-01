@@ -1,5 +1,6 @@
 {
   "dependencies": {
-    "query-string": "^9.0.0"
+    "query-string": "^9.0.0",
+    "swagger-ui-express": "^5.0.0"
   }
 }
