@@ -1,33 +1,35 @@
 'use client'
 
 import Heading from "@/components/Heading";
-import { SafeInterview, SafeUser } from "@/types"
+import { SafeInterview, SafeJobPosition, SafeUser } from "@/types"
 import { Container } from "@mui/material";
 import axios from "axios";
 import { error } from "console";
 import { useRouter } from "next/navigation"
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import InterviewCard from "@/components/interviews/InterviewCard";
 import OptionButton from "./OptionButton";
 import  Router  from "next/navigation";
 import useUpdateModal from "@/hooks/useUpdateModal";
 import UpdateModal from "@/components/modals/UpdateModal";
+import getJobPositions from "../actions/getJobPositions";
 
 interface InterviewClientProps {
     interviews: SafeInterview[],
     currentUser?: SafeUser | null,
+    jobposition:SafeJobPosition[];
 }
 
 const InterviewClient: React.FC<InterviewClientProps> = ({
     interviews,
-    currentUser
+    currentUser,
+    jobposition
 }) => {
 
     const router = useRouter();
 
     const updateModal = useUpdateModal();
-
 
     const onCancel = useCallback((id: string) => {
         axios.delete(`/api/interviews/${id}`)
@@ -44,13 +46,11 @@ const InterviewClient: React.FC<InterviewClientProps> = ({
     }, [router]);
 
     const [currentInterview,setCurrentInterview] = useState<SafeInterview>(interviews[0]);
-
-
     return (
         <div className=" w-full ">
             <Heading
                 title="Interviews"
-                subtitle="Which company that you have booked with"
+                subtitle={currentUser?.role === "ADMIN"? "This is all interview.\n as Admin you can see it all"  : "Which company that you have booked with"}
             />
             <div className="md px-0 ">
                 {
@@ -66,6 +66,7 @@ const InterviewClient: React.FC<InterviewClientProps> = ({
                             <InterviewCard
                                 companyData={interview.company}
                                 interviewData={interview}
+                                jobPositionData={jobposition.find(jp => jp.id = interview.jobPositionId)}
                             />
                             <div className="flex flex-col justify-between w-1/5">
                             <OptionButton

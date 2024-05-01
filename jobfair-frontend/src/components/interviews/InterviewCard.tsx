@@ -1,7 +1,7 @@
 'use client'
 
 import { Calendar } from "react-date-range";
-import { SafeCompany, SafeInterview, SafeUser } from "@/types"
+import { SafeCompany, SafeInterview, SafeJobPosition, SafeUser } from "@/types"
 import Image from "next/image";
 
 interface InterviewProps{
@@ -12,6 +12,7 @@ interface InterviewProps{
     actionLabel?: string;
     actionId?: string;
     currentUser?: SafeUser | null;
+    jobPositionData?:SafeJobPosition|null;
 }
 
 const InterviewCard:React.FC<InterviewProps> = ({
@@ -22,6 +23,7 @@ const InterviewCard:React.FC<InterviewProps> = ({
     actionLabel,
     actionId = '',
     currentUser,
+    jobPositionData
 }) => {
     
     return (
@@ -41,8 +43,11 @@ const InterviewCard:React.FC<InterviewProps> = ({
             <p className="font-bold text-2xl py-1" > {companyData.name} </p>
             
             <p className="text-sm text-slate-600 "> { "Booked Interview Date : " +   new Date(interviewData.interviewDate).toDateString()} </p>
-            
-            {/* <p> { "About us : " + companyData.description} </p> */}
+            <p className="text-md text-slate-600 font-bold "> { jobPositionData?.title} </p>
+            <div className="">
+                <p className="text-sm text-slate-600 "> { "salary :"+ jobPositionData?.salary + " , " + jobPositionData?.type} </p> 
+                <p className="text-sm text-slate-600 "> { "requirement :"+ jobPositionData?.experience} </p>
+            </div>
             </div>
         </div>
     )
