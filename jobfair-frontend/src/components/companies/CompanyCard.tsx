@@ -6,7 +6,7 @@ import { useCallback, useMemo } from "react";
 import { format } from "date-fns";
 import { MdLocationPin } from "react-icons/md";
 
-import { SafeCompany, SafeInterview, SafeJobPosition, SafeUser } from "@/types";
+import { SafeCompany, SafeInterview, SafeJobPosition, SafeJobPositionWithoutInterview, SafeUser } from "@/types";
 
 import Button from "../Button";
 import useCountries from "@/hooks/useCountries";
@@ -20,7 +20,7 @@ interface CompanyCardProps {
   actionLabel?: string;
   actionId?: string;
   currentUser?: SafeUser | null;
-  jobPositions?: SafeJobPosition[] | null;
+  jobPositions?: SafeJobPositionWithoutInterview[] | null;
 }
 
 const CompanyCard: React.FC<CompanyCardProps> = ({
@@ -131,10 +131,10 @@ const CompanyCard: React.FC<CompanyCardProps> = ({
             <div className="font-light text-neutral-500 text-xs">
               {jobPositions
                 ?.filter(
-                  (jobPosition: SafeJobPosition) =>
+                  (jobPosition: SafeJobPositionWithoutInterview) =>
                     jobPosition.companyId === data.id
                 )
-                .map((jobPosition: SafeJobPosition) => jobPosition.title)
+                .map((jobPosition: SafeJobPositionWithoutInterview) => jobPosition.title)
                 .join(", ")}
             </div>
           </div>

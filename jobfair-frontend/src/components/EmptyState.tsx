@@ -1,6 +1,6 @@
 "use client";
 
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 
 import Button from "./Button";
 import Heading from "./Heading";
@@ -17,6 +17,7 @@ const EmptyState: React.FC<EmptyStateProps> = ({
   showReset,
 }) => {
   const router = useRouter();
+  const pathname = usePathname();
 
   return (
     <div
@@ -35,7 +36,7 @@ const EmptyState: React.FC<EmptyStateProps> = ({
           <Button
             outline
             label="Remove all filters"
-            onClick={() => router.push("/")}
+            onClick={() => router.push(pathname)}
           />
         )}
       </div>

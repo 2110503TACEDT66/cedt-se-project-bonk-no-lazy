@@ -1,13 +1,11 @@
-import EmptyState from "../../components/EmptyState";
-import ClientOnly from "../../components/ClientOnly";
-import JobsClient from "./JobsClient";
-
-import getCurrentUser from "@/app/actions/getCurrentUser";
-import getJobPositions, { JobPositionParams } from "@/app/actions/getJobPositions";
-
-
 import Container from "../../components/Container";
 import JobPositionCard from "@/components/jobPositions/JobPositionCard";
+import EmptyState from "../../components/EmptyState";
+
+import getCurrentUser from "@/app/actions/getCurrentUser";
+import ClientOnly from "../../components/ClientOnly";
+import getJobPositions, { JobPositionParams } from "@/app/actions/getJobPositions";
+import getInterviews from "../actions/getInterviews";
 
 
 interface JobsProp {
@@ -15,10 +13,11 @@ interface JobsProp {
 }
 
 const JobsPage = async ({ searchParams }: JobsProp) => {
-  const { type } = searchParams;
-  const jobPositionParams = { type };
+  const { category } = searchParams;
+  const jobPositionParams = { category };
   const jobPositions = await getJobPositions(jobPositionParams);
   const currentUser = await getCurrentUser();
+  const interviews = await getInterviews()
 
   if (jobPositions.length === 0) {
     return (
@@ -50,6 +49,7 @@ const JobsPage = async ({ searchParams }: JobsProp) => {
                 currentUser={currentUser}
                 key={jobPosition.id}
                 data={jobPosition}
+                interviews={interviews}
               />
             );
           })}

@@ -8,38 +8,31 @@ import { MdLocationPin } from "react-icons/md";
 import { GiStairsGoal } from "react-icons/gi";
 import { MdBusinessCenter } from "react-icons/md";
 import { IoBusiness } from "react-icons/io5";
-import { FaStairs } from "react-icons/fa6";
 
-import { SafeCompany, SafeInterview, SafeJobPosition, SafeUser } from "@/types";
-
-import Button from "../Button";
-import useCountries from "@/hooks/useCountries";
-import HeartButton from "../HeartButton";
+import { SafeInterview, SafeJobPosition, SafeUser } from "@/types";
+import { Avatar } from "@mui/material";
+import { HiUsers } from "react-icons/hi2";
 
 interface JobPositionCardProps {
   data: SafeJobPosition;
-  interview?: SafeInterview;
+  interviews?: SafeInterview[];
   onAction?: (id: string) => void;
   disabled?: boolean;
   actionLabel?: string;
   actionId?: string;
   currentUser?: SafeUser | null;
-  jobPositions?: SafeJobPosition[] | null;
 }
 
 const JobPositionCard: React.FC<JobPositionCardProps> = ({
   data,
-  interview,
+  interviews,
   onAction,
   disabled,
   actionLabel,
   actionId = "",
   currentUser,
-  jobPositions,
 }) => {
-  console.log(jobPositions);
   const router = useRouter();
-  const { getByValue } = useCountries();
 
   const handleCancel = useCallback(
     (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -54,75 +47,259 @@ const JobPositionCard: React.FC<JobPositionCardProps> = ({
     [disabled, onAction, actionId]
   );
 
-  const interviewDate = useMemo(() => {
-    if (!interview) {
-      return null;
-    }
-
-    const interviewDate = new Date(interview.interviewDate);
-
-    return `${format(interviewDate, "PP")}`;
-  }, [interview]);
-
-  const jobPositionCount = useMemo(() => {
-    if (!jobPositions) {
+  const interviewCount = useMemo(() => {
+    if (!interviews) {
       return 0;
     }
-
-    return jobPositions.filter(
-      (jobPosition) => jobPosition.companyId === data.id
-    ).length;
-  }, [jobPositions, data.id]);
+    
+    return interviews.filter((interview) => interview.jobPositionId === data.id).length;
+  }, [interviews, data.id]);
 
   return (
     <div
       onClick={() => router.push(`/jobs/${data.id}`)}
-      className="col-span-2 
-                cursor-pointer   
-                rounded-full 
-                drop-shadow-md
-                hover:drop-shadow-xl
-                transition
-                cursor-pointer"
+      style={{
+        backgroundColor: "white",
+        transition: "box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms",
+        overflow: "hidden",
+        position: "relative",
+        borderRadius: "16px",
+      }}
+      className="shadow-md hover:shadow-xl cursor-pointer"
     >
-      <div className="flex flex-col gap-4 w-full bg-white shadow-md rounded-xl p-6">
-        {/* Logo section */}
-        <div className="aspect-square relative overflow-hidden rounded-xl w-16 ml-4">
+      <div 
+        className="
+          flex 
+          flex-col
+          rounded-xl 
+          pt-[24px] 
+          pr-[24px] 
+          pl-[24px] 
+          pb-[16px]
+        "
+      >
+        <div
+          style={{
+            borderRadius: "12px",
+            height: "48px",
+            width: "48px",
+            backgroundColor: "white",
+            marginBottom: "16px",
+            overflow: "hidden",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
           <Image
-            className="object-cover h-full w-full rounded-xl group-hover:scale-110 transition "
+            width={48}
+            height={48}
+            objectFit="cover"
             src={data.company.imageSrc}
-            alt="Company Logo"
-            layout="fill"
-            objectFit="contain"
+            alt={data.company.name}
           />
         </div>
-
-        {/* Job details section */}
-        <div className="">
-          {/* Job title */}
-          <div className="font-bold text-2xl text-gray-800  ml-4 cursor-pointer hover:underline">
+        <div
+          style={{
+            flex: "1 1 auto",
+            minWidth: "0px",
+            margin: "0px 0px 8px"
+          }}
+        >
+          <div
+            style={{
+              margin: "0px",
+              display: "block",
+              fontWeight: "600",
+              lineHeight: "1.5",
+              fontSize: "1rem"
+            }}
+          >
             {data.title}
           </div>
-          <div className="font-light text-sm text-gray-500 ml-5">
+          <div
+            style={{
+              margin: "8px 0px 0px",
+              color: "rgb(145, 158, 171)",
+              display: "block",
+              lineHeight: "1.5",
+              fontSize: "0.75rem",
+              fontWeight: "400",
+            }}
+          >
             Posted date: {format(Date.parse(data.createdAt), "MMM do yyyy")}
           </div>
-          {/* Company name and job type */}
-          <div className=""></div>
-          <div className="h-px bg-gray-300 my-2 w-full"></div>
-
-          <div className="grid grid-cols-2 gap-4 mt-4">
-            <div className="flex font-bold text-neutral-500 text-xs ml-5 gap-2">
-              <IoBusiness /> {data.company.name}
+        </div>
+        <div
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              gap: "4px",
+              alignItems: "center",
+              color: "rgb(0, 167, 111)",
+            }}
+          >
+            <HiUsers 
+              style={{
+                width: "16px",
+                height: "16px",
+              }}
+            />
+            <div
+              style={{
+                fontWeight: "700",
+                fontSize: "0.75rem",
+                lineHeight: "1.5",
+                paddingTop: "2px"
+              }}
+            >
+              {interviewCount} {interviewCount === 1 ? "Candidate" : "Candidates"}
             </div>
-            <div className="flex font-bold text-neutral-500 text-xs ml-2 gap-2">
-              <MdBusinessCenter /> {data.type}
-            </div>
-            <div className="flex font-bold text-neutral-500 text-xs ml-5 gap-2">
-              <GiStairsGoal /> {data.experience}
-            </div>
+        </div>
+      </div>
+      <hr 
+        style={{
+          margin: "0px",
+          borderWidth: "0px 0px thin",
+          borderColor: "rgba(145, 158, 171, 0.2)",
+          borderStyle: "dashed"
+        }}
+      />
+      <div
+        style={{
+          rowGap: "12px",
+          display: "grid",
+          gridTemplateColumns: "repeat(2, 1fr)",
+          padding: "24px"
+        }}
+      >
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "row",
+            gap: "4px",
+            alignItems: "center",
+            color: "rgb(145, 158, 171)",
+            minWidth: "0px"
+          }}
+        >
+          <GiStairsGoal 
+            style={{
+              width: "16px",
+              height: "16px",
+              flexShrink: "0"
+            }}
+          />
+          <div
+            style={{
+              margin: "0px",
+              lineHeight: "1.5",
+              fontSize: "0.75rem",
+              fontWeight: "600",
+              overflow: "hidden",
+              textOverflow: "ellipsis",
+              whiteSpace: "nowrap",
+              marginTop: "2px",
+            }}
+          >
+            {data.experience}
           </div>
-
-          {/* Experience */}
+        </div>
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "row",
+            gap: "4px",
+            alignItems: "center",
+            color: "rgb(145, 158, 171)",
+            minWidth: "0px"
+          }}
+        >
+          <MdBusinessCenter 
+            style={{
+              width: "16px",
+              height: "16px",
+              flexShrink: "0"
+            }}
+          />
+          <div
+            style={{
+              margin: "0px",
+              lineHeight: "1.5",
+              fontSize: "0.75rem",
+              fontWeight: "600",
+              overflow: "hidden",
+              textOverflow: "ellipsis",
+              whiteSpace: "nowrap",
+              marginTop: "2px",
+            }}
+          >
+            {data.type}
+          </div>
+        </div>
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "row",
+            gap: "4px",
+            alignItems: "center",
+            color: "rgb(145, 158, 171)",
+            minWidth: "0px"
+          }}
+        >
+          <GiStairsGoal 
+            style={{
+              width: "16px",
+              height: "16px",
+              flexShrink: "0"
+            }}
+          />
+          <div
+            style={{
+              margin: "0px",
+              lineHeight: "1.5",
+              fontSize: "0.75rem",
+              fontWeight: "600",
+              overflow: "hidden",
+              textOverflow: "ellipsis",
+              whiteSpace: "nowrap",
+              marginTop: "2px",
+            }}
+          >
+            {data.salary}
+          </div>
+        </div>
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "row",
+            gap: "4px",
+            alignItems: "center",
+            color: "rgb(145, 158, 171)",
+            minWidth: "0px"
+          }}
+        >
+          <IoBusiness 
+            style={{
+              width: "16px",
+              height: "16px",
+              flexShrink: "0"
+            }}
+          />
+          <div
+            style={{
+              margin: "0px",
+              lineHeight: "1.5",
+              fontSize: "0.75rem",
+              fontWeight: "600",
+              overflow: "hidden",
+              textOverflow: "ellipsis",
+              whiteSpace: "nowrap",
+              marginTop: "2px",
+            }}
+          >
+            {data.company.name}
+          </div>
         </div>
       </div>
     </div>

@@ -4,7 +4,7 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 import { companyCategories } from "@/components/navbar/Categories";
 import { Container } from "@mui/system";
 import CompanyHead from "@/components/companies/CompanyHead";
-import { SafeCompany, SafeInterview, SafeReview, SafeUser } from "@/types";
+import { SafeCompany, SafeInterview, SafeJobPosition, SafeJobPositionWithoutInterview, SafeReview, SafeUser } from "@/types";
 import CompanyInfo from "@/components/companies/CompanyInfo";
 import useLoginModal from "@/hooks/useLoginModal";
 import { useRouter } from "next/navigation";
@@ -13,6 +13,7 @@ import toast from "react-hot-toast";
 import CompanyInterview from "@/components/companies/CompanyInterview";
 import CompanyReviews from "@/components/companies/CompanyReviews";
 import ReviewModal from "@/components/modals/ReviewModal";
+import JobPositionCard from "@/components/jobPositions/JobPositionCard";
 
 const initialDate = {
   interviewDate: new Date(),
@@ -26,16 +27,22 @@ interface CompanyClientProps {
   };
   reviews: SafeReview[];
   currentUser?: SafeUser | null;
+  jobPositions?: SafeJobPositionWithoutInterview[] | null;
 }
+
+
 const CompanyClient: React.FC<CompanyClientProps> = ({
   company,
   interviews = [],
   reviews = [],
   currentUser,
+  jobPositions = [],
 }) => {
   console.log(currentUser);
   const loginModal = useLoginModal();
   const router = useRouter();
+
+  const filteredJobPositions = jobPositions?.filter(job => job.companyId === company.id)
 
   const disabledDates = useMemo(() => {
     return interviews.map(
@@ -121,18 +128,41 @@ const CompanyClient: React.FC<CompanyClientProps> = ({
                 md:col-span-7
               "
             >
-              <CompanyInterview
+              {/* <CompanyInterview 
                 onChangeDate={(value) => setInterviewDate(value)}
                 interviewDate={interviewDate}
                 onSubmit={onCreateInterview}
                 disabled={isLoading}
                 disabledDates={disabledDates}
-              />
+              /> */}
             </div>
           </div>
         </div>
       </div>
       <ReviewModal currentCompany={company} />
+      <Container>
+        <div
+          className="
+            grid 
+            grid-cols-1 
+            sm:grid-cols-2 
+            md:grid-cols-3 
+            lg:grid-cols-4
+            gap-10
+          "
+        >
+          {filteredJobPositions?.map((jobPosition: any) => {
+            return (
+              <JobPositionCard
+                currentUser={currentUser}
+                key={jobPosition.id}
+                data={jobPosition}
+                interviews={interviews}
+              />
+            );
+          })}
+        </div>
+      </Container>
     </Container>
   );
 };
