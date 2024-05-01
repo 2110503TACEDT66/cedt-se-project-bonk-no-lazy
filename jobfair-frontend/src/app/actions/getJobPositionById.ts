@@ -37,6 +37,7 @@ export default async function getCompanyById(
         ...interview,
         createdAt: interview.createdAt.toString(),
         updatedAt: interview.updatedAt.toString(),
+        interviewDate: interview.interviewDate.toString(),
       }))
     };
   } catch (error: any) {

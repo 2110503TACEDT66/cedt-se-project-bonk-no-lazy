@@ -6,7 +6,7 @@ interface InterviewParams{
     companyId?:string;
 }
 
-export default async function getInterviews(params: InterviewParams) {
+export default async function getInterviews(params: InterviewParams = {}) {
     try {
         const {
             userId,
@@ -46,6 +46,7 @@ export default async function getInterviews(params: InterviewParams) {
                     ...interview.user,
                     createdAt: interview.user.createdAt.toISOString(),
                     updatedAt: interview.user.updatedAt.toISOString(),
+                    emailVerified: interview.user.emailVerified?.toISOString() || null,
                 },
                 company:{
                     ...interview.company,

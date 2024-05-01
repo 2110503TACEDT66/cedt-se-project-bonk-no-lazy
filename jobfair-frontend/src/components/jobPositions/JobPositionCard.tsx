@@ -15,7 +15,7 @@ import { HiUsers } from "react-icons/hi2";
 
 interface JobPositionCardProps {
   data: SafeJobPosition;
-  interview?: SafeInterview;
+  interviews?: SafeInterview[];
   onAction?: (id: string) => void;
   disabled?: boolean;
   actionLabel?: string;
@@ -25,7 +25,7 @@ interface JobPositionCardProps {
 
 const JobPositionCard: React.FC<JobPositionCardProps> = ({
   data,
-  interview,
+  interviews,
   onAction,
   disabled,
   actionLabel,
@@ -47,16 +47,13 @@ const JobPositionCard: React.FC<JobPositionCardProps> = ({
     [disabled, onAction, actionId]
   );
 
-  const interviewDate = useMemo(() => {
-    if (!interview) {
-      return null;
+  const interviewCount = useMemo(() => {
+    if (!interviews) {
+      return 0;
     }
-
-    const interviewDate = new Date(interview.interviewDate);
-
-    return `${format(interviewDate, "PP")}`;
-  }, [interview]);
-
+    
+    return interviews.filter((interview) => interview.jobPositionId === data.id).length;
+  }, [interviews, data.id]);
 
   return (
     <div
@@ -156,7 +153,7 @@ const JobPositionCard: React.FC<JobPositionCardProps> = ({
                 paddingTop: "2px"
               }}
             >
-              12 Candidates
+              {interviewCount} {interviewCount === 1 ? "Candidate" : "Candidates"}
             </div>
         </div>
       </div>

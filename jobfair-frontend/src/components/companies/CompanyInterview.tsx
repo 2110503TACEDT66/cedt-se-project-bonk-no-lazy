@@ -11,7 +11,7 @@ interface CompanyInterviewProps {
   onChangeDate: (value: Date) => void;
   onSubmit: () => void;
   disabled?: boolean;
-  disabledDates: Date[];
+  disabledDates?: Date[];
 }
 
 const CompanyInterview: React.FC<
