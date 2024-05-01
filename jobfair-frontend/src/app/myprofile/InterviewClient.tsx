@@ -1,7 +1,7 @@
 'use client'
 
 import Heading from "@/components/Heading";
-import { SafeInterview, SafeJobPosition, SafeUser } from "@/types"
+import { SafeInterview, SafeJobPosition, SafeJobPositionWithoutInterview, SafeUser } from "@/types"
 import { Container } from "@mui/material";
 import axios from "axios";
 import { error } from "console";
@@ -18,7 +18,7 @@ import getJobPositions from "../actions/getJobPositions";
 interface InterviewClientProps {
     interviews: SafeInterview[],
     currentUser?: SafeUser | null,
-    jobposition:SafeJobPosition[];
+    jobposition:SafeJobPositionWithoutInterview[];
 }
 
 const InterviewClient: React.FC<InterviewClientProps> = ({

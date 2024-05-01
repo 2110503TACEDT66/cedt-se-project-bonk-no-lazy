@@ -1,7 +1,7 @@
 'use client'
 
 import { Calendar } from "react-date-range";
-import { SafeCompany, SafeInterview, SafeJobPosition, SafeUser } from "@/types"
+import { SafeCompany, SafeInterview, SafeJobPosition, SafeJobPositionWithoutInterview, SafeUser } from "@/types"
 import Image from "next/image";
 
 interface InterviewProps{
@@ -12,7 +12,7 @@ interface InterviewProps{
     actionLabel?: string;
     actionId?: string;
     currentUser?: SafeUser | null;
-    jobPositionData?:SafeJobPosition|null;
+    jobPositionData?:SafeJobPositionWithoutInterview | null;
 }
 
 const InterviewCard:React.FC<InterviewProps> = ({
