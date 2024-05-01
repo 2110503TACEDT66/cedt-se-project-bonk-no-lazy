@@ -144,17 +144,6 @@ const UserMenu: React.FC<UserMenuProps> = ({
                   label="My profile"
                   onClick={() => router.push('/myprofile')}
                 />
-                <MenuItem
-                  label="My favourites"
-                  onClick={() => router.push('/favourites')}
-                />
-                <MenuItem
-                  label="Book an interview"
-                  onClick={() => {
-                    rentModal.onOpen();
-                    toggleOpen();
-                  }}
-                />
                 <hr />
                 <MenuItem
                   label="Sign out"
