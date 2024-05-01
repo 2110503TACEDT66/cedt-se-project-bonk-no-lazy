@@ -47,77 +47,77 @@ export const companyCategories = [
   {
     label: "Technology",
     icon: RiAdminFill,
-    description: "This property is close to the beach!",
+    description: "Write something here :)",
   },
   {
     label: "Bank",
     icon: MdDesignServices,
-    description: "This property is has windmills!",
+    description: "Write something here :)",
   },
   {
     label: "Retail",
     icon: MdEmojiPeople,
-    description: "This property is in the countryside!",
+    description: "Write something here :)",
   },
   {
     label: "Hospitality",
     icon: MdOutlineSupportAgent,
-    description: "This is property has a beautiful pool!",
+    description: "Write something here :)",
   },
   {
     label: "Entertainment",
     icon: FaChalkboardTeacher,
-    description: "This property is on an island!",
+    description: "Write something here :)",
   },
   {
     label: "Construction",
     icon: MdEngineering,
-    description: "This property is near a lake!",
+    description: "Write something here :)",
   },
   {
     label: "Insurance",
     icon: FaMoneyBill1Wave,
-    description: "This property has skiing activies!",
+    description: "Write something here :)",
   },
   {
     label: "Real Estate",
     icon: MdHealthAndSafety,
-    description: "This property is an ancient castle!",
+    description: "Write something here :)",
   },
   {
     label: "Creative",
     icon: GrTechnology,
-    description: "This property offers camping activities!",
+    description: "Write something here :)",
   },
   {
     label: "Healthcare", // This category already existed, so it's not added again.
     icon: MdHealthAndSafety,
-    description: "This property is an ancient castle!",
+    description: "Write something here :)",
   },
   {
     label: "Education", // This category already existed, so it's not added again.
     icon: FaChalkboardTeacher,
-    description: "This property is on an island!",
+    description: "Write something here :)",
   },
   {
     label: "Energy",
     icon: MdOutlinePrecisionManufacturing,
-    description: "This property is brand new and luxurious!",
+    description: "Write something here :)",
   },
   {
     label:  "Telecom",
     icon: MdEmojiTransportation,
-    description: "This property is brand new and luxurious!",
+    description: "Write something here :)",
   },
   {
     label: "Media",
     icon: GiBarn,
-    description: "This property is in a barn!",
+    description: "Write something here :)",
   },
   {
     label: "Startup",
     icon: IoDiamond,
-    description: "This property is brand new and luxurious!",
+    description: "Write something here :)",
   },
 ];
 
@@ -126,17 +126,17 @@ export const jobCategories = [
   {
     label: "On-Site",
     icon: MdEmojiTransportation,
-    description: "This property is brand new and luxurious!",
+    description: "Write something here :)",
   },
   {
     label: "Online",
     icon: GiBarn,
-    description: "This property is in a barn!",
+    description: "Write something here :)",
   },
   {
     label: "Hybrid",
     icon: IoDiamond,
-    description: "This property is brand new and luxurious!",
+    description: "Write something here :)",
   },
 ];
 
