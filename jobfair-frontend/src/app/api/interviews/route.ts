@@ -3,6 +3,14 @@ import { NextResponse } from "next/server";
 import prisma from "@/libs/prismadb";
 import getCurrentUser from "@/app/actions/getCurrentUser";
 
+/**
+ * @swagger
+ * tags:
+ *   name: Interviews
+ *   description: The interview managing API
+ */
+
+
 export async function POST(
     request: Request
 ) {
