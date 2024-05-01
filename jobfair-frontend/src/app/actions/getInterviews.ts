@@ -1,4 +1,5 @@
 import prisma from "@/libs/prismadb"
+import getCurrentUser from "./getCurrentUser";
 
 interface InterviewParams{
     userId?:string;
@@ -13,21 +14,23 @@ export default async function getInterviews(params: InterviewParams = {}) {
             interviewId,
             companyId,
         } = params;
+        const currentUser = await getCurrentUser();
 
         const query :any ={};
-
-        if(companyId){
-            query.companyId = companyId;
-        }
-        if(interviewId){
-            query.id = interviewId;
-        }
-        if(userId){
-            query.userId = userId;
+        if(currentUser?.role !== "ADMIN"){
+            if(companyId){
+                query.companyId = companyId;
+            }
+            if(interviewId){
+                query.id = interviewId;
+            }
+            if(userId){
+                query.userId = userId;
+            }
         }
 
         const interviews = await prisma.interview.findMany({
-            where: query,
+            where:query,
             include:{
                 user: true,
                 company: true,
